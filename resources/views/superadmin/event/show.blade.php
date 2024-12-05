@@ -1,7 +1,7 @@
 @extends('layouts_dashboard.app')
 
 @section('back')
-<a href="javascript:history.back()" class="btn btn-primary mb-3"><i class="fa-solid fa-backward"></i></a>
+<a href="javascript:history.back()" class="btn text-white mb-3" style="background-color:#2D3E50;"><i class="fa-solid fa-backward"></i></a>
 @endsection
 
 
@@ -21,7 +21,7 @@
 <div class="card-header">
     <h3>Detail Event: {{ $detail_event->nama_event }}</h3>
     <a href="{{ route('superadmin.certificate.create', $detail_event->id) }}" 
-       class="btn btn-primary">Generate Certificates</a>
+       class="btn"style="background-color:#2D3E50;color:white;">Generate Certificates</a>
 </div>
 
 <div class="card-body mt-4">
@@ -29,7 +29,7 @@
     <!-- Detail Event -->
     <div class="col-md-6">
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header" style="background-color:#2D3E50;color:white;">
                 <h5 class="mb-0">Informasi Event</h5>
             </div>
             <div class="card-body">
@@ -47,7 +47,7 @@
     <!-- Logo Event -->
     <div class="col-md-6 text-center">
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header"style="background-color:#2D3E50;color:white;">
                 <h5 class="mb-0">Logo Event</h5>
             </div>
             <div class="card-body">
@@ -66,7 +66,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Daftar Peserta</h4>
             <div class="btn-group">
-                <a href="{{ route('superadmin.participant.import.create', $detail_event->id) }}" class="btn btn-sm btn-primary">Add Participant</a>
+                <a href="{{ route('superadmin.participant.import.create', $detail_event->id) }}" class="btn btn-sm" style="background-color:#2D3E50;color:white;">Add Participant</a>
                 <a href="{{ route('superadmin.participant.destroy_all', $detail_event->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete All Participants</a>
             </div>
         </div>

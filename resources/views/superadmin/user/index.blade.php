@@ -42,7 +42,7 @@
                         <td>{{ $p->role }}</td>
                         <td class="d-flex justify-content-center">
                         <a href="{{ route('superadmin.user.edit', $p->id) }}"
-                            class="btn btn-primary btn-sm me-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                            class="btn btn-warning btn-sm me-2"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="{{ route('superadmin.user.destroy', $p->id) }}" class="btn btn-danger btn-sm"
                             onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i></a>
                     </td>

@@ -18,7 +18,7 @@
     </div>
 @endif
 
-<form action="{{ route('superadmin.certificate.storeTemplate') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.certificate.storeTemplate') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">

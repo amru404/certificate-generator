@@ -1,6 +1,12 @@
 @extends('layouts_dashboard.app')
 
 @section('content')
+
+
+@section('back')
+<a href="javascript:history.back()" class="btn text-white mb-3" style="background-color:#2D3E50;"><i class="fa-solid fa-backward"></i></a>
+@endsection
+
 <form method="POST" action="{{ route('superadmin.user.update', $user->id) }}">
     @csrf
     @method('PUT')
@@ -71,7 +77,7 @@
 
     <div class="row mb-0">
         <div class="col-md-6 offset-md-4">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn text-white" style="background-color:#2D3E50;">
                 {{ __('Update') }}
             </button>
         </div>

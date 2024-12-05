@@ -46,9 +46,6 @@ Route::get('/faq', fn() => view('faq'))->name('faq');
 Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], function () {
     Route::get('/', [HomeController::class, 'superadmin'])->name('superadmin.home');
 
-    //setting
-    Route::get('/setting', [App\Http\Controllers\superadmin\SettingController::class, 'index'])->name('superadmin.setting');
-
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'index'])->name('superadmin.profile.index');
     Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('superadmin.profile.uploadPhoto');
@@ -139,6 +136,10 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () 
 });
 
 
+//setting
+Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting');
+Route::post('/setting/updateUser/{id}', [App\Http\Controllers\SettingController::class, 'updateUser'])->name('setting.updateUser');
+
 
 //template bar
 Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], function () {
@@ -152,18 +153,6 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
 Route::get('/templates', [CertifController::class, 'index'])->name('templates.index');
 Route::get('/generate/{template_id}', [CertifController::class, 'generate'])->name('generate');
 
-// Certificate Generation and Emailing
-Route::post('/send-certificate', function (Illuminate\Http\Request $request) {
-    $data = $request->only(['name', 'achievement', 'email']);
-    $pdf = Pdf::loadView('templates.modern', $data);
-    $filePath = 'certificates/' . $data['name'] . '_certificate.pdf';
-
-    Storage::put('public/' . $filePath, $pdf->output());
-    $data['certificate_path'] = $filePath;
-
-    Mail::to($data['email'])->send(new App\Mail\CertificateMail($data));
-    return response()->json(['message' => 'Certificate sent successfully!']);
-});
 
 // Certificate Verification
 Route::get('/certificate/verification', fn() => view('check'))->name('certificate.verification');

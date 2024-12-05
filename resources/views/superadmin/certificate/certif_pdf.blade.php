@@ -19,12 +19,16 @@
             color: #000;
         }
         .name {
-            font-size: 32px;
+            font-size: 52px;
             font-weight: bold;
-            margin: 10px 0;
+            margin-top: 120px;
         }
         .message {
             font-size: 18px;
+        }
+        h2 .uuid{
+            position: relative;
+            margin:10px 200px;
         }
     </style>
 </head>
@@ -36,16 +40,13 @@
      style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;">
 
         <div class="content">
-            <h1>Certificate of Achievement</h1>
-            <p class="name">{{ $participant->nama }}</p>
-            <h2 class="name">uuid : {{ $participant->certificate->id }}</h2>
-            <h2 class="name">tgl : {{ $participant->event->tanggal }}</h2>
-            <h2 class="name">signatur : {{ $participant->event->ttd }}</h2> <!--kasih font kaya tanda tangan -->
-            <h2 class="name">deskirpsi : {{ $participant->event->deskripsi }}</h2>
-            logo : <img src="{{ public_path('storage/' . $participant->event->logo) }}"
-            style="width: 100%; height: 50vh; position: absolute; z-index: -1; object-fit: cover;">
-            
-            <p class="message">Congratulations on your accomplishment!</p>
+            <p class="name" style="margin-top:260px">{{ $participant->nama }}</p>
+            <p class="deskripsi" style="margin-top:70px">{{ $participant->event->deskripsi }}</p>
+            <h2 class="tgl" style="margin-left:-480px">{{ $participant->event->tanggal }}</h2>
+            <h2 class="signatur" style="margin-top:-400px; margin-right:-480px">{{ $participant->event->ttd }}</h2> <!--kasih font kaya tanda tangan -->
+            <p class="deskripsi" style="margin-left:-560px; margin-top:60px">{{ $participant->certificate->id }}</p>
+            <!-- logo : <img src="{{ public_path('storage/' . $participant->event->logo) }}"
+            style="width: 100%; height: 50vh; position: absolute; z-index: -1; object-fit: cover;"> -->
             
 
 

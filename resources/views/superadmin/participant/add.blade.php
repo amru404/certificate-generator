@@ -1,7 +1,7 @@
 @extends('layouts_dashboard.app')
 
 @section('back')
-<a href="javascript:history.back()" class="btn btn-primary mb-3 btn-sm"><i class="fa-solid fa-backward"></i></a>
+<a href="javascript:history.back()" class="btn mb-3 btn-sm"style="background-color:#2D3E50;color:white;"><i class="fa-solid fa-backward"></i></a>
 <a href="{{route('superadmin.participant.export_template')}}" class="btn btn-sm btn-dark mb-3"> Template <i class="fa-solid fa-file-excel" style="color: #63E6BE;"></i></a>
 @endsection
 

@@ -6,8 +6,8 @@
 </head>
 <body>
     <h1>Hello {{ $participant->nama }}</h1>
-    <p>Congratulations! You have successfully completed the event {{ $certificate->event->name }}.</p>
+    <p>Congratulations! You have successfully completed the event {{ $certificate->event->nama_event }}.</p>
     <p>Your certificate is attached to this email. Please download it and keep it for your records.</p>
-    <p>Best regards,<br>{{ $certificate->event->name }}</p>
+    <p>Best regards,<br>{{ $certificate->event->ttd }}</p>
 </body>
 </html>

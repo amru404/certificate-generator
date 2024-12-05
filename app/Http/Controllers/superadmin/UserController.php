@@ -110,7 +110,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect()->route('superadmin.user')->with('success', 'Edit User successfully.');;
+        return redirect()->route('superadmin.user')->with('success', 'Edit User successfully.');
     }
 
     /**

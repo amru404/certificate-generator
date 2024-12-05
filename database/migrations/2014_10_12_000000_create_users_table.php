@@ -20,6 +20,14 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['super-admin','admin'])->default('super-admin');
+            $table->string('no_telp')->nullable();
+            $table->enum('gender', ['Male', 'Female'])->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('post_code')->nullable();
+            $table->string('state')->nullable();
+            $table->string('profile_pict')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

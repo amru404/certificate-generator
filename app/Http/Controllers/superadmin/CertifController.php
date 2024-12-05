@@ -58,6 +58,8 @@ class CertifController extends Controller
                 Mail::to($participant->email)->send(new CertificateMail($participant, $certificate));
             } else {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
+                return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+            ->with('error', 'The certificate has been created previously.');
             }
         }
     

@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2D3E50;">
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2D3E50; color: white;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand text-white" href="#">Logo</a>
         <div class="d-flex align-items-center">
             <span class="me-3" data-bs-toggle="modal" data-bs-target="#logoutModal"style="cursor: pointer;">Hi, {{Auth::user()->name}}</span>
             <i class="bi bi-person-circle" style="font-size: 1.5rem; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#logoutModal">

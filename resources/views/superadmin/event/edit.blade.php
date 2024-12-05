@@ -1,7 +1,7 @@
 @extends('layouts_dashboard.app')
 
 @section('back')
-<a href="javascript:history.back()" class="btn btn-primary mb-3"><i class="fa-solid fa-backward"></i></a>
+<a href="javascript:history.back()" class="btn text-white mb-3" style="background-color:#2D3E50;"><i class="fa-solid fa-backward"></i></a>
 @endsection
 
 @section('content')
@@ -73,6 +73,6 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn" style="background-color:#2D3E50;color:white;">Submit</button>
 </form>
 @endsection
