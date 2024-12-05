@@ -22,16 +22,16 @@
         
         <!-- Certificate Details -->
         <div class="text-start mt-4">
-            <p><strong>Certificate Holder:</strong> <span class="float-end">John Doe</span></p>
-            <p><strong>Event Name:</strong> <span class="float-end">UI/UX Design</span></p>
-            <p><strong>Issued By:</strong> <span class="float-end">Maxy Academ</span></p>
-            <p><strong>Issue Date:</strong> <span class="float-end">November 20, 2024</span></p>
-            <p><strong>Certificate UID:</strong> <span class="float-end">Cert1234-5678-ABCD</span></p>
+            <p><strong>Certificate Holder:</strong> <span class="float-end">{{$certificate->participant->nama}}</span></p>
+            <p><strong>Event Name:</strong> <span class="float-end">{{$certificate->event->nama_event}}</span></p>
+            <p><strong>Issued By:</strong> <span class="float-end">{{$certificate->event->user->name}}</span></p>
+            <p><strong>Issue Date:</strong> <span class="float-end">{{$certificate->event->tanggal}}</span></p>
+            <p><strong>Certificate UUID:</strong> <span class="float-end">{{$certificate->id}}</span></p>
         </div>
 
         <!-- Buttons -->
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="#" class="btn d-flex align-items-center text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">
+            <a href="{{ route('certif.pdf', $certificate->participant->id) }}" class="btn d-flex align-items-center text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">
                 <i class="bi bi-download me-2"></i> Download
             </a>
             <a href="#" class="btn d-flex align-items-center text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">

@@ -155,11 +155,6 @@ Route::get('/generate/{template_id}', [CertifController::class, 'generate'])->na
 
 
 // Certificate Verification
-Route::get('/certificate/verification', fn() => view('check'))->name('certificate.verification');
-Route::get('/certificate/result', fn() => view('virified', [
-    'certificateHolder' => 'John Doe',
-    'uid' => 'Cert1234-5678-ABCD',
-    'eventName' => 'UI/UX Design',
-    'issuedBy' => 'Maxy Academy',
-    'issueDate' => 'November 20, 2024',
-]))->name('virified');
+Route::get('certificate/verification',[App\Http\Controllers\LandingController::class, 'indexVerification'])->name('certif.verfication');
+Route::post('certificate/verification/result',[App\Http\Controllers\LandingController::class, 'storeVerification'])->name('certif.verfication.result');
+Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('certif.pdf');
