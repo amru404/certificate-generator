@@ -9,14 +9,14 @@
         <div class="col-12 col-md-6 mb-4 mb-md-0">
             <h1 class="fw-bold mb-3">FAQ</h1>
             <p class="mb-4">Got questions? We've got answers! Our team is here to help make your experience as smooth as possible. If you don't find what you're looking for, don't hesitate to reach out—we're just a click away.</p>
-            <a href="/contact" class="btn btn-warning">Get in Touch</a>
+            <a href="/contact" class="btn text-light" style="background-color: #2D3E50">Get in Touch</a>
         </div>
 
         <!-- Right Section -->
         <div class="col-12 col-md-6">
             <ul class="list-group">
                 <!-- Pertanyaan 1 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>What is the Certificate Generator Web?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq1"></i>
@@ -27,7 +27,7 @@
                 </li>
 
                 <!-- Pertanyaan 2 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Who can use this service?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq2"></i>
@@ -38,7 +38,7 @@
                 </li>
 
                 <!-- Pertanyaan 3 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Is this service free?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq3"></i>
@@ -49,7 +49,7 @@
                 </li>
 
                 <!-- Pertanyaan 4 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>What formats are available for download?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq4"></i>
@@ -60,7 +60,7 @@
                 </li>
 
                 <!-- Pertanyaan 5 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>How do I create a certificate?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq5"></i>
@@ -71,7 +71,7 @@
                 </li>
 
                 <!-- Pertanyaan 6 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Can I customize the certificate template?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq6"></i>
@@ -82,7 +82,7 @@
                 </li>
 
                 <!-- Pertanyaan 7 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>What if I face any technical issues?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq7"></i>
@@ -93,7 +93,7 @@
                 </li>
 
                 <!-- Pertanyaan 8 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Is my data secure?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq8"></i>
@@ -104,7 +104,7 @@
                 </li>
 
                 <!-- Pertanyaan 9 -->
-                <li class="list-group-item">
+                <li class="list-group-item"style="background-color: #C0C8CA;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>How long does it take to generate a certificate?</span>
                         <i class="fas fa-chevron-right toggle-icon" data-bs-toggle="collapse" data-bs-target="#faq9"></i>

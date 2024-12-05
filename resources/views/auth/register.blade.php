@@ -44,7 +44,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100 mb-3">Sign Up</button>
+            <button type="submit" class="btn  w-100 mb-3 text-white" style="background-color: #2D3E50;">Sign Up</button>
 
             <!-- Redirect to Login -->
             <p class="text-center">Already have an account? <a href="{{ route('login') }}" class="text-primary fw-bold">Log in now</a></p>
@@ -52,13 +52,13 @@
 
         <!-- Social Login Buttons -->
         <div class="text-center text-muted mb-3">OR</div>
-        <button class="btn btn-outline-light border w-100 mb-2" onclick="location.href='{{ url('auth/google') }}'">
+        <button class="btn btn-outline-light border w-100 mb-2  text-dark" onclick="location.href='{{ url('auth/google') }}'">
             <i class="fab fa-google me-2 text-danger"></i> Continue with Google
         </button>
-        <button class="btn btn-outline-light border w-100 mb-2" onclick="location.href='{{ url('auth/facebook') }}'">
+        <button class="btn btn-outline-light border w-100 mb-2  text-dark" onclick="location.href='{{ url('auth/facebook') }}'">
             <i class="fab fa-facebook-f me-2 text-primary"></i> Continue with Facebook
         </button>
-        <button class="btn btn-outline-light border w-100" onclick="location.href='{{ url('auth/apple') }}'">
+        <button class="btn btn-outline-light border w-100  text-dark" onclick="location.href='{{ url('auth/apple') }}'">
             <i class="fab fa-apple me-2 text-dark"></i> Continue with Apple
         </button>
     </div>

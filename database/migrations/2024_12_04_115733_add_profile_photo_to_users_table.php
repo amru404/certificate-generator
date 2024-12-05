@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCertificateTemplatesTable extends Migration
+class AddProfilePhotoToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,11 @@ class CreateCertificateTemplatesTable extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('certificate_templates', function (Blueprint $table) {
-        $table->id();
-        $table->string('name');
-        $table->string('preview'); 
-        $table->timestamps();
-    });
-}
-
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('profile_photo')->nullable()->after('role'); 
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -29,6 +25,8 @@ class CreateCertificateTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificate_templates');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profile_photo');
+        });
     }
 }

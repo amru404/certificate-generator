@@ -14,8 +14,8 @@
 @endif
 
 <div class="card-header py-3 d-flex justify-content-start">
-    <h6 class="m-0 font-weight-bold text-primary mt-1">Data Event</h6>
-    <a href="{{route('superadmin.event.create')}}" class="btn btn-primary btn-sm ms-4">Add data event</a>
+    <h6 class="m-0 font-weight-bold text-dark mt-1">Data Event</h6>
+    <a href="{{route('superadmin.event.create')}}" class="btn btn-sm ms-4 text-white"style="background-color:#2D3E50">Add data event</a>
 </div>
 <div class="card-body">
     <div class="table-responsive">

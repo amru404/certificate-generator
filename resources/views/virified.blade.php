@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="page-bg">
 <!-- Back to Home -->
 <div class="container mt-3">
     <a href="/" class="text-decoration-none text-dark fw-bold">
-        &larr; Back to Home
+        &larr; Back 
     </a>
 </div>
 
@@ -29,13 +31,14 @@
 
         <!-- Buttons -->
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="#" class="btn btn-warning d-flex align-items-center">
+            <a href="#" class="btn d-flex align-items-center text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">
                 <i class="bi bi-download me-2"></i> Download
             </a>
-            <a href="#" class="btn btn-warning d-flex align-items-center">
+            <a href="#" class="btn d-flex align-items-center text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">
                 <i class="bi bi-share me-2"></i> Share
             </a>
         </div>
     </div>
+</div>
 </div>
 @endsection

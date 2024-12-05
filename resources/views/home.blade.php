@@ -11,7 +11,7 @@
         
         <!-- Tombol -->
         <div class="my-4" style="margin-bottom: 15px;">
-            <button onclick="window.location.href='{{ route('certificate.verification') }}'" class="btn btn-lg" style="background-color: #FFEE32; border: none; padding: 10px 20px;">Check Certificate</button>
+            <button onclick="window.location.href='{{ route('certificate.verification') }}'" class="btn btn-lg text-white" style="background-color: #435468; border: none; padding: 10px 20px;">Check Certificate</button>
         </div>
     
         <!-- Gambar -->
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="check-btn">
-          <button onclick="window.location.href='{{ route('certificate.verification') }}'" class="btn btn-lg" style="background-color: #FFEE32; border: none; padding: 10px 20px;">Check Certificate</button>
+          <button onclick="window.location.href='{{ route('certificate.verification') }}'" class="btn btn-lg text-white" style="background-color: #435468; border: none; padding: 10px 20px;">Check Certificate</button>
         </div>
       </div>
 </section>
@@ -64,7 +64,7 @@
       <div class="row mt-5 g-4">
         <!-- Fast & Easy Verification -->
         <div class="col-md-6 col-lg-4">
-          <div class="card shadow border-0 h-100" style="background-color: #FFEE32;">
+          <div class="card shadow border-0 h-100" style="background-color: #C0C8CA;">
             <div class="card-body">
               <img src="{{ asset('assets/Lock.png') }}" alt="Fast Icon" class="img-fluid mb-3" style="width: 40px; height: auto;">
               <h5 class="card-title">Fast & Easy Verification</h5>
@@ -74,7 +74,7 @@
         </div>
         <!-- Secure & Trusted Platform -->
         <div class="col-md-6 col-lg-4">
-          <div class="card shadow border-0 h-100" style="background-color: #FFEE32;">
+          <div class="card shadow border-0 h-100" style="background-color: #C0C8CA;">
             <div class="card-body">
               <img src="{{ asset('assets/Timer.png') }}" alt="Secure Icon" class="img-fluid mb-3"style="width: 40px; height: auto;">
               <h5 class="card-title">Secure & Trusted Platform</h5>
@@ -84,7 +84,7 @@
         </div>
         <!-- Trusted by Organizations -->
         <div class="col-md-6 col-lg-4">
-          <div class="card shadow border-0 h-100" style="background-color: #FFEE32;">
+          <div class="card shadow border-0 h-100" style="background-color: #C0C8CA;">
             <div class="card-body">
               <img src="{{ asset('assets/Web.png') }}" alt="Trusted Icon" class="img-fluid mb-3"style="width: 40px; height: auto;">
               <h5 class="card-title">Trusted by Organizations</h5>
@@ -100,7 +100,7 @@
 <section class="text-center py-5  text-white">
     <div class="container">
         <h2>Ready to Verify Your Certificate?</h2>
-        <a href="#verify" class="btn  btn-lg mt-3" style="background-color: #FFEE32;">Check Certificate</a>
+        <a href="#verify" class="btn  btn-lg mt-3 text-white" style="background-color: #435468;">Check Certificate</a>
     </div>
 </section>
 
@@ -118,7 +118,7 @@
       <div class="row g-4">
         <!-- Testimonial Card 1 -->
         <div class="col-md-3">
-          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #FFEE32;">
+          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <!-- Rating Bintang -->
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
@@ -149,7 +149,7 @@
   
         <!-- Testimonial Card 2 -->
         <div class="col-md-3">
-          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #FFEE32;">
+          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
               <i class="bi bi-star-fill text-warning"></i>
@@ -177,7 +177,7 @@
   
         <!-- Testimonial Card 3 -->
         <div class="col-md-3">
-          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #FFEE32;">
+          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
               <i class="bi bi-star-fill text-warning"></i>
@@ -205,7 +205,7 @@
   
         <!-- Testimonial Card 4 -->
         <div class="col-md-3">
-          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #FFEE32;">
+          <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
               <i class="bi bi-star-fill text-warning"></i>
@@ -249,7 +249,7 @@
       <div class="row row-cols-1 row-cols-md-2 g-3"> <!-- Grid rapat -->
         <!-- Card 1 -->
         <div class="col">
-          <div class="card text-dark h-100 shadow" style="background-color: #FFEE32;">
+          <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">How do I verify my certificate?</h5>
               <p class="card-text">
@@ -261,7 +261,7 @@
         </div>
         <!-- Card 2 -->
         <div class="col">
-          <div class="card text-dark h-100 shadow" style="background-color: #FFEE32;">
+          <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">Where can I find the UID on my certificate?</h5>
               <p class="card-text">
@@ -273,7 +273,7 @@
         </div>
         <!-- Card 3 -->
         <div class="col">
-          <div class="card text-dark h-100 shadow" style="background-color: #FFEE32;">
+          <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">What if my certificate is not found?</h5>
               <p class="card-text">
@@ -285,7 +285,7 @@
         </div>
         <!-- Card 4 -->
         <div class="col">
-          <div class="card text-dark h-100 shadow" style="background-color: #FFEE32;">
+          <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">Is my data secure when using this platform?</h5>
               <p class="card-text">

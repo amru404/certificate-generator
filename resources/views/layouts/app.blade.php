@@ -12,23 +12,23 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFEE32; padding: 1.5rem 0;">
+    <nav class="navbar navbar-expand-lg  navbar-light" style="background-color: #2D3E50; padding: 1.5rem 0;">
         <div class="container">
             <a class="navbar-brand" href="/">CertGen</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#verify">How It Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('faq') }}">FAQ</a></li>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav mx-auto ">
+                    <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Features</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#verify">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{{ route('faq') }}">FAQ</a></li>
                 </ul>
                 <div class="d-flex gap-2">
-                    <a class="btn" style="background-color: #FFD100" href="{{ route('register') }}" role="button">Sign Up</a>
-                    <a class="btn" style="background-color: #FFD100" href="{{ route('login') }}" role="button">Login</a>
+                    <a class="btn" style="background-color: #C0C8CA" href="{{ route('register') }}" role="button">Sign Up</a>
+                    <a class="btn" style="background-color: #C0C8CA" href="{{ route('login') }}" role="button">Login</a>
                 </div>
             </div>
         </div>
@@ -40,14 +40,14 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center py-4 text-dark" style="background-color: #FFD100;">
+    <footer class="text-center py-4 text-light" style="background-color: #2D3E50;">
         <div class="container">
             <p class="mb-2">
-                Copyright &copy; Certificate Generator | All Rights Reserved
+                Copyright &copy; 2024 Certificate Generator | All Rights Reserved
             </p>
             <p class="mb-0">
-                <a href="/terms" class="text-dark text-decoration-underline">Terms and Conditions</a> | 
-                <a href="/privacy" class="text-dark text-decoration-underline">Privacy Policy</a>
+                <a href="/terms" class="text-white text-decoration-underline">Terms and Conditions</a> | 
+                <a href="/privacy" class="text-white text-decoration-underline">Privacy Policy</a>
             </p>
         </div>
     </footer>

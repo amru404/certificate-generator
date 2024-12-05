@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar with Toggle</title>
-    <link rel="stylesheet" href="/public/assets/css/style.css">
+    <title>Super Admin</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -31,6 +31,7 @@
 
  <!-- Sidebar -->
  @include('layouts_dashboard.sidebar')
+ 
 
 
 <!-- Content -->
@@ -84,6 +85,61 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset ('assets_dashboard/js/demo/datatables-demo.js') }}"></script>
+
+    {{-- sidebar setting --}}
+    <script>
+        // Function to set the active state
+        function setActive(element) {
+            // Remove the active class from all list items
+            const items = document.querySelectorAll('#sidebarMenu .list-group-item');
+            items.forEach(item => item.classList.remove('active'));
+    
+            // Add the active class to the clicked item
+            element.classList.add('active');
+        }
+    </script>
+
+//Profil
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mendaftarkan event listener pada input file
+        const uploadInput = document.getElementById('uploadPhoto');
+        
+        uploadInput.addEventListener('change', function(event) {
+            uploadPhoto(event);
+        });
+    });
+    function uploadPhoto(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('profilePicture').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            const formData = new FormData();
+            formData.append('photo', file);
+
+            fetch('/profile/upload-photo', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || 'Photo uploaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error uploading photo:', error);
+                alert('Failed to upload photo. Please try again.');
+            });
+        }
+    }
+</script>
+
 </body>
 
 </body>

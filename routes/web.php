@@ -5,7 +5,9 @@ use App\Http\Controllers\superadmin\{
     EventController,
     ParticipantController,
     CertifController,
-    UserController
+    UserController,
+    SettingController,
+    ProfileController,
 };
 use App\Http\Controllers\Auth\{
     ForgotPasswordController,
@@ -39,9 +41,18 @@ Route::prefix('password')->group(function () {
 // FAQ Route
 Route::get('/faq', fn() => view('faq'))->name('faq');
 
+
 // Superadmin Routes
 Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], function () {
     Route::get('/', [HomeController::class, 'superadmin'])->name('superadmin.home');
+
+    //setting
+    Route::get('/setting', [App\Http\Controllers\superadmin\SettingController::class, 'index'])->name('superadmin.setting');
+
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'index'])->name('superadmin.profile.index');
+    Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('superadmin.profile.uploadPhoto');
+    Route::delete('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('superadmin.profile.deletePhoto');
 
     // Event Routes
 
@@ -128,6 +139,7 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () 
 });
 
 
+
 //template bar
 Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], function () {
     Route::get('/certificate/template', [CertifController::class, 'template'])->name('certificate.template');
@@ -139,16 +151,6 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
 });
 Route::get('/templates', [CertifController::class, 'index'])->name('templates.index');
 Route::get('/generate/{template_id}', [CertifController::class, 'generate'])->name('generate');
-
-
-
-
-
-
-
-
-
-
 
 // Certificate Generation and Emailing
 Route::post('/send-certificate', function (Illuminate\Http\Request $request) {

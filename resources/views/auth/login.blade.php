@@ -42,11 +42,11 @@
 
             <!-- Forgot Password -->
             <div class="d-flex justify-content-between mb-3">
-                <a href="{{ route('password.request') }}" class="text-warning">Forgot Password?</a>
+                <a href="{{ route('password.request') }}" class="text-dark">Forgot Password?</a>
             </div>
 
             <!-- Login Button -->
-            <button type="submit" class="btn btn-warning w-100 mb-3">Log In</button>
+            <button type="submit" class="btn  w-100 mb-3 text-white"style="background-color: #2D3E50;">Log In</button>
             
             <!-- Remember Me -->
             <div class="form-check">
@@ -55,13 +55,13 @@
             </div>
 
             <!-- Sign Up -->
-            <p class="text-center">Don't have an account? <a href="{{ route('register') }}" class="text-warning fw-bold">Sign Up Now</a></p>
+            <p class="text-center">Don't have an account? <a href="{{ route('register') }}" class="text-primary fw-bold">Sign Up Now</a></p>
         </form>
 
         <!-- Social Login Buttons -->
         <div class="text-center text-muted mb-3">OR</div>
         <button class="btn btn-light w-100 mb-2">
-            <i class="fab fa-google me-2" style="color: #4285F4;"></i> Continue with Google
+            <i class="fab fa-google me-2" style="color: #ff0707;"></i> Continue with Google
         </button>
         <button class="btn btn-light w-100 mb-2">
             <i class="fab fa-facebook-f me-2" style="color: #1877F2;"></i> Continue with Facebook
