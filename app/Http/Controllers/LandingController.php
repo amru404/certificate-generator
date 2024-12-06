@@ -21,8 +21,8 @@ class LandingController extends Controller
 
         // dd($certificate);
         if ($certificate == null) {
-            return view('not_verified',compact('id'));
-        }else {
+            return redirect()->route('certif.verfication')->with('error', "Certificate $id Not Found.");
+        } else {
             return view('verified',compact('certificate'));
         }
 

@@ -18,7 +18,7 @@
              alt="Verified Icon" class="mb-4" style="width: 100px; height: auto;">
 
         <!-- Title -->
-        <h2 class="fw-bold">Certificate Verified Successfully</h2>
+        <h2 class="fw-bold">Certificate Verified</h2>
         
         <!-- Certificate Details -->
         <div class="text-start mt-4">
