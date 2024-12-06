@@ -163,3 +163,8 @@ Route::get('/certificate/result', fn() => view('virified', [
     'issuedBy' => 'Maxy Academy',
     'issueDate' => 'November 20, 2024',
 ]))->name('virified');
+
+Route::get('/password/reset', function () {
+    return view('auth.password.reset');
+})->name('password.reset');
+

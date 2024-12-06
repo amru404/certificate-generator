@@ -1,63 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<div class="container-fluid vh-100 d-flex align-items-center">
+    <div class="row w-100">
+        <!-- Left Image Section -->
+        <div class="col-md-6 p-0">
+            <img src="your-image-path.jpg" alt="Locks" class="img-fluid vh-100" style="object-fit: cover;">
+        </div>
+        <!-- Right Content Section -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="p-5">
+                <h2 class="mb-4 fw-bold">OTP Verification</h2>
+                <p class="mb-3">Enter the 6-digit code sent to your email</p>
+                <form>
+                    <div class="d-flex justify-content-between mb-4">
+                        <input type="text" maxlength="1" class="form-control text-center me-2" style="width: 50px;">
+                        <input type="text" maxlength="1" class="form-control text-center me-2" style="width: 50px;">
+                        <input type="text" maxlength="1" class="form-control text-center me-2" style="width: 50px;">
+                        <input type="text" maxlength="1" class="form-control text-center me-2" style="width: 50px;">
+                        <input type="text" maxlength="1" class="form-control text-center me-2" style="width: 50px;">
+                        <input type="text" maxlength="1" class="form-control text-center" style="width: 50px;">
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100 mb-3">Verify</button>
+                    <p class="text-center">
+                        Didn’t receive code? <a href="#" class="text-decoration-none">Resend</a>
+                    </p>
+                </form>
             </div>
         </div>
     </div>

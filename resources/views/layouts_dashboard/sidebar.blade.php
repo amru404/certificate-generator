@@ -29,7 +29,7 @@
         <a href="#" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-clock-history me-2"></i> <span class="menu-text">History</span>
         </a>
-        <a href="{{ route('superadmin') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
+        <a href="{{ route('setting') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-gear me-2"></i> <span class="menu-text">Setting</span>
         </a>
         <a href="#" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
