@@ -11,7 +11,7 @@
         
         <!-- Tombol -->
         <div class="my-4" style="margin-bottom: 15px;">
-            <button onclick="window.location.href='{{ route('certificate.verification') }}'" class="btn btn-lg text-white" style="background-color: #435468; border: none; padding: 10px 20px;">Check Certificate</button>
+            <button onclick="window.location.href='{{ route('certif.verfication') }}'" class="btn btn-lg text-white" style="background-color: #435468; border: none; padding: 10px 20px;">Check Certificate</button>
         </div>
     
         <!-- Gambar -->
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="check-btn">
-          <button onclick="window.location.href='{{ route('certificate.verification') }}'" class="btn btn-lg text-white" style="background-color: #435468; border: none; padding: 10px 20px;">Check Certificate</button>
+          <button onclick="window.location.href='{{ route('certif.verfication') }}'" class="btn btn-lg text-white" style="background-color: #435468; border: none; padding: 10px 20px;">Check Certificate</button>
         </div>
       </div>
 </section>

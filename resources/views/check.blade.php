@@ -17,16 +17,13 @@
                 <div class="bg-white shadow p-4 rounded h-100">
                     <h1 class="fs-4 fw-bold mb-3">Certificate Verification System</h1>
                     <p>Ensure the Authenticity of Your Certificate with a Simple UID Lookup</p>
-                    <form>
+                    <form action="{{ route('certif.verfication.result') }}" method="post">
+                        @csrf
                         <div class="mb-3">
-                            <label for="nameParticipant" class="form-label">Name Participant</label>
-                            <input type="text" class="form-control" id="nameParticipant" placeholder="Enter participant's full name">
+                            <label for="id" class="form-label">UUID</label>
+                            <input type="text" name="id" class="form-control" id="id" placeholder="Enter certificate UUID">
                         </div>
-                        <div class="mb-3">
-                            <label for="uid" class="form-label">UID</label>
-                            <input type="text" class="form-control" id="uid" placeholder="Enter certificate UID">
-                        </div>
-                        <a href="{{ route('virified') }}" class="btn w-100 fw-bold text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">Verify Now</a>
+                        <button type="submit" class="btn w-100 fw-bold text-white" style="background-color: #2D3E50; border: none; padding: 10px 20px; text-align: center; display: inline-block; border-radius: 5px; text-decoration: none;">Verify Now</button>
                     </form>
                 </div>
             </div>

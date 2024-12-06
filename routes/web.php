@@ -44,7 +44,7 @@ Route::get('/faq', fn() => view('faq'))->name('faq');
 
 // Superadmin Routes
 Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], function () {
-    Route::get('/', [HomeController::class, 'superadmin'])->name('superadmin.home');
+    Route::get('/', [HomeController::class, 'superadmin'])->name('superadmin');
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'index'])->name('superadmin.profile.index');
@@ -168,3 +168,6 @@ Route::get('/password/reset', function () {
     return view('auth.password.reset');
 })->name('password.reset');
 
+Route::get('certificate/verification',[App\Http\Controllers\LandingController::class, 'indexVerification'])->name('certif.verfication');
+Route::post('certificate/verification/result',[App\Http\Controllers\LandingController::class, 'storeVerification'])->name('certif.verfication.result');
+Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('certif.pdf');

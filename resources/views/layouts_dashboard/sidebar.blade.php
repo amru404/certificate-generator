@@ -12,7 +12,7 @@
         </div>
 
         <!-- Menu Items -->
-        <a href="{{ route('superadmin.home') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
+        <a href="{{ route('superadmin') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-speedometer2 me-2"></i> <span class="menu-text">Dashboard</span>
         </a>
 
