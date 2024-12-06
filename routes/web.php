@@ -44,7 +44,7 @@ Route::get('/faq', fn() => view('faq'))->name('faq');
 
 // Superadmin Routes
 Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], function () {
-    Route::get('/', [HomeController::class, 'superadmin'])->name('superadmin.home');
+    Route::get('/', [HomeController::class, 'superadmin'])->name('superadmin');
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'index'])->name('superadmin.profile.index');
