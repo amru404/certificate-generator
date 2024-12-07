@@ -25,7 +25,7 @@
                     <input type="hidden" value="{{$template->name}}" name="name">
                     <input type="hidden" value="{{$template->preview}}" name="preview">
                     <input type="hidden" value="{{$template->id}}" name="id">
-                    <img src="{{ asset('storage/' . $template->preview) }}" class="card-img-top" alt="Template">
+                    <img src="{{ asset('storage/'.$template->preview) }}"  class="card-img-top" alt="Template">
                     <div class="card-body text-center">
                         <h5 class="card-title">Template {{ $template->name }}</h5>
                         <button type="submit" class="btn" style="background-color:#2D3E50;color:white;" onclick="return confirm('Yakin ingin memilih template ini?')">Select</button>
@@ -42,12 +42,12 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const forms = document.querySelectorAll(
-        '.certificate-form'); // Pilih semua form dengan class 'certificate-form'
-        const loader = document.querySelector('#loader'); // Loader element
+        '.certificate-form');
+        const loader = document.querySelector('#loader');
 
         forms.forEach(function (form) {
             form.addEventListener('submit', function () {
-                loader.style.display = 'grid'; // Tampilkan loader
+                loader.style.display = 'grid';
             });
         });
     });

@@ -158,7 +158,11 @@ class CertifController extends Controller
 
 
     public function createTemplate(){
-        return view('superadmin.certificate.generate');
+
+        $templateCertif = CertificateTemplate::all();
+        // dd($templateCertif);
+
+        return view('superadmin.certificate.generate',compact('templateCertif'));
     }
     
     public function storeTemplate(request $request) 
@@ -178,9 +182,6 @@ class CertifController extends Controller
             'name' => $validated['name'],
             'preview' => $path ?? null,
         ]);
-
-        
-        return redirect()->to(url("/superadmin/certificate/createTemplate"))
-        ->with('success', 'Add New Template successfully.');
+        return redirect()->route('superadmin.certificate.createTemplate')->with('success', 'Add New Template successfully.');
     }
 }

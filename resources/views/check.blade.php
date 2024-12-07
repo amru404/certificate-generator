@@ -1,7 +1,31 @@
 @extends('layouts.app')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @section('content')
 
 <div class="page-bg position-relative">
+@if (session('success'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+
+<div class="page-bg">
     <!-- Back to Home -->
     <div class="back-to-home">
         <a href="/" class="text-decoration-none text-dark fw-bold">
