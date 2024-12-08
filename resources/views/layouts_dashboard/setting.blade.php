@@ -54,9 +54,6 @@
                     <li class="list-group-item" onclick="setActive(this)">
                         <i class="bi bi-bell me-2"></i> Notification
                     </li>
-                    <li class="list-group-item" onclick="setActive(this)">
-                        <i class="bi bi-globe me-2"></i> League
-                    </li>
                     <li class="list-group-item" data-bs-toggle="modal" data-bs-target="#logoutModal"
                         onclick="setActive(this)">
                         <i class="bi bi-box-arrow-right me-2"></i> Logout
@@ -68,11 +65,11 @@
                 <!-- Card -->
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">General Information</h5>
-                        <p class="text-muted">Fill out your form correctly</p>
+                        <h5 class="card-title text-center">General Information</h5>
+                        <p class="text-muted text-center">Fill out your form correctly</p>
                         <form action="{{route('setting.updateUser', Auth::user()->id) }}" method="post">
                             @csrf
-                            <!-- Profile Picture -->
+                            {{-- <!-- Profile Picture -->
                             <div class="mb-3 text-center">
                                 <h5 class="mb-4">Profile Picture</h5>
                                 <img src="https://via.placeholder.com/100" id="profilePicture"
@@ -86,7 +83,7 @@
                                     <button type="button" class="btn btn-outline-secondary btn-sm"
                                         onclick="deletePhoto()">Delete</button>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- Detailed Information -->
                             <h6>Detailed Information</h6>
                             <div class="row">

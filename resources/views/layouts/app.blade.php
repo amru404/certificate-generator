@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> 
 </head>
-<body>
+<body  class="@yield('body-class', '')">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg  navbar-light" style="background-color: #2D3E50; padding: 1.5rem 0;">
         <div class="container">

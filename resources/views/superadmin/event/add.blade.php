@@ -46,13 +46,18 @@
     <div class="row mb-3">
         <div class="col-md-6">
             <label for="tanggal" class="form-label">Tanggal Pelaksanaan</label>
-            <input type="date" name="tanggal" class="form-control" id="tanggal">
+            <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ old('tanggal', $event->tanggal ?? '') }}">
         </div>
         <div class="col-md-6">
-            <label for="ttd" class="form-label">Tanda Tangan</label>
-            <input type="text" name="ttd" class="form-control" id="ttd" placeholder="atas nama">
+            <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
+            @if(!empty($event->ttd))
+            <div class="mb-2">
+                <img src="{{ asset('storage/' . $event->ttd) }}" alt="Tanda Tangan Saat Ini" class="img-thumbnail" style="max-width: 200px; max-height: 100px;">
+            </div>
+            @endif
+            <input type="file" class="form-control" name="ttd" id="ttd" accept="image/*">
         </div>
-    </div>
+    </div>     
 
     <button type="submit" class="btn" style="background-color:#2D3E50;color:white;">Submit</button>
 </form>

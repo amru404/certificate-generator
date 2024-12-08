@@ -164,9 +164,6 @@ Route::get('/certificate/result', fn() => view('virified', [
     'issueDate' => 'November 20, 2024',
 ]))->name('virified');
 
-Route::get('/password/reset', function () {
-    return view('auth.password.reset');
-})->name('password.reset');
 
 Route::get('certificate/verification',[App\Http\Controllers\LandingController::class, 'indexVerification'])->name('certif.verfication');
 Route::post('certificate/verification/result',[App\Http\Controllers\LandingController::class, 'storeVerification'])->name('certif.verfication.result');

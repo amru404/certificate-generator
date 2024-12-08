@@ -34,7 +34,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('superadmin.event.add');
+        $event = new Event(); 
+        return view('superadmin.event.add', compact('event'));
     }
 
     /**
@@ -54,18 +55,21 @@ class EventController extends Controller
             'deskripsi' => 'nullable|string',
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
-            'ttd' => 'nullable|string|max:255',
+            'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
         
 
 
-        if ($request->hasFile('logo')) {
-            $file = $request->file('logo');
-            $logoPath = $file->store('logos', 'public');
-        } else {
-            $logoPath = null;
-        }
+
+    $logoPath = $request->hasFile('logo')
+    ? $request->file('logo')->store('logos', 'public')
+    : null;
+
+
+$ttdPath = $request->hasFile('ttd')
+    ? $request->file('ttd')->store('ttd', 'public')
+    : null;
 
         Event::create([
             'nama_event' => $request->nama_event,
@@ -74,7 +78,7 @@ class EventController extends Controller
             'deskripsi' => $request->deskripsi,
             'logo' => $logoPath,
             'tanggal' => $request->tanggal,
-            'ttd' => $request->ttd,
+            'ttd' => $ttdPath,
             'user_id' => $request->user_id,
         ]);
         
@@ -126,7 +130,7 @@ class EventController extends Controller
             'deskripsi' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
-            'ttd' => 'nullable|string|max:255',
+            'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
     
@@ -141,6 +145,15 @@ class EventController extends Controller
         } else {
             $logoPath = $event->logo;
         }
+
+        if ($request->hasFile('ttd')) {
+            if ($event->ttd) {
+                Storage::disk('public')->delete($event->ttd); 
+            }
+            $ttdPath = $request->file('ttd')->store('ttd', 'public');
+        } else {
+            $ttdPath = $event->ttd; 
+        }
     
         $event->update([
             'nama_event' => $request->nama_event,
@@ -149,7 +162,7 @@ class EventController extends Controller
             'deskripsi' => $request->deskripsi,
             'logo' => $logoPath,
             'tanggal' => $request->tanggal,
-            'ttd' => $request->ttd,
+            'ttd' => $ttdPath,
             'user_id' => $request->user_id,
         ]);
     
