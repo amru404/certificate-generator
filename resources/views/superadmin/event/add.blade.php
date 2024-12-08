@@ -50,11 +50,9 @@
         </div>
         <div class="col-md-6">
             <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
-            @if(!empty($event->ttd))
+          
             <div class="mb-2">
-                <img src="{{ asset('storage/' . $event->ttd) }}" alt="Tanda Tangan Saat Ini" class="img-thumbnail" style="max-width: 200px; max-height: 100px;">
             </div>
-            @endif
             <input type="file" class="form-control" name="ttd" id="ttd" accept="image/*">
         </div>
     </div>     

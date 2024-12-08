@@ -32,6 +32,7 @@ class CertifController extends Controller
 
     public function store(Request $request, string $eventId)
     {
+        set_time_limit(300);
         $event = Event::findOrFail($eventId);
         $participants = $event->participants;
     
