@@ -14,6 +14,8 @@ use PDF;
 use App\Mail\CertificateMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CertificateTemplate;
+use App\Jobs\SendCertificateEmailJob;
+
 
 
 class CertifController extends Controller
@@ -37,7 +39,8 @@ class CertifController extends Controller
     
         if (!$participants || $participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->back()->with('error', 'No participants found for this event.');
+            return redirect()->to(url("/admin/event/show/{$eventId}"))
+                ->with('error', 'No participants found for this event.');
         }
     
         foreach ($participants as $participant) {
@@ -47,7 +50,7 @@ class CertifController extends Controller
     
             if (!$existingCertificate) {
                 $certificate = Certificate::create([
-                    'id' => Str::uuid()->toString(),
+                    'id' => 'stf-' . Str::random(7),
                     'event_id' => $event->id,
                     'participant_id' => $participant->id,
                     'style' => 'style 1',
@@ -55,14 +58,14 @@ class CertifController extends Controller
                     'signature' => $event->ttd,
                 ]);
     
-                Mail::to($participant->email)->send(new CertificateMail($participant, $certificate));
+                SendCertificateEmailJob::dispatch($participant, $certificate);
             } else {
+                // Log info, tapi tetap lanjut ke peserta berikutnya
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                return redirect()->to(url("/admin/event/show/{$eventId}"))
-            ->with('error', 'The certificate has been created previously.');
             }
         }
     
+        // Setelah semua peserta diproses
         return redirect()->to(url("/admin/event/show/{$eventId}"))
             ->with('success', 'Participants imported and emails sent successfully.');
     }

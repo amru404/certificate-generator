@@ -53,14 +53,11 @@ class EventController extends Controller
             'email' => 'required|email|max:255',
             'no_telp' => 'required|numeric',
             'deskripsi' => 'nullable|string',
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
             'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
-        
-
-
+ 
 
     $logoPath = $request->hasFile('logo')
     ? $request->file('logo')->store('logos', 'public')

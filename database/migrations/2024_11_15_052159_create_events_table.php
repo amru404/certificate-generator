@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration
             $table->string('email');
             $table->string('no_telp', 32);
             $table->text('deskripsi');
-            $table->string('logo');
+            $table->string('logo')->nullable(); 
             $table->date('tanggal');
             $table->string('ttd');
             $table->timestamps();
