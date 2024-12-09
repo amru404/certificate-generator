@@ -62,9 +62,9 @@
                 class="signatur" 
                 style="position: absolute; top: 120px; right: -230px; height: 120px; object-fit: contain;">
             
-            <p class="deskripsi" 
-                style="position: absolute; top: 260px; left: -200px; transform: translateX(-50%); font-size: 13px;">
-               UUID : {{ $participant->certificate->id }}
+            <p class="uid" 
+                style="position: absolute; top: 260px; left: -300px; transform: translateX(-50%); font-size: 13px;">
+               UID : {{ $participant->certificate->id }}
             </p>
         </div>
     </div>

@@ -20,22 +20,22 @@
     <div class="row mb-3">
         <div class="col-md-6">
             <label for="nama_event" class="form-label">Nama Event</label>
-            <input type="text" name="nama_event" class="form-control" id="nama_event">
+            <input type="text" name="nama_event" class="form-control" id="nama_event" required>
         </div>
         <div class="col-md-6">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email">
+            <input type="email" name="email" class="form-control" id="email" required>
         </div>
     </div>
 
     <div class="mb-3">
         <label for="no_telephone" class="form-label">No Telephone</label>
-        <input type="number" name="no_telp" class="form-control" id="no_telephone">
+        <input type="number" name="no_telp" class="form-control" id="no_telephone" required>
     </div>
 
     <div class="mb-3">
         <label for="deskripsi" class="form-label">Deskripsi</label>
-        <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3"></textarea>
+        <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3" required></textarea>
     </div>
 
     <div class="mb-3">
@@ -46,13 +46,16 @@
     <div class="row mb-3">
         <div class="col-md-6">
             <label for="tanggal" class="form-label">Tanggal Pelaksanaan</label>
-            <input type="date" name="tanggal" class="form-control" id="tanggal">
+            <input type="date" name="tanggal" class="form-control" id="tanggal" required>
         </div>
         <div class="col-md-6">
-            <label for="ttd" class="form-label">Tanda Tangan</label>
-            <input type="text" name="ttd" class="form-control" id="ttd" placeholder="atas nama">
+            <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
+          
+            <div class="mb-2">
+            </div>
+            <input type="file" class="form-control" name="ttd" id="ttd" accept="image/*" required>
         </div>
-    </div>
+        </div>
 
     <button type="submit" class="btn" style="background-color:#2D3E50;color:white;">Submit</button>
 </form>

@@ -46,20 +46,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all()); 
         
         $this->validate($request, [
             'nama_event' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'no_telp' => 'required|numeric',
             'deskripsi' => 'nullable|string',
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
             'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
-        
-
 
 
     $logoPath = $request->hasFile('logo')

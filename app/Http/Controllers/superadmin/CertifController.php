@@ -49,7 +49,7 @@ class CertifController extends Controller
 
             if (!$existingCertificate) {
                 $certificate = Certificate::create([
-                    'id' => Str::uuid()->toString(),
+                    'id' => 'stf-' . Str::random(7),
                     'event_id' => $event->id,
                     'participant_id' => $participant->id,
                     'style' => 'style 1',

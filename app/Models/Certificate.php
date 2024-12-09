@@ -26,11 +26,10 @@ class Certificate extends Model
     {
         static::creating(function (Certificate $certificate) {
             if (empty($certificate->id)) {
-                $certificate->id = Str::uuid()->toString();
+                $certificate->id = 'stf-' . Str::random(7);
             }
         });
     }
-
     
     public function event(){
         return $this->belongsTo(Event::class);
