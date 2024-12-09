@@ -44,7 +44,7 @@ class ParticipantController extends Controller
 
     public function destroy_all(string $id){
         $participant = Participant::where('event_id', $id)->delete();
-        return redirect()->to(url("/admin/event/show/{$id}"));
+        return redirect()->to(url("/admin/event/show/{$id}"))->with('success', 'Delete All Participant Successfully.');
     }
 
 
@@ -73,7 +73,7 @@ class ParticipantController extends Controller
             'no_telp' => $request->no_telp,
         ]);
 
-        return redirect()->to(url("/admin/event/show/{$eventId}"));
+        return redirect()->to(url("/admin/event/show/{$eventId}"))->with('success', 'Edit Participant Successfully.');
     }
 
     
@@ -82,7 +82,7 @@ class ParticipantController extends Controller
         $participant = Participant::findOrFail($id);
         $eventId = $participant->event_id;
         $participant->delete();
-        return redirect()->to(url("/admin/event/show/{$eventId}"));
+        return redirect()->to(url("/admin/event/show/{$eventId}"))->with('success', 'Delete Participant Successfully.');
 
     }
 }

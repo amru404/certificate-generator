@@ -14,6 +14,7 @@ use PDF;
 use App\Mail\CertificateMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CertificateTemplate;
+use App\Jobs\SendCertificateEmailJob;
 
 class CertifController extends Controller
 {
@@ -30,22 +31,22 @@ class CertifController extends Controller
         return view('superadmin.certificate.add', compact('templates','detail_event'));
     }
 
+   
     public function store(Request $request, string $eventId)
     {
-        set_time_limit(300);
         $event = Event::findOrFail($eventId);
         $participants = $event->participants;
-    
+
         if (!$participants || $participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->back()->with('error', 'No participants found for this event.');
+            return redirect()->to(url("/superadmin/event/show/{$eventId}"))->with('error', 'No participants found for this event.');
         }
-    
+
         foreach ($participants as $participant) {
             $existingCertificate = Certificate::where('event_id', $event->id)
                 ->where('participant_id', $participant->id)
                 ->first();
-    
+
             if (!$existingCertificate) {
                 $certificate = Certificate::create([
                     'id' => Str::uuid()->toString(),
@@ -55,17 +56,18 @@ class CertifController extends Controller
                     'certificate_templates_id' => $request->id,
                     'signature' => $event->ttd,
                 ]);
-    
-                Mail::to($participant->email)->send(new CertificateMail($participant, $certificate));
-            } else {
-                \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                return redirect()->to(url("/superadmin/event/show/{$eventId}"))
-            ->with('error', 'The certificate has been created previously.');
-            }
+
+                
+            SendCertificateEmailJob::dispatch($participant, $certificate);
+        } else {
+            \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
+            return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+                ->with('error', 'The certificate has been created previously.');
         }
-    
-        return redirect()->to(url("/superadmin/event/show/{$eventId}"))
-            ->with('success', 'Participants imported and emails sent successfully.');
+    }
+
+    return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+        ->with('success', 'Participants imported and emails sent successfully.');
     }
     
     
