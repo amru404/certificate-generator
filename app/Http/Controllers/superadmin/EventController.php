@@ -46,7 +46,6 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all()); 
         
         $this->validate($request, [
             'nama_event' => 'required|string|max:255',
@@ -57,7 +56,7 @@ class EventController extends Controller
             'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
- 
+
 
     $logoPath = $request->hasFile('logo')
     ? $request->file('logo')->store('logos', 'public')

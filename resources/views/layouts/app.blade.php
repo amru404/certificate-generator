@@ -11,6 +11,25 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> 
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        footer {
+            background-color: #2D3E50; 
+        }
+        @media (max-width: 768px) {
+            footer {
+                background-color: #C0C8CA; 
+            }
+            .footer-mobile a,
+            .footer-mobile p {
+                color: #C0C8CA;
+            }
+            .footer-mobile .bi {
+                color: #3E6697; 
+            }
+        }
+    </style>
+    
 </head>
 <body  class="@yield('body-class', '')">
     <!-- Navbar -->
@@ -44,18 +63,53 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center py-4 text-light" style="background-color: #2D3E50;">
+    <footer class="text-center py-4 text-light">
         <div class="container">
-            <p class="mb-2">
-                Copyright &copy; 2024 Certificate Generator | All Rights Reserved
-            </p>
-            <p class="mb-0">
-                <a href="/terms" class="text-white text-decoration-underline">Terms and Conditions</a> | 
-                <a href="/privacy" class="text-white text-decoration-underline">Privacy Policy</a>
-            </p>
+            <!-- Footer Desktop -->
+            <div class="footer-desktop d-none d-md-block">
+                <p class="mb-2">
+                    Copyright &copy; 2024 Certificate Generator | All Rights Reserved
+                </p>
+                <p class="mb-0">
+                    <a href="/terms" class="text-white text-decoration-underline">Terms and Conditions</a> | 
+                    <a href="/privacy" class="text-white text-decoration-underline">Privacy Policy</a>
+                </p>
+            </div>
+    
+            <!-- Footer Mobile -->
+            <div class="footer-mobile d-block d-md-none">
+                <p class="mb-1 fw-bold text-dark">Copyright &copy; 2025 Certificate Generator</p>
+                <p class="mb-1 text-dark">
+                    Terms and Conditions | All Rights Reserved | Privacy Policy
+                </p>
+                
+                <div class="d-flex justify-content-center gap-4 mt-3">
+                    <a href="/" class="text-decoration-none text-dark fw-bold">Home</a>
+                    <a href="#" class="text-decoration-none text-dark fw-bold">Feature</a>
+                    <a href="#verify" class="text-decoration-none text-dark fw-bold">Works</a>
+                    <a href="#testimonials" class="text-decoration-none text-dark fw-bold">Testimonial</a>
+                    <a href="{{ route('faq') }}" class="text-decoration-none text-dark fw-bold">FAQ</a>
+                </div>
+                <div class="d-flex justify-content-center gap-3 mt-2">
+                    <a href="#" class="text-dark fs-4">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="text-dark fs-4">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/certificategenerator/profilecard/?igsh=OHRmeWVpeDJsMDF4" class="text-dark fs-4">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" class="text-dark fs-4">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-dark fs-4">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                </div>                
+            </div>
         </div>
     </footer>
-    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

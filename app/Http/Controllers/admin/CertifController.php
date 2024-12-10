@@ -125,6 +125,8 @@ class CertifController extends Controller
 
     public function pdf(string $id)
     {
+        ini_set('max_execution_time', 300);
+        
         $certif = Certificate::where('participant_id', $id)->first();
         $participant = Participant::where('id', $id)->first();
         if (!$certif) {
@@ -160,4 +162,3 @@ class CertifController extends Controller
 
 
 }
-
