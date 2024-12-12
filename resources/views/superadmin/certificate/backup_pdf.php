@@ -132,15 +132,9 @@
         >
 
         <div class="content" style="text-align:center">
-      
-        <h2 class="name" 
-    style="position: absolute; font-size: 32px; width: 520px; margin: 
-    {{ $participant->event->certificate->certificate_templates->nama ?? '0px' }};">
-
-
+            <h2 class="name" 
+                style="position: absolute; top: -120px;left:-190px;font-size: 32px; width:520px">
                 {{ $participant->nama }}
-                <br>
-               
             </h2>
 
             <div style="position: relative; width: 100%; height: 100vh;">

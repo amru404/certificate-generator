@@ -108,18 +108,13 @@ class CertifController extends Controller
 
     public function search(Request $request)
     {
-        // Ambil data pencarian dari input
+        
         $search = $request->input('search');
-
-        // Query database berdasarkan ID
         $results = Certificate::where('id', $search)->get();
         
         if ($results->isEmpty()) {
-            // Jika hasil kosong, arahkan ke halaman unverified
             return view('superadmin.search-certif.unverified', compact('search'));
         }
-
-        // Jika ada hasil, arahkan ke halaman verified
         return view('superadmin.search-certif.verified', compact('results'));
     }
 
@@ -171,8 +166,14 @@ class CertifController extends Controller
     public function storeTemplate(request $request) 
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'nama_template' => 'required|string|max:255',
             'preview' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
+            'tanggal' => 'required|string|max:255',
+            'ttd' => 'required|string|max:255',
+            'uid' => 'required|string|max:255',
+
         ]);
 
         
@@ -180,10 +181,14 @@ class CertifController extends Controller
             $path = $request->file('preview')->store('sertif', 'public');
         }
 
-        // Store the data in the database
         CertificateTemplate::create([
-            'name' => $validated['name'],
+            'nama_template' => $validated['nama_template'],
             'preview' => $path ?? null,
+            'nama' => $validated['nama'],
+            'deskripsi' => $validated['deskripsi'],
+            'tanggal' => $validated['tanggal'],
+            'ttd' => $validated['ttd'],
+            'uid' => $validated['uid'],
         ]);
         return redirect()->route('superadmin.certificate.createTemplate')->with('success', 'Add New Template successfully.');
     }

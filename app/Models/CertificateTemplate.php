@@ -11,7 +11,7 @@ class CertificateTemplate  extends Model
     use HasFactory;
 
     protected $table = 'certificate_templates';
-    protected $fillable = ['name', 'preview'];
+    protected $fillable = ['nama_template', 'preview','nama','deskripsi','tanggal','ttd','uid'];
 
     
     public function certificate()

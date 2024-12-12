@@ -40,6 +40,9 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT_URL'),
     ],
+    'remove_bg' => [
+        'api_key' => env('REMOVE_BG_API_KEY'),
+    ],
     'apple' => [
         'client_id' => env('APPLE_CLIENT_ID'),
         'client_secret' => env('APPLE_CLIENT_SECRET'),

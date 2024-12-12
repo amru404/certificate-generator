@@ -27,8 +27,8 @@
         @csrf
 
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <label for="nama_template" class="form-label">Nama Template</label>
+            <input type="text" class="form-control" id="nama_template" name="nama_template" required>
         </div>
 
        
@@ -37,6 +37,31 @@
             <input type="file" class="form-control" id="preview" name="preview" required>
         </div>
 
+        <div class="row mt-4">
+            <div class="col-4">
+                    <!-- <label for="nama" class="form-label">Margin Nama</label> -->
+            <input type="text" class="form-control" id="nama" name="nama" required placeholder="margin nama">
+            </div>
+            <div class="col-4">
+                    <!-- <label for="deskripsi" class="form-label">Margin Deskripsi</label> -->
+            <input type="text" class="form-control" id="deskripsi" name="deskripsi" required placeholder="margin deskripsi">
+            </div>
+            <div class="col-4">
+                    <!-- <label for="tanggal" class="form-label">Margin Tanggal</label> -->
+            <input type="text" class="form-control" id="tanggal" name="tanggal" required placeholder="margin tanggal">
+            </div>
+        </div>
+
+        <div class="row mt-4 mb-4">
+            <div class="col-6">
+            <!-- <label for="ttd" class="form-label">Margin Ttd</label> -->
+            <input type="text" class="form-control" id="ttd" name="ttd" required placeholder="margin ttd">
+            </div>
+            <div class="col-6">
+            <!-- <label for="uid" class="form-label">Margin UID</label> -->
+            <input type="text" class="form-control" id="uid" name="uid" required placeholder="margin uid">
+            </div>
+        </div>
         
         <button type="submit" class="btn text-white" style="background-color:#2D3E50;">Submit</button>
     </form>
@@ -75,7 +100,7 @@
                     <td>{{ $number }}</td>
                     <?php $number++; ?>
                     <td><img src="{{ asset('storage/' . $TC->preview) }}" alt="Logo Event" class="img-fluid" style="max-height: 100px;"></td>
-                    <td>{{$TC->name}}</td>  
+                    <td>{{$TC->nama_template}}</td>  
                 </tr>
                 @endforeach
 

@@ -9,6 +9,7 @@ use App\Models\Participant;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Mtownsend\RemoveBg\RemoveBg;
 
 
 class EventController extends Controller
@@ -46,7 +47,6 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'nama_event' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -54,19 +54,39 @@ class EventController extends Controller
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
             'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
+    
+        $logoPath = null;
+        if ($request->hasFile('logo')) {
+            $logoImage = $request->file('logo');
+            $logoImagePath = $logoImage->getPathname();
+            
+            $outputLogoPath = storage_path('app/public/logos/removed_' . $logoImage->getClientOriginalName());
 
+            $removeBg = new RemoveBg(config('removebg.api_key'));
+            $removeBg->file($logoImagePath)->save($outputLogoPath);
+            
+            $logoPath = '/logos/removed_' . $logoImage->getClientOriginalName();
+        }
 
-    $logoPath = $request->hasFile('logo')
-    ? $request->file('logo')->store('logos', 'public')
-    : null;
+        
+        $ttdPath = null;
+        if ($request->hasFile('ttd')) {
+            $ttdImage = $request->file('ttd');
+            $ttdImagePath = $ttdImage->getPathname();
 
-
-$ttdPath = $request->hasFile('ttd')
-    ? $request->file('ttd')->store('ttd', 'public')
-    : null;
-
+            $outputTtdPath = storage_path('app/public/ttd/removed_' . $ttdImage->getClientOriginalName());
+        
+            $removeBg = new RemoveBg(config('removebg.api_key')); 
+            $removeBg->file($ttdImagePath)->save($outputTtdPath);
+        
+            $ttdPath = '/ttd/removed_' . $ttdImage->getClientOriginalName();
+        }
+        
+    
+        
         Event::create([
             'nama_event' => $request->nama_event,
             'email' => $request->email,
@@ -74,12 +94,11 @@ $ttdPath = $request->hasFile('ttd')
             'deskripsi' => $request->deskripsi,
             'logo' => $logoPath,
             'tanggal' => $request->tanggal,
-            'ttd' => $ttdPath,
+            'ttd' => $ttdPath,          
             'user_id' => $request->user_id,
         ]);
-        
+    
         return redirect()->route('superadmin.event');
-      
     }
 
     /**
@@ -130,27 +149,48 @@ $ttdPath = $request->hasFile('ttd')
             'user_id' => 'required|string|max:255',
         ]);
     
+        // Cari data event berdasarkan ID
         $event = Event::findOrFail($id);
     
+        // Mengolah logo
+        $logoPath = $event->logo;
         if ($request->hasFile('logo')) {
             if ($event->logo) {
+                // Hapus logo lama
                 Storage::disk('public')->delete($event->logo);
             }
-            $file = $request->file('logo');
-            $logoPath = $file->store('logos', 'public');
-        } else {
-            $logoPath = $event->logo;
-        }
-
-        if ($request->hasFile('ttd')) {
-            if ($event->ttd) {
-                Storage::disk('public')->delete($event->ttd); 
-            }
-            $ttdPath = $request->file('ttd')->store('ttd', 'public');
-        } else {
-            $ttdPath = $event->ttd; 
+    
+            // Proses logo baru dengan menghapus background
+            $logoImage = $request->file('logo');
+            $logoImagePath = $logoImage->getPathname();
+            $outputLogoPath = storage_path('app/public/logos/removed_' . $logoImage->getClientOriginalName());
+            
+            $removeBg = new RemoveBg(config('removebg.api_key'));
+            $removeBg->file($logoImagePath)->save($outputLogoPath);
+    
+            $logoPath = '/logos/removed_' . $logoImage->getClientOriginalName();
         }
     
+        // Mengolah ttd
+        $ttdPath = $event->ttd;
+        if ($request->hasFile('ttd')) {
+            if ($event->ttd) {
+                // Hapus ttd lama
+                Storage::disk('public')->delete($event->ttd);
+            }
+    
+            // Proses ttd baru dengan menghapus background
+            $ttdImage = $request->file('ttd');
+            $ttdImagePath = $ttdImage->getPathname();
+            $outputTtdPath = storage_path('app/public/ttd/removed_' . $ttdImage->getClientOriginalName());
+            
+            $removeBg = new RemoveBg(config('removebg.api_key'));
+            $removeBg->file($ttdImagePath)->save($outputTtdPath);
+    
+            $ttdPath = '/ttd/removed_' . $ttdImage->getClientOriginalName();
+        }
+    
+        // Update data event
         $event->update([
             'nama_event' => $request->nama_event,
             'email' => $request->email,
@@ -162,8 +202,10 @@ $ttdPath = $request->hasFile('ttd')
             'user_id' => $request->user_id,
         ]);
     
-        return redirect()->route('superadmin.event')->with('success', 'Event updated successfully!');
+        // Redirect ke halaman event dengan pesan sukses
+        return redirect()->route('superadmin.event')->with('success', 'Event berhasil diperbarui!');
     }
+    
     
 
     /**
@@ -176,7 +218,10 @@ $ttdPath = $request->hasFile('ttd')
     {
         $delete_event = Event::findOrFail($id);
         $delete_event->delete();
-        return redirect()->route('superadmin.event');
+        return redirect()->route('superadmin.event')->with('success','Delete Event Successfully');
 
     }
+
+    
+
 }

@@ -97,6 +97,11 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::put('update/{id}', [UserController::class, 'update'])->name('superadmin.user.update');
         Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('superadmin.user.destroy');
     });
+
+
+    //bg
+    Route::get('/bg', [EventController::class, 'indexBg']);
+    Route::post('/remove-bg', [EventController::class, 'removeBackground'])->name('remove.bg');
 });
 
 // Admin Routes

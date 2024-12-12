@@ -15,8 +15,13 @@ class CreateCertificateTemplatesTable extends Migration
 {
     Schema::create('certificate_templates', function (Blueprint $table) {
         $table->id();
-        $table->string('name');
+        $table->string('nama_template');
         $table->string('preview'); 
+        $table->string('nama'); 
+        $table->string('deskripsi'); 
+        $table->string('tanggal'); 
+        $table->string('ttd'); 
+        $table->string('uid');  
         $table->timestamps();
     });
 }

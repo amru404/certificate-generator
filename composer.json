@@ -8,18 +8,20 @@
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^2.2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/promises": "^1.0",
+        "guzzlehttp/psr7": "^1.6.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "*",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "maatwebsite/excel": "3.1.32"
+        "maatwebsite/excel": "3.1.32",
+        "mtownsend/remove-bg": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
-        "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
         "phpunit/phpunit": "^9.5.10"

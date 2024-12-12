@@ -50,7 +50,6 @@
                     <li class="nav-item"><a class="nav-link text-white" href="{{ route('faq') }}">FAQ</a></li>
                 </ul>
                 <div class="d-flex gap-2">
-                    <a class="btn" style="background-color: #C0C8CA" href="{{ route('register') }}" role="button">Sign Up</a>
                     <a class="btn" style="background-color: #C0C8CA" href="{{ route('login') }}" role="button">Login</a>
                 </div>
             </div>
