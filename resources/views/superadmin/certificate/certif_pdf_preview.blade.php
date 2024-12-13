@@ -137,38 +137,38 @@
     <div class="certificate-container">
         <div style="position: relative; width: 100%; height: 100vh;">
 
-            <img src="{{ public_path('storage/' . $participant->certificate->certificate_templates->preview) }}"
+            <img src="{{ public_path('storage/' . $template->preview) }}"
                 style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;"
                 class="certificate-bg">
 
             <div class="content" style="text-align:center">
 
                 <h2 class="name" style="position: absolute; font-size: 32px; width: 520px; margin: 
-    {{ $participant->event->certificate->certificate_templates->nama ?? '0px' }};">
+    {{ $template->nama ?? '0px' }};">
 
-
-                    {{ $participant->nama }}
+                    amru azzam
                     <br>
 
                 </h2>
 
                 <div style="position: relative; width: 100%; height: 100vh;">
-                    <p class="deskripsi"
-                        style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
-    {{ $participant->event->certificate->certificate_templates->deskripsi ?? '0px' }};">
-                        {{ $participant->event->deskripsi }}
+                    <p class="deskripsi" style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
+    {{ $template->deskripsi ?? '0px' }};">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
+                        doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,
+                        consequatur nisi dignissimos harum eos tempore!
                     </p>
                 </div>
                 <h2 class="tgl" style="margin: 
-    {{ $participant->event->certificate->certificate_templates->tanggal ?? '0px' }};">
-                    {{ $participant->event->tanggal }}
+    {{ $template->tanggal ?? '0px' }};">
+                    02/10/2020
                 </h2>
 
-                <img src="{{ public_path('storage/' . $participant->event->ttd) }}" class="signatur-img" >
+                <img src="{{ public_path('storage/' . $template->certificate->event->ttd) }}" class="signatur-img">
 
                 <p class="uid" style="margin: 
-    {{ $participant->event->certificate->certificate_templates->uid ?? '0px' }};">
-                    UID : {{ $participant->certificate->id }}
+    {{ $template->uid ?? '0px' }};">
+                    UID : scr-123211231
                 </p>
             </div>
         </div>

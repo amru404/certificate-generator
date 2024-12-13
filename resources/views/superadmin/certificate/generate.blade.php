@@ -39,27 +39,27 @@
 
         <div class="row mt-4">
             <div class="col-4">
-                    <!-- <label for="nama" class="form-label">Margin Nama</label> -->
-            <input type="text" class="form-control" id="nama" name="nama" required placeholder="margin nama">
+                    <label for="nama" class="form-label">Margin Nama</label>
+            <input type="text" class="form-control" id="nama" name="nama" required placeholder="margin nama" value="0px 0px 0px 0px">
             </div>
             <div class="col-4">
-                    <!-- <label for="deskripsi" class="form-label">Margin Deskripsi</label> -->
-            <input type="text" class="form-control" id="deskripsi" name="deskripsi" required placeholder="margin deskripsi">
+                    <label for="deskripsi" class="form-label">Margin Deskripsi</label>
+            <input type="text" class="form-control" id="deskripsi" name="deskripsi" required placeholder="margin deskripsi"  value="0px 0px 0px 0px">
             </div>
             <div class="col-4">
-                    <!-- <label for="tanggal" class="form-label">Margin Tanggal</label> -->
-            <input type="text" class="form-control" id="tanggal" name="tanggal" required placeholder="margin tanggal">
+                    <label for="tanggal" class="form-label">Margin Tanggal</label>
+            <input type="text" class="form-control" id="tanggal" name="tanggal" required placeholder="margin tanggal"  value="0px 0px 0px 0px">
             </div>
         </div>
 
         <div class="row mt-4 mb-4">
             <div class="col-6">
-            <!-- <label for="ttd" class="form-label">Margin Ttd</label> -->
-            <input type="text" class="form-control" id="ttd" name="ttd" required placeholder="margin ttd">
+            <label for="ttd" class="form-label">Margin Ttd</label>
+            <input type="text" class="form-control" id="ttd" name="ttd" required placeholder="margin ttd"  value="0px 0px 0px 0px">
             </div>
             <div class="col-6">
-            <!-- <label for="uid" class="form-label">Margin UID</label> -->
-            <input type="text" class="form-control" id="uid" name="uid" required placeholder="margin uid">
+            <label for="uid" class="form-label">Margin UID</label>
+            <input type="text" class="form-control" id="uid" name="uid" required placeholder="margin uid"  value="0px 0px 0px 0px">
             </div>
         </div>
         
@@ -75,20 +75,22 @@
             <div class="btn-group">
             </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+        <div class="card-body text-center">
+            <table  class="table table-bordered table-striped text-center" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Preview Template</th>
-                    <th>Nama Template</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Preview Template</th>
+                    <th class="text-center">Nama Template</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>No</th>
-                    <th>Preview Template</th>
-                    <th>Nama Template</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Preview Template</th>
+                    <th class="text-center">Nama Template</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </tfoot>
 
@@ -100,7 +102,11 @@
                     <td>{{ $number }}</td>
                     <?php $number++; ?>
                     <td><img src="{{ asset('storage/' . $TC->preview) }}" alt="Logo Event" class="img-fluid" style="max-height: 100px;"></td>
-                    <td>{{$TC->nama_template}}</td>  
+                    <td>{{$TC->nama_template}}</td> 
+                    <td>
+                        <a href="{{ route('superadmin.certificate.editTemplate', $TC->id ) }}" class="btn btn-sm btn-warning"> Edit</a>
+                        <a href="{{ route('superadmin.certificate.showTemplate', $TC->id ) }}" class="btn btn-sm btn-success"> Preview</a>
+                    </td> 
                 </tr>
                 @endforeach
 

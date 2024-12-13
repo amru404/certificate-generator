@@ -33,12 +33,8 @@
                             <span>{{$certificate->event->nama_event}}</span>
                         </p>
                         <p class="d-flex justify-content-between">
-                            <strong>Issued By:</strong> 
-                            <span>{{$certificate->event->user->name}}</span>
-                        </p>
-                        <p class="d-flex justify-content-between">
                             <strong>Issue Date:</strong> 
-                            <span>{{$certificate->event->tanggal}}</span>
+                            <span>{{ \Carbon\Carbon::parse($certificate->event->tanggal)->translatedFormat('d F Y') }}</span>
                         </p>
                         <p class="d-flex justify-content-between">
                             <strong>Certificate UUID:</strong> 
@@ -46,15 +42,16 @@
                         </p>
                     </div>
 
+
+                    <div class="preview">
+                        
+                    </div>
+
                     <!-- Buttons -->
                     <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
                         <a href="{{ route('certif.pdf', $certificate->participant->id) }}" 
                            class="btn btn-dark d-flex align-items-center justify-content-center text-white px-4">
-                            <i class="bi bi-download me-2"></i> Download
-                        </a>
-                        <a href="#" 
-                           class="btn btn-dark d-flex align-items-center justify-content-center text-white px-4">
-                            <i class="bi bi-share me-2"></i> Share
+                            <i class="bi bi-download me-2"></i> Preview
                         </a>
                     </div>
                 </div>

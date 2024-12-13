@@ -146,10 +146,7 @@ class CertifController extends Controller
 
     public function generate($template_id)
     {
-        // Ambil template berdasarkan ID yang dipilih
         $template = Certificate::findOrFail($template_id);
-
-        // Tampilkan halaman generate sertifikat dengan data template yang dipilih
         return view('superadmin.certificate.generate', compact('template'));
     }
 
@@ -158,7 +155,6 @@ class CertifController extends Controller
     public function createTemplate(){
 
         $templateCertif = CertificateTemplate::all();
-        // dd($templateCertif);
 
         return view('superadmin.certificate.generate',compact('templateCertif'));
     }
@@ -192,4 +188,56 @@ class CertifController extends Controller
         ]);
         return redirect()->route('superadmin.certificate.createTemplate')->with('success', 'Add New Template successfully.');
     }
+
+
+
+
+    public function editTemplate($id){
+        $template = CertificateTemplate::findOrFail($id);
+        return view('superadmin.certificate.edit',compact('template'));
+    }
+
+    public function updateTemplate(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nama_template' => 'required|string|max:255',
+            'preview' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
+            'tanggal' => 'required|string|max:255',
+            'ttd' => 'required|string|max:255',
+            'uid' => 'required|string|max:255',
+        ]);
+
+        $template = CertificateTemplate::findOrFail($id);
+
+        if ($request->hasFile('preview')) {
+            $path = $request->file('preview')->store('sertif', 'public');
+            $template->preview = $path;
+        }
+
+        $template->nama_template = $validated['nama_template'];
+        $template->nama = $validated['nama'];
+        $template->deskripsi = $validated['deskripsi'];
+        $template->tanggal = $validated['tanggal'];
+        $template->ttd = $validated['ttd'];
+        $template->uid = $validated['uid'];
+        $template->save();
+
+        return redirect()->route('superadmin.certificate.createTemplate')->with('success', 'Edit Template successfully.');
+    }
+
+
+    public function showTemplate($id){
+        $template = CertificateTemplate::findOrFail($id);
+        if (!$template) {
+            abort(404, 'Certificate not found.');
+        }
+        
+        $pdf = PDF::loadView('superadmin.certificate.certif_pdf_preview', compact('template'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->stream("certif_.pdf");
+    }
+
 }

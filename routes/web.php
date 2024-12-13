@@ -86,6 +86,9 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::get('pdf/{id}', [CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
         Route::get('createTemplate', [CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
         Route::post('storeTemplate', [CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
+        Route::get('editTemplate/{id}', [CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
+        Route::put('updateTemplate/{id}', [CertifController::class, 'updateTemplate'])->name('superadmin.certificate.updateTemplate');
+        Route::get('showTemplate/{id}', [CertifController::class, 'showTemplate'])->name('superadmin.certificate.showTemplate');
     });
 
     // User Management Routes
