@@ -39,7 +39,7 @@
 
     #previewTtd {
         position: absolute;
-        right: -250px; /* Sesuaikan posisi tanda tangan */
+        right:0px; /* Sesuaikan posisi tanda tangan */
         top: 130px; /* Sesuaikan posisi tanda tangan */
         max-width: 150px;
         max-height: 100px;
@@ -106,11 +106,14 @@
     <p id="previewNama" style="position: absolute; margin: 0;">amru azzam</p>
     <p id="previewDeskripsi" style="position: absolute; margin: 0;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, culpa.</p>
     <p id="previewTanggal" style="position: absolute; margin: 0;">01/01/2024</p>
-    <img id="previewTtd" src="path-to-signature-image" alt="Tanda Tangan">
+    <img id="previewTtd" src="{{ asset('ttd/ttd.png') }}" alt="Tanda Tangan">
     <p id="previewUid" style="position: absolute; margin: 0;">UID: 123456789</p>
 </div>
 
     </div>
+
+
+
 
     <!-- Input margin -->
     <div class="row mt-4">

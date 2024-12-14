@@ -27,7 +27,7 @@
                     <input type="hidden" value="{{$template->id}}" name="id">
                     <img src="{{ asset('storage/'.$template->preview) }}"  class="card-img-top" alt="Template">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Template {{ $template->name }}</h5>
+                        <h5 class="card-title">Template {{ $template->nama_template }}</h5>
                         <button type="submit" class="btn" style="background-color:#2D3E50;color:white;" onclick="return confirm('Yakin ingin memilih template ini?')">Select</button>
                     </div>
                   </form>

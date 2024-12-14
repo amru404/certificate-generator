@@ -58,6 +58,17 @@ class EventController extends Controller
             'user_id' => 'required|string|max:255',
         ]);
     
+        $logoImage = $request->file('logo');
+        if ($logoImage && $logoImage->getSize() > 2048 * 1024) {
+            return redirect()->back()->with('error', 'Logo Harus Kurang Dari 2MB');
+        }
+
+        $ttdImage = $request->file('ttd');
+        if ($ttdImage && $ttdImage->getSize() > 2048 * 1024) {
+            return redirect()->back()->with('error', 'Tanda tangan Harus Kurang Dari 2MB');
+        }
+
+
         $logoPath = null;
         if ($request->hasFile('logo')) {
             $logoImage = $request->file('logo');

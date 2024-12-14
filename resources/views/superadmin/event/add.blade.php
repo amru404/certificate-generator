@@ -5,6 +5,20 @@
 @endsection
 
 @section('content')
+
+@if($errors->has('logo'))
+    <div class="alert alert-danger">
+        {{ $errors->first('logo') }}
+    </div>
+@endif
+
+@if($errors->has('ttd'))
+    <div class="alert alert-danger">
+        {{ $errors->first('ttd') }}
+    </div>
+@endif
+
+
 <div class="card-header py-3 d-flex justify-content-start mb-3">
     <div class="col-lg-12 margin-tb d-flex justify-content-start">
         <div>
@@ -40,7 +54,7 @@
 
     <div class="mb-3">
         <label for="logo" class="form-label">Logo</label>
-        <input type="file" class="form-control" name="logo" id="logo">
+        <input type="file" class="form-control" name="logo" id="logo"  accept="image/*" required>
     </div>
 
     <div class="row mb-3">
@@ -50,7 +64,6 @@
         </div>
         <div class="col-md-6">
             <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
-          
             <div class="mb-2">
             </div>
             <input type="file" class="form-control" name="ttd" id="ttd" accept="image/*" required>
