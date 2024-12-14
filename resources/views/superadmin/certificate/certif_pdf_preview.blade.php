@@ -38,11 +38,13 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: #000;
+            width: 90%;
         }
 
         .name {
             font-size: 2.5rem;
             font-weight: bold;
+            margin: 0;
         }
 
         .message {
@@ -54,6 +56,7 @@
             color: #000000d3;
             transform: translateX(-50%);
             font-size: 1rem;
+            bottom: 120px;
         }
 
         .uid {
@@ -62,6 +65,7 @@
             font-size: 1rem;
             font-weight: bold;
             color: #000000d3;
+            bottom: 100px;
         }
 
         .signatur-img {
@@ -75,6 +79,12 @@
             object-fit: contain;
         }
 
+        .deskripsi {
+            font-size: 1rem;
+            text-align: center;
+            margin: 0;
+        }
+
         @media (max-width: 480px) {
             .name {
                 font-size: 1.5rem;
@@ -85,6 +95,7 @@
                 font-size: 0.8rem !important;
                 top: 50px !important;
                 width: 100% !important;
+                margin-top: 10px;
             }
 
             .tgl,
@@ -136,44 +147,34 @@
 
     <div class="certificate-container">
         <div style="position: relative; width: 100%; height: 100vh;">
-
             <img src="{{ public_path('storage/' . $template->preview) }}"
                 style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;"
                 class="certificate-bg">
 
-            <div class="content" style="text-align:center">
+            <div class="content">
 
-                <h2 class="name" style="position: absolute; font-size: 32px; width: 520px; margin: 
-    {{ $template->nama ?? '0px' }};">
-
+                <h2 class="name" style="margin: {{ $template->nama ?? '0px' }};">
                     amru azzam
-                    <br>
-
                 </h2>
 
-                <div style="position: relative; width: 100%; height: 100vh;">
-                    <p class="deskripsi" style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
-    {{ $template->deskripsi ?? '0px' }};">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
-                        doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,
-                        consequatur nisi dignissimos harum eos tempore!
-                    </p>
-                </div>
-                <h2 class="tgl" style="margin: 
-    {{ $template->tanggal ?? '0px' }};">
+                <p class="deskripsi" style="margin: {{ $template->deskripsi ?? '0px' }};">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
+                    doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,
+                    consequatur nisi dignissimos harum eos tempore!
+                </p>
+
+                <h2 class="tgl" style="margin: {{ $template->tanggal }};">
                     02/10/2020
                 </h2>
 
-                <img src="{{ public_path('storage/' . $template->certificate->event->ttd) }}" class="signatur-img">
+                <img src="{{ public_path('ttd/ttd.png') }}" class="signatur-img">
 
-                <p class="uid" style="margin: 
-    {{ $template->uid ?? '0px' }};">
+                <p class="uid" style="margin: {{ $template->uid }};">
                     UID : scr-123211231
                 </p>
             </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>

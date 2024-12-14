@@ -55,20 +55,11 @@
             </div>
 
             <!-- Sign Up -->
-            <p class="text-center">Don't have an account? <a href="{{ route('register') }}" class="text-primary fw-bold">Sign Up Now</a></p>
         </form>
 
         <!-- Social Login Buttons -->
         <div class="text-center text-muted mb-3">OR</div>
-        <button class="btn btn-light w-100 mb-2">
-            <i class="fab fa-google me-2" style="color: #ff0707;"></i> Continue with Google
-        </button>
-        <button class="btn btn-light w-100 mb-2">
-            <i class="fab fa-facebook-f me-2" style="color: #1877F2;"></i> Continue with Facebook
-        </button>
-        <button class="btn btn-light w-100">
-            <i class="fab fa-apple me-2" style="color: #000;"></i> Continue with Apple
-        </button>
+       
     </div>
 </div>
 

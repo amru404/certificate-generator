@@ -5,9 +5,14 @@ namespace App\Imports;
 use App\Models\Participant;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 
 class ParticipantsImport implements ToModel, WithHeadingRow
 {
+    use SkipsFailures;
+
     protected $eventId;
 
     public function __construct($eventId)
@@ -15,26 +20,19 @@ class ParticipantsImport implements ToModel, WithHeadingRow
         $this->eventId = $eventId;
     }
 
-    /**
-     * @param array $row
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
-
     public function model(array $row)
     {
+        // Validasi kolom wajib
         if (empty($row['nama']) || empty($row['email']) || empty($row['no_telepon'])) {
-            // \Log::warning('Missing data for row: ' . json_encode($row));
             return null;
         }
 
-        // cek email
         $existingParticipant = Participant::where('email', $row['email'])
             ->where('event_id', $this->eventId)
             ->first();
 
         if ($existingParticipant) {
-            // \Log::info('email duplikat:' . json_encode($row));
-            return null; 
+            return null;
         }
 
         return new Participant([
@@ -45,12 +43,29 @@ class ParticipantsImport implements ToModel, WithHeadingRow
         ]);
     }
 
-    /**
-     * The heading row is the first row in the file (0-indexed).
-     * @return int
-     */
     public function headingRow(): int
     {
         return 1;
+    }
+
+    /**
+     * Validasi format header kolom.
+     */
+    public function validateHeaders(array $headers)
+    {
+        $expectedHeaders = ['nama', 'email', 'no_telepon'];
+
+        foreach ($expectedHeaders as $expectedHeader) {
+            if (!in_array($expectedHeader, $headers)) {
+                throw new \Exception('Kolom tidak sesuai. Harus terdapat: ' . implode(', ', $expectedHeaders));
+            }
+        }
+    }
+
+    public function onRowStart(int $rowIndex, array $headers)
+    {
+        if ($rowIndex === 1) {
+            $this->validateHeaders($headers);
+        }
     }
 }
