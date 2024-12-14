@@ -12,7 +12,8 @@
             <div class="p-4" style="max-width: 400px; width: 100%;">
                 <h1 class="mb-3">Forgot your password?</h1>
                 <p class="mb-4">No worries! Just enter your email, and we'll send you a code to reset it.</p>
-                <form action="/password/reset" method="GET">
+                <form action="{{route('password.email')}}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Enter your email address</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your registered email" required>

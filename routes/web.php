@@ -31,12 +31,6 @@ Route::prefix('register')->group(function () {
 });
 
 // Forgot Password Routes
-Route::prefix('password')->group(function () {
-    Route::get('reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-    Route::get('reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('reset', [ForgotPasswordController::class, 'reset'])->name('password.update');
-});
 
 // FAQ Route
 Route::get('/faq', fn() => view('faq'))->name('faq');

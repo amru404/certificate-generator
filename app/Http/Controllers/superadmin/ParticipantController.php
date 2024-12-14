@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\superadmin;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Participant;
 use App\Imports\ParticipantsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TemplateExport;
-use Illuminate\Support\Facades\Validator;
 
 
 
@@ -35,11 +35,26 @@ class ParticipantController extends Controller
 
     public function import_store(Request $request)
     {
-        $eventId = $request->event_id;
-        Excel::import(new ParticipantsImport($eventId), $request->file('file'));
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
 
-        return redirect()->to(url("/superadmin/event/show/{$eventId}"))->with('success', 'Participants imported successfully.');
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'File tidak valid. Pastikan file berformat .xlsx atau .csv');
+        }
+    
+        $eventId = $request->event_id;
+    
+        try {
+            Excel::import(new ParticipantsImport($eventId), $request->file('file'));
+        } catch (\Exception $e) {
+            // \Log::error('Import error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Format file tidak sesuai: ' . $e->getMessage());
+        }
+        return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+            ->with('success', 'Participants imported successfully.');
     }
+    
 
     public function export_template()
     {
