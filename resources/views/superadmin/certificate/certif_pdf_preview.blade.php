@@ -43,6 +43,7 @@
         .name {
             font-size: 2.5rem;
             font-weight: bold;
+            margin-top: 120px;
         }
 
         .message {
@@ -50,17 +51,21 @@
         }
 
         .tgl {
-            position: absolute;
+            position: absolute; 
+            top: 200px;
+            left: -180px;
             color: #000000d3;
             transform: translateX(-50%);
             font-size: 1rem;
         }
 
         .uid {
-            position: absolute;
-            transform: translateX(-50%);
+            position: absolute; 
+            top: 280px; 
+            left: -310px;
+            transform: translateX(-50%); 
             font-size: 1rem;
-            font-weight: bold;
+            font-weight:bold; 
             color: #000000d3;
         }
 
@@ -91,6 +96,7 @@
             .uid {
                 font-size: 0.8rem;
                 text-align: center;
+                margin-top: 15px;
             }
 
             .signatur-img {
@@ -143,16 +149,16 @@
 
             <div class="content" style="text-align:center">
 
-                <h2 class="name" style="position: absolute; font-size: 32px; width: 520px; margin: 
+                <h2 class="name" style="position: absolute; top: -120px;left:-170px;font-size: 32px; width:520px"
     {{ $template->nama ?? '0px' }};">
 
-                    amru azzam
+                    Yudha Wisma Wardani
                     <br>
 
                 </h2>
 
                 <div style="position: relative; width: 100%; height: 100vh;">
-                    <p class="deskripsi" style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
+                    <p class="deskripsi" style="position: absolute; top: 75px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center;" 
     {{ $template->deskripsi ?? '0px' }};">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
                         doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,

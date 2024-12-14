@@ -20,6 +20,9 @@ class CertifController extends Controller
 {
     public function index()
     {
+        $templateCertif = CertificateTemplate::all();
+
+    return view('superadmin.certificate.generate', compact('templateCertif'));
 
     }
 
@@ -57,8 +60,19 @@ class CertifController extends Controller
                     'signature' => $event->ttd,
                 ]);
 
-                
-            SendCertificateEmailJob::dispatch($participant, $certificate);
+                // Generate PDF setelah sertifikat dibuat
+            $pdf = PDF::loadView('superadmin.certificate.certif_pdf', compact('certificate', 'participant', 'event'));
+            $pdf->setPaper('A4', 'landscape');
+            
+            // Tentukan path penyimpanan file PDF
+            $fileName = 'certificate-' . $certificate->id . '.pdf';
+            $filePath = storage_path('app/public/certificates/' . $fileName);
+
+            // Simpan PDF ke dalam storage
+            $pdf->save($filePath);
+
+            // Kirim email sertifikat
+            SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
         } else {
             \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
             return redirect()->to(url("/superadmin/event/show/{$eventId}"))
@@ -134,6 +148,8 @@ class CertifController extends Controller
         return $pdf->stream("certif_$nama.pdf");
     }
 
+    
+
     public function template()
     {
         $templates = [
@@ -152,12 +168,14 @@ class CertifController extends Controller
 
 
 
-    public function createTemplate(){
+    public function createTemplate()
+{
+    $templateCertif = CertificateTemplate::all();
+    $participant = Participant::with(['certificate', 'certificate.certificate_templates', 'event'])->first();
 
-        $templateCertif = CertificateTemplate::all();
+    return view('superadmin.certificate.generate', compact('templateCertif', 'participant'));
+}
 
-        return view('superadmin.certificate.generate',compact('templateCertif'));
-    }
     
     public function storeTemplate(request $request) 
     {
@@ -239,5 +257,24 @@ class CertifController extends Controller
         
         return $pdf->stream("certif_.pdf");
     }
+
+    public function saveMargin(Request $request)
+{
+    $request->validate([
+        'field' => 'required|string',
+        'margin' => 'required|string',
+    ]);
+
+    // Ambil template yang sedang digunakan
+    $template = CertificateTemplate::findOrFail($request->template_id); 
+
+    // Update field margin
+    $field = $request->field;
+    $template->$field = $request->margin;
+    $template->save();
+
+    return response()->json(['message' => 'Margin updated successfully']);
+}
+
 
 }

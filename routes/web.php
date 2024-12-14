@@ -176,3 +176,5 @@ Route::get('/certificate/result', fn() => view('virified', [
 Route::get('certificate/verification',[App\Http\Controllers\LandingController::class, 'indexVerification'])->name('certif.verfication');
 Route::post('certificate/verification/result',[App\Http\Controllers\LandingController::class, 'storeVerification'])->name('certif.verfication.result');
 Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('certif.pdf');
+
+Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'saveMargin']);
