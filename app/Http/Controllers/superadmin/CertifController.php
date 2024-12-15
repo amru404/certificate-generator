@@ -11,6 +11,7 @@ use App\Models\Participant;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Options;
 use App\Mail\CertificateMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CertificateTemplate;
@@ -39,18 +40,20 @@ class CertifController extends Controller
     {
         $event = Event::findOrFail($eventId);
         $participants = $event->participants;
-
+    
         if (!$participants || $participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->to(url("/superadmin/event/show/{$eventId}"))->with('error', 'No participants found for this event.');
+            return redirect()->to(url("/admin/event/show/{$eventId}"))
+                ->with('error', 'No participants found for this event.');
         }
-
+    
         foreach ($participants as $participant) {
             $existingCertificate = Certificate::where('event_id', $event->id)
                 ->where('participant_id', $participant->id)
                 ->first();
-
+    
             if (!$existingCertificate) {
+                // Buat sertifikat baru
                 $certificate = Certificate::create([
                     'id' => 'stf-' . Str::random(7),
                     'event_id' => $event->id,
@@ -60,30 +63,62 @@ class CertifController extends Controller
                     'signature' => $event->ttd,
                 ]);
 
-                // Generate PDF setelah sertifikat dibuat
-            $pdf = PDF::loadView('superadmin.certificate.certif_pdf', compact('certificate', 'participant', 'event'));
-            $pdf->setPaper('A4', 'landscape');
-            
-            // Tentukan path penyimpanan file PDF
-            $fileName = 'certificate-' . $certificate->id . '.pdf';
-            $filePath = storage_path('app/public/certificates/' . $fileName);
-
-            // Simpan PDF ke dalam storage
-            $pdf->save($filePath);
-
-            // Kirim email sertifikat
-            SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
-        } else {
-            \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-            return redirect()->to(url("/superadmin/event/show/{$eventId}"))
-                ->with('error', 'The certificate has been created previously.');
-        }
-    }
-
-    return redirect()->to(url("/superadmin/event/show/{$eventId}"))
-        ->with('success', 'Participants imported and emails sent successfully.');
-    }
+                dd($participant->event->certificate->certificate_templates);
     
+                // Ambil margin dari template
+                $namaMargin = is_numeric($participant->event->certificate->certificate_templates->nama ?? null)
+    ? round((float)$participant->event->certificate->certificate_templates->nama) . 'mm'
+    : '0mm';
+
+$deskripsiMargin = is_numeric($participant->event->certificate->certificate_templates->deskripsi ?? null)
+    ? round((float)$participant->event->certificate->certificate_templates->deskripsi) . 'mm'
+    : '0mm';
+
+$tanggalMargin = is_numeric($participant->event->certificate->certificate_templates->tanggal ?? null)
+    ? round((float)$participant->event->certificate->certificate_templates->tanggal) . 'mm'
+    : '0mm';
+
+$ttdMargin = is_numeric($participant->event->certificate->certificate_templates->ttd ?? null)
+    ? round((float)$participant->event->certificate->certificate_templates->ttd) . 'mm'
+    : '0mm';
+
+$uidMargin = is_numeric($participant->event->certificate->certificate_templates->uid ?? null)
+    ? round((float)$participant->event->certificate->certificate_templates->uid) . 'mm'
+    : '0mm';
+
+// Generate PDF
+$pdf = PDF::loadView('superadmin.certificate.certif_pdf', [
+    'certificate' => $certificate,
+    'participant' => $participant,
+    'event' => $event,
+    'namaMargin' => $namaMargin,
+    'deskripsiMargin' => $deskripsiMargin,
+    'tanggalMargin' => $tanggalMargin,
+    'ttdMargin' => $ttdMargin,
+    'uidMargin' => $uidMargin,
+]);
+
+    
+$pdf->setPaper([0, 0, 595.28, 841.89], 'landscape'); // Custom ukuran A4 dalam point
+
+    
+                // Simpan PDF ke dalam penyimpanan
+                $fileName = 'certificate-' . $certificate->id . '.pdf';
+                $filePath = storage_path('app/public/certificates/' . $fileName);
+                $pdf->save($filePath);
+    
+                // Kirim email sertifikat
+                SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
+            } else {
+                // Log info, tapi tetap lanjut ke peserta berikutnya
+                \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
+            }
+        }
+    
+        // Setelah semua peserta diproses
+        return redirect()->to(url("/admin/event/show/{$eventId}"))
+            ->with('success', 'Participants imported and emails sent successfully.');
+    } 
     
     public function show($id)
     {
@@ -275,6 +310,48 @@ class CertifController extends Controller
 
     return response()->json(['message' => 'Margin updated successfully']);
 }
+
+
+
+public function generatePdf(Request $request, $participantId)
+{
+    $participant = Participant::with('event.certificate_templates')->findOrFail($participantId);
+    $template = $participant->event->certificate_templates;
+
+    if (!$template) {
+        return response()->json(['error' => 'Template tidak ditemukan'], 404);
+    }
+
+    // Dimensi kontainer PDF
+    $pdfWidth = 794;  // Lebar A4 (landscape) dalam pixel (1/96 inch)
+    $pdfHeight = 1123; // Tinggi A4 dalam pixel (1/96 inch)
+
+    $namaMargin = $this->convertMarginToPx((float) ($template->nama ?? 20), $pdfHeight);
+    $deskripsiMargin = $this->convertMarginToPx((float) ($template->deskripsi ?? 30), $pdfHeight);
+    $tanggalMargin = $this->convertMarginToPx((float) ($template->tanggal ?? 40), $pdfHeight);
+    $ttdMargin = $this->convertMarginToPx((float) ($template->ttd ?? 50), $pdfHeight);
+    $uidMargin = $this->convertMarginToPx((float) ($template->uid ?? 60), $pdfHeight);
+
+    // Render PDF
+    $pdf = PDF::loadView('admin.certificate.certif_pdf', compact(
+        'participant',
+        'namaMargin',
+        'deskripsiMargin',
+        'tanggalMargin',
+        'ttdMargin',
+        'uidMargin'
+    ))->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+    $pdf->setPaper('A4', 'landscape');
+
+    return $pdf->stream("certificate-{$participant->id}.pdf");
+}
+
+private function convertMarginToPx($percentage, $dimension)
+{
+    return round(($percentage / 100) * $dimension) . 'px';
+}
+
+
 
 
 }

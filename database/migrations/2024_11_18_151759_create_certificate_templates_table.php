@@ -17,11 +17,11 @@ class CreateCertificateTemplatesTable extends Migration
         $table->id();
         $table->string('nama_template');
         $table->string('preview'); 
-        $table->string('nama')->default('0px 0px 0px 0px');
-        $table->string('deskripsi')->default('0px 0px 0px 0px');
-        $table->string('tanggal')->default('0px 0px 0px 0px');
-        $table->string('ttd')->default('0px 0px 0px 0px');
-        $table->string('uid')->default('0px 0px 0px 0px');
+        $table->string('nama')->default(0);
+        $table->string('deskripsi')->default(0);
+        $table->string('tanggal')->default(0);
+        $table->string('ttd')->default(0);
+        $table->string('uid')->default(0);
         $table->timestamps();
     });
 }

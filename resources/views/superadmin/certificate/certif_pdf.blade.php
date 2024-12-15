@@ -40,42 +40,7 @@
             color: #000;
         }
 
-        .name {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        .message {
-            font-size: 18px;
-        }
-
-        .tgl {
-            position: absolute;
-            color: #000000d3;
-            transform: translateX(-50%);
-            font-size: 1rem;
-        }
-
-        .uid {
-            position: absolute;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            font-weight: bold;
-            color: #000000d3;
-        }
-
-        .signatur-img {
-            position: absolute;
-            top: 130px;
-            right: -250px;
-            max-width: 150px;
-            max-height: 100px;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-        }
-
-        @media (max-width: 480px) {
+        /* @media (max-width: 480px) {
             .name {
                 font-size: 1.5rem;
                 margin-top: 40px;
@@ -127,7 +92,7 @@
                 max-width: 120px;
                 height: auto;
             }
-        }
+        } */
 
     </style>
 </head>
