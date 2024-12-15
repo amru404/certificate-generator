@@ -15,13 +15,24 @@ class SettingController extends Controller
         return view('layouts_dashboard.setting',compact('user')); 
     }
 
-
-    public function updateUser(request $request, string $id)
+    public function updateUser(Request $request, string $id)
     {
+        // Validasi input
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id, // Pengecualian untuk email yang sedang diperbarui
+            'no_telp' => 'required|string',
+            'gender' => 'required|string',
+            'country' => 'required|string',
+            'city' => 'required|string',
+            'post_code' => 'required|string',
+            'state' => 'required|string',
+        ]);
     
+        // Cari user berdasarkan ID
         $user = User::findOrFail($id);
     
-        
+        // Update data user
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -32,7 +43,10 @@ class SettingController extends Controller
             'post_code' => $request->post_code,
             'state' => $request->state,
         ]);
-
+    
+        // Mengirimkan pesan sukses
         return redirect()->route('setting')->with('success', 'Edit Profile successfully.');
     }
+    
+    
 }

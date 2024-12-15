@@ -44,12 +44,7 @@
                     <li class="list-group-item active" onclick="setActive(this)">
                         <i class="bi bi-people me-2"></i> General Information
                     </li>
-                    <li class="list-group-item" onclick="setActive(this)">
-                        <i class="bi bi-key me-2"></i> Change Password
-                    </li>
-                    <li class="list-group-item" onclick="setActive(this)">
-                        <i class="bi bi-bell me-2"></i> Notification
-                    </li>
+                    
                     <li class="list-group-item" data-bs-toggle="modal" data-bs-target="#logoutModal"
                         onclick="setActive(this)">
                         <i class="bi bi-box-arrow-right me-2"></i> Logout
@@ -70,19 +65,25 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Profile Name</label>
-                                    <input type="text" class="form-control" id="name" value="{{$user->name}}" name="name">
+                                    <input type="text" class="form-control" id="name" value="{{$user->name}}" name="name" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" value="{{$user->email}}" name="email">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                        id="email" value="{{ old('email', $user->email) }}" name="email" required>
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="no_telp" class="form-label">Phone Number</label>
-                                    <input type="number" class="form-control" id="no_telp" value="{{$user->no_telp}}" name="no_telp">
+                                    <input type="number" class="form-control" id="no_telp" value="{{$user->no_telp}}" name="no_telp" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-select" id="gender" name="gender">
+                                    <select class="form-select" id="gender" name="gender" required>
                                         <option value="" disabled {{ $user->gender == null ? 'selected' : '' }}>Select Gender</option>
                                         <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>Male</option>
                                         <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>Female</option>
@@ -95,19 +96,19 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="country" class="form-label">Country</label>
-                                    <input type="text" class="form-control" id="country" value="{{$user->country}}" name="country">
+                                    <input type="text" class="form-control" id="country" value="{{$user->country}}" name="country" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="city" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="city" value="{{$user->city}}" name="city">
+                                    <input type="text" class="form-control" id="city" value="{{$user->city}}" name="city" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="postcode" class="form-label">Postcode</label>
-                                    <input type="text" class="form-control" id="postcode" value="{{$user->post_code}}" name="post_code">
+                                    <input type="text" class="form-control" id="postcode" value="{{$user->post_code}}" name="post_code" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="state" class="form-label">State</label>
-                                    <input type="text" class="form-control" id="state" value="{{$user->state}}" name="state">
+                                    <input type="text" class="form-control" id="state" value="{{$user->state}}" name="state" required>
                                 </div>
                             </div>
                             <button type="button" class="btn btn-outline-secondary me-2">Cancel</button>

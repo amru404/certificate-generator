@@ -32,9 +32,6 @@
         <a href="{{ route('setting') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-gear me-2"></i> <span class="menu-text">Setting</span>
         </a>
-        <a href="#" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
-            <i class="bi bi-question-circle me-2"></i> <span class="menu-text">Help</span>
-        </a>
     @endif
 
     @if (Auth::user() && Auth::user()->role === 'admin')
@@ -60,9 +57,6 @@
         </a>
         <a href="{{ route('setting') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-gear me-2"></i> <span class="menu-text">Setting</span>
-        </a>
-        <a href="#" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
-            <i class="bi bi-question-circle me-2"></i> <span class="menu-text">Help</span>
         </a>
     @endif
 
