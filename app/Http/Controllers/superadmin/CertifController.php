@@ -133,6 +133,7 @@ class CertifController extends Controller
     
         $nama = $certif->participant->nama;
         
+        
         $pdf = PDF::loadView('superadmin.certificate.certif_pdf', compact('certif', 'participant'));
         $pdf->setPaper('A4', 'landscape');
         
