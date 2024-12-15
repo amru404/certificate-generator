@@ -5,6 +5,33 @@
 @endsection
 
 @section('content')
+
+@if($errors->has('logo'))
+    <div class="alert alert-danger">
+        {{ $errors->first('logo') }}
+    </div>
+@endif
+
+@if($errors->has('ttd'))
+    <div class="alert alert-danger">
+        {{ $errors->first('ttd') }}
+    </div>
+@endif
+
+
+@if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
+@endif
+
+
 <div class="card-header py-3 d-flex justify-content-start mb-3">
     <div class="row">
         <div class="col-lg-12 margin-tb d-flex justify-content-start">
@@ -71,7 +98,7 @@
             <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
             @if(!empty($event->ttd))
             <div class="mb-2">
-                <img src="{{ asset('storage/' . $event->ttd) }}" alt="Tanda Tangan Saat Ini" class="img-thumbnail" style="max-width: 200px; max-height: 100px;">
+                <img src="{{ asset('storage/' . $event->ttd) }}" alt="Tanda Tangan Saat Ini" class="img-thumbnail" style="max-width: 200px; max-height: 100px;" accept="image/*">
             </div>
             @endif
             <input type="file" class="form-control" name="ttd" id="ttd" accept="image/*">

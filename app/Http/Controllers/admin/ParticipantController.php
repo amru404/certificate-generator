@@ -31,10 +31,23 @@ class ParticipantController extends Controller
 
     public function import_store(Request $request)
     {
-        $eventId = $request->event_id;
-        Excel::import(new ParticipantsImport($eventId), $request->file('file'));
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
 
-        return redirect()->to(url("/admin/event/show/{$eventId}"))->with('success', 'Participants imported successfully.');
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'File tidak valid. Pastikan file berformat .xlsx atau .csv');
+        }
+    
+        $eventId = $request->event_id;
+    
+        try {
+            Excel::import(new ParticipantsImport($eventId), $request->file('file'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Format file tidak sesuai: ' . $e->getMessage());
+        }
+        return redirect()->to(url("/admin/event/show/{$eventId}"))
+            ->with('success', 'Participants imported successfully.');
     }
 
     public function export_template()

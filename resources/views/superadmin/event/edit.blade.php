@@ -5,6 +5,34 @@
 @endsection
 
 @section('content')
+
+
+@if($errors->has('logo'))
+    <div class="alert alert-danger">
+        {{ $errors->first('logo') }}
+    </div>
+@endif
+
+@if($errors->has('ttd'))
+    <div class="alert alert-danger">
+        {{ $errors->first('ttd') }}
+    </div>
+@endif
+
+
+@if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
+@endif
+
+
 <div class="card-header py-3 d-flex justify-content-start mb-3">
     <div class="row">
         <div class="col-lg-12 margin-tb d-flex justify-content-start">

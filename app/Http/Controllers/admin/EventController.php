@@ -45,6 +45,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate request
         $this->validate($request, [
             'nama_event' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -56,33 +57,52 @@ class EventController extends Controller
             'user_id' => 'required|string|max:255',
         ]);
     
+        
+        $logoImage = $request->file('logo');
+        if ($logoImage && $logoImage->getSize() > 2048 * 1024) {
+            return redirect()->back()->with('error', 'Logo Harus Kurang Dari 2MB');
+        }
+    
+        
+        $ttdImage = $request->file('ttd');
+        if ($ttdImage && $ttdImage->getSize() > 2048 * 1024) {
+            return redirect()->back()->with('error', 'Tanda tangan Harus Kurang Dari 2MB');
+        }
+    
+    
         $logoPath = null;
         if ($request->hasFile('logo')) {
             $logoImage = $request->file('logo');
             $logoImagePath = $logoImage->getPathname();
             
             $outputLogoPath = storage_path('app/public/logos/removed_' . $logoImage->getClientOriginalName());
-
-            $removeBg = new RemoveBg(config('removebg.api_key'));
-            $removeBg->file($logoImagePath)->save($outputLogoPath);
-            
-            $logoPath = '/logos/removed_' . $logoImage->getClientOriginalName();
+    
+            try {
+                $removeBg = new RemoveBg(config('removebg.api_key'));
+                $removeBg->file($logoImagePath)->save($outputLogoPath);
+                $logoPath = '/logos/removed_' . $logoImage->getClientOriginalName();
+            } catch (\Exception $e) {
+                \Log::error('RemoveBg error for logo' . $e->getMessage());
+                return redirect()->back()->with('error', 'Gagal remove background logo');
+            }
         }
-
         
         $ttdPath = null;
         if ($request->hasFile('ttd')) {
             $ttdImage = $request->file('ttd');
             $ttdImagePath = $ttdImage->getPathname();
-
+    
             $outputTtdPath = storage_path('app/public/ttd/removed_' . $ttdImage->getClientOriginalName());
-        
-            $removeBg = new RemoveBg(config('removebg.api_key')); 
-            $removeBg->file($ttdImagePath)->save($outputTtdPath);
-        
-            $ttdPath = '/ttd/removed_' . $ttdImage->getClientOriginalName();
+    
+            try {
+                $removeBg = new RemoveBg(config('removebg.api_key'));
+                $removeBg->file($ttdImagePath)->save($outputTtdPath);
+                $ttdPath = '/ttd/removed_' . $ttdImage->getClientOriginalName();
+            } catch (\Exception $e) {
+                \Log::error('RemoveBg error for ttd' . $e->getMessage());
+                return redirect()->back()->with('error', 'Gagal remove background tanda tangan:');
+            }
         }
-        
     
         
         Event::create([
@@ -92,11 +112,11 @@ class EventController extends Controller
             'deskripsi' => $request->deskripsi,
             'logo' => $logoPath,
             'tanggal' => $request->tanggal,
-            'ttd' => $ttdPath,          
+            'ttd' => $ttdPath,
             'user_id' => $request->user_id,
         ]);
     
-        return redirect()->route('admin.event');
+        return redirect()->route('admin.event')->with('success', 'Event created successfully!');
     }
 
 
@@ -142,54 +162,64 @@ class EventController extends Controller
             'email' => 'required|email|max:255',
             'no_telp' => 'required|numeric',
             'deskripsi' => 'nullable|string',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
             'ttd' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required|string|max:255',
         ]);
-    
-        // Cari data event berdasarkan ID
+
+        $logoImage = $request->file('logo');
+        if ($logoImage && $logoImage->getSize() > 2048 * 1024) {
+            return redirect()->back()->with('error', 'Logo Harus Kurang Dari 2MB');
+        }
+
+        $ttdImage = $request->file('ttd');
+        if ($ttdImage && $ttdImage->getSize() > 2048 * 1024) {
+            return redirect()->back()->with('error', 'Tanda tangan Harus Kurang Dari 2MB');
+        }
+
         $event = Event::findOrFail($id);
-    
-        // Mengolah logo
+
         $logoPath = $event->logo;
         if ($request->hasFile('logo')) {
             if ($event->logo) {
-                // Hapus logo lama
                 Storage::disk('public')->delete($event->logo);
             }
-    
-            // Proses logo baru dengan menghapus background
+
             $logoImage = $request->file('logo');
             $logoImagePath = $logoImage->getPathname();
             $outputLogoPath = storage_path('app/public/logos/removed_' . $logoImage->getClientOriginalName());
-            
-            $removeBg = new RemoveBg(config('removebg.api_key'));
-            $removeBg->file($logoImagePath)->save($outputLogoPath);
-    
-            $logoPath = '/logos/removed_' . $logoImage->getClientOriginalName();
+
+            try {
+                $removeBg = new RemoveBg(config('removebg.api_key'));
+                $removeBg->file($logoImagePath)->save($outputLogoPath);
+                $logoPath = '/logos/removed_' . $logoImage->getClientOriginalName();
+            } catch (\Exception $e) {
+                \Log::error('RemoveBg error for logo ');
+                return redirect()->back()->with('error', 'Gagal remove background logo');
+            }
         }
-    
-        // Mengolah ttd
+
         $ttdPath = $event->ttd;
         if ($request->hasFile('ttd')) {
             if ($event->ttd) {
-                // Hapus ttd lama
                 Storage::disk('public')->delete($event->ttd);
             }
-    
-            // Proses ttd baru dengan menghapus background
+
             $ttdImage = $request->file('ttd');
             $ttdImagePath = $ttdImage->getPathname();
             $outputTtdPath = storage_path('app/public/ttd/removed_' . $ttdImage->getClientOriginalName());
-            
-            $removeBg = new RemoveBg(config('removebg.api_key'));
-            $removeBg->file($ttdImagePath)->save($outputTtdPath);
-    
-            $ttdPath = '/ttd/removed_' . $ttdImage->getClientOriginalName();
+
+            try {
+                $removeBg = new RemoveBg(config('removebg.api_key'));
+                $removeBg->file($ttdImagePath)->save($outputTtdPath);
+                $ttdPath = '/ttd/removed_' . $ttdImage->getClientOriginalName();
+            } catch (\Exception $e) {
+                \Log::error('RemoveBg error for ttd');
+                return redirect()->back()->with('error', 'Gagal remove background tanda tangan');
+            }
         }
-    
-        // Update data event
+
         $event->update([
             'nama_event' => $request->nama_event,
             'email' => $request->email,
@@ -200,8 +230,7 @@ class EventController extends Controller
             'ttd' => $ttdPath,
             'user_id' => $request->user_id,
         ]);
-    
-        // Redirect ke halaman event dengan pesan sukses
+
         return redirect()->route('admin.event')->with('success', 'Event berhasil diperbarui!');
     }
     

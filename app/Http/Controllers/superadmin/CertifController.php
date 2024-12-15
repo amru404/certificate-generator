@@ -43,7 +43,7 @@ class CertifController extends Controller
     
         if (!$participants || $participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->to(url("/admin/event/show/{$eventId}"))
+            return redirect()->to(url("/superadmin/event/show/{$eventId}"))
                 ->with('error', 'No participants found for this event.');
         }
     
@@ -64,6 +64,27 @@ class CertifController extends Controller
                 ]);
 
                 dd($participant->event->certificate->certificate_templates);
+            if ($existingCertificate) {
+                \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
+                // Skip ke peserta berikutnya
+                continue;
+            }
+    
+            $certificate = Certificate::create([
+                'id' => 'stf-' . Str::random(7),
+                'event_id' => $event->id,
+                'participant_id' => $participant->id,
+                'style' => 'style 1',
+                'certificate_templates_id' => $request->id,
+                'signature' => $event->ttd,
+            ]);
+    
+            SendCertificateEmailJob::dispatch($participant, $certificate);
+        }
+    
+        return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+            ->with('success', 'Participants imported and emails sent successfully.');
+    }
     
                 // Ambil margin dari template
                 $namaMargin = is_numeric($participant->event->certificate->certificate_templates->nama ?? null)
