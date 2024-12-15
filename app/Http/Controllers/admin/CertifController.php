@@ -48,6 +48,47 @@ class CertifController extends Controller
                 ->where('participant_id', $participant->id)
                 ->first();
     
+            if (!$existingCertificate) {
+                // Buat sertifikat baru
+                $certificate = Certificate::create([
+                    'id' => 'stf-' . Str::random(7),
+                    'event_id' => $event->id,
+                    'participant_id' => $participant->id,
+                    'style' => 'style 1',
+                    'certificate_templates_id' => $request->id,
+                    'signature' => $event->ttd,
+                ]);
+    
+                // Ambil margin dari template
+                $namaMargin = round($participant->event->certificate->certificate_templates->nama ?? 0) . 'px';
+                $deskripsiMargin = round($participant->event->certificate->certificate_templates->deskripsi ?? 0) . 'px';
+                $tanggalMargin = round($participant->event->certificate->certificate_templates->tanggal ?? 0) . 'px';
+                $ttdMargin = round($participant->event->certificate->certificate_templates->ttd ?? 0) . 'px';
+                $uidMargin = round($participant->event->certificate->certificate_templates->uid ?? 0) . 'px';
+    
+                // Generate PDF
+                $pdf = PDF::loadView('superadmin.certificate.certif_pdf', [
+                    'certificate' => $certificate,
+                    'participant' => $participant,
+                    'event' => $event,
+                    'namaMargin' => $namaMargin,
+                    'deskripsiMargin' => $deskripsiMargin,
+                    'tanggalMargin' => $tanggalMargin,
+                    'ttdMargin' => $ttdMargin,
+                    'uidMargin' => $uidMargin,
+                ]);
+    
+                $pdf->setPaper('A4', 'landscape');
+    
+                // Simpan PDF ke dalam penyimpanan
+                $fileName = 'certificate-' . $certificate->id . '.pdf';
+                $filePath = storage_path('app/public/certificates/' . $fileName);
+                $pdf->save($filePath);
+    
+                // Kirim email sertifikat
+                SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
+            } else {
+                // Log info, tapi tetap lanjut ke peserta berikutnya
             if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
                 // return redirect()->to(url("/superadmin/event/show/{$eventId}"))
@@ -70,8 +111,7 @@ class CertifController extends Controller
     
         return redirect()->to(url("/admin/event/show/{$eventId}"))
             ->with('success', 'Participants imported and emails sent successfully.');
-    }
-    
+    }  
     
     
     public function search(Request $request)

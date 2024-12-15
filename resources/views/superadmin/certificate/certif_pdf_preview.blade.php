@@ -44,7 +44,6 @@
         .name {
             font-size: 2.5rem;
             font-weight: bold;
-            margin: 0;
         }
 
         .message {
@@ -52,7 +51,9 @@
         }
 
         .tgl {
-            position: absolute;
+            position: absolute; 
+            top: 200px;
+            left: -180px;
             color: #000000d3;
             transform: translateX(-50%);
             font-size: 1rem;
@@ -60,10 +61,12 @@
         }
 
         .uid {
-            position: absolute;
-            transform: translateX(-50%);
+            position: absolute; 
+            top: 280px; 
+            left: -310px;
+            transform: translateX(-50%); 
             font-size: 1rem;
-            font-weight: bold;
+            font-weight:bold; 
             color: #000000d3;
             bottom: 100px;
         }
@@ -102,6 +105,7 @@
             .uid {
                 font-size: 0.8rem;
                 text-align: center;
+                margin-top: 15px;
             }
 
             .signatur-img {
@@ -153,17 +157,24 @@
 
             <div class="content">
 
-                <h2 class="name" style="margin: {{ $template->nama ?? '0px' }};">
+                <h2 class="name" style="position: absolute; font-size: 32px; width: 520px; margin: 
+    {{ $template->nama ?? '0px' }};">
+
                     amru azzam
+                    <br>
+
                 </h2>
 
-                <p class="deskripsi" style="margin: {{ $template->deskripsi ?? '0px' }};">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
-                    doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,
-                    consequatur nisi dignissimos harum eos tempore!
-                </p>
-
-                <h2 class="tgl" style="margin: {{ $template->tanggal }};">
+                <div style="position: relative; width: 100%; height: 100vh;">
+                    <p class="deskripsi" style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
+    {{ $template->deskripsi ?? '0px' }};">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
+                        doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,
+                        consequatur nisi dignissimos harum eos tempore!
+                    </p>
+                </div>
+                <h2 class="tgl" style="margin: 
+    {{ $template->tanggal ?? '0px' }};">
                     02/10/2020
                 </h2>
 
