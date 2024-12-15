@@ -50,8 +50,19 @@
                     <li class="nav-item"><a class="nav-link text-white" href="{{ route('faq') }}">FAQ</a></li>
                 </ul>
                 <div class="d-flex gap-2">
+                @auth
+                    @if (auth()->user()->role === 'super-admin')
+                        <a class="btn" style="background-color: #C0C8CA" href="{{ route('superadmin') }}" role="button">Dashboard</a>
+                    @elseif (auth()->user()->role === 'admin')
+                        <a class="btn" style="background-color: #C0C8CA" href="{{ route('admin.home') }}" role="button">Dashboard</a>
+                    @endif
+                @else
+                    <!-- Jika belum login -->
                     <a class="btn" style="background-color: #C0C8CA" href="{{ route('login') }}" role="button">Login</a>
-                </div>
+                @endauth
+            </div>
+
+            </div>
             </div>
         </div>
     </nav>
