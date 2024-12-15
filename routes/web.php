@@ -95,6 +95,9 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('superadmin.user.destroy');
     });
 
+    // cek pdf
+    Route::get('/cekpdf', [App\Http\Controllers\admin\CertifController::class, 'cekpdf'])->name('cekpdf');
+
 
     //bg
     Route::get('/bg', [EventController::class, 'indexBg']);
@@ -168,5 +171,7 @@ Route::get('/certificate/result', fn() => view('virified', [
 
 
 Route::get('certificate/verification',[App\Http\Controllers\LandingController::class, 'indexVerification'])->name('certif.verfication');
-Route::post('certificate/verification/result',[App\Http\Controllers\LandingController::class, 'storeVerification'])->name('certif.verfication.result');
+Route::match(['get', 'post'], 'certificate/verification/{id}', [App\Http\Controllers\LandingController::class, 'storeVerification'])
+    ->name('certif.verfication.result');
+
 Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('certif.pdf');

@@ -50,6 +50,8 @@ class CertifController extends Controller
     
             if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
+                return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+                ->with('error', 'Certificate sudah di buat sebelumnya.');
                 // Skip ke peserta berikutnya
                 continue;
             }
@@ -190,13 +192,12 @@ class CertifController extends Controller
     }
 
 
-
-
     public function editTemplate($id){
         $template = CertificateTemplate::findOrFail($id);
         return view('superadmin.certificate.edit',compact('template'));
     }
 
+    
     public function updateTemplate(Request $request, $id)
     {
         $validated = $request->validate([
@@ -240,4 +241,9 @@ class CertifController extends Controller
         return $pdf->stream("certif_.pdf");
     }
 
+
+
+    function cekpdf(){
+        return view('superadmin.certificate.certif_pdf_preview2');
+    }
 }
