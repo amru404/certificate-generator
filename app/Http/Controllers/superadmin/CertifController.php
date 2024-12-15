@@ -68,48 +68,7 @@ class CertifController extends Controller
                 'signature' => $event->ttd,
             ]);
     
-            // Fetch margins from template
-            $namaMargin = is_numeric($participant->event->certificate->certificate_templates->nama ?? null)
-                ? round((float)$participant->event->certificate->certificate_templates->nama) . 'mm'
-                : '0mm';
-    
-            $deskripsiMargin = is_numeric($participant->event->certificate->certificate_templates->deskripsi ?? null)
-                ? round((float)$participant->event->certificate->certificate_templates->deskripsi) . 'mm'
-                : '0mm';
-    
-            $tanggalMargin = is_numeric($participant->event->certificate->certificate_templates->tanggal ?? null)
-                ? round((float)$participant->event->certificate->certificate_templates->tanggal) . 'mm'
-                : '0mm';
-    
-            $ttdMargin = is_numeric($participant->event->certificate->certificate_templates->ttd ?? null)
-                ? round((float)$participant->event->certificate->certificate_templates->ttd) . 'mm'
-                : '0mm';
-    
-            $uidMargin = is_numeric($participant->event->certificate->certificate_templates->uid ?? null)
-                ? round((float)$participant->event->certificate->certificate_templates->uid) . 'mm'
-                : '0mm';
-    
-            // Generate the certificate PDF
-            $pdf = PDF::loadView('superadmin.certificate.certif_pdf', [
-                'certificate' => $certificate,
-                'participant' => $participant,
-                'event' => $event,
-                'namaMargin' => $namaMargin,
-                'deskripsiMargin' => $deskripsiMargin,
-                'tanggalMargin' => $tanggalMargin,
-                'ttdMargin' => $ttdMargin,
-                'uidMargin' => $uidMargin,
-            ]);
-    
-            $pdf->setPaper([0, 0, 595.28, 841.89], 'landscape'); // Custom A4 size in points
-    
-            // Save PDF to storage
-            $fileName = 'certificate-' . $certificate->id . '.pdf';
-            $filePath = storage_path('app/public/certificates/' . $fileName);
-            $pdf->save($filePath);
-    
-            // Dispatch job to send certificate email
-            SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
+            SendCertificateEmailJob::dispatch($participant, $certificate);
         }
     
         // Redirect back with success message
@@ -335,8 +294,6 @@ class CertifController extends Controller
         return $pdf->stream("certificate-{$participant->id}.pdf");
     }
 
-    
- 
  
     private function convertMarginToPx(string $margin, int $pdfWidth, int $pdfHeight)
     {
@@ -348,64 +305,5 @@ class CertifController extends Controller
         // Kembalikan nilai margin dalam format px
         return "{$top}px 0px 0px {$left}px";
     }
-        
-    public function saveMargin(Request $request)
-    {
-        $request->validate([
-            'field' => 'required|string',
-            'margin' => 'required|string',
-        ]);
-
-        // Ambil template yang sedang digunakan
-        $template = CertificateTemplate::findOrFail($request->template_id); 
-
-        // Update field margin
-        $field = $request->field;
-        $template->$field = $request->margin;
-        $template->save();
-
-        return response()->json(['message' => 'Margin updated successfully']);
-    }
-
-
-
-    public function generatePdf(Request $request, $participantId)
-    {
-        $participant = Participant::with('event.certificate_templates')->findOrFail($participantId);
-        $template = $participant->event->certificate_templates;
-
-        if (!$template) {
-            return response()->json(['error' => 'Template tidak ditemukan'], 404);
-        }
-
-        // Dimensi kontainer PDF
-        $pdfWidth = 794;  // Lebar A4 (landscape) dalam pixel (1/96 inch)
-        $pdfHeight = 1123; // Tinggi A4 dalam pixel (1/96 inch)
-
-        $namaMargin = $this->convertMarginToPx((float) ($template->nama ?? 20), $pdfHeight);
-        $deskripsiMargin = $this->convertMarginToPx((float) ($template->deskripsi ?? 30), $pdfHeight);
-        $tanggalMargin = $this->convertMarginToPx((float) ($template->tanggal ?? 40), $pdfHeight);
-        $ttdMargin = $this->convertMarginToPx((float) ($template->ttd ?? 50), $pdfHeight);
-        $uidMargin = $this->convertMarginToPx((float) ($template->uid ?? 60), $pdfHeight);
-
-        // Render PDF
-        $pdf = PDF::loadView('admin.certificate.certif_pdf', compact(
-            'participant',
-            'namaMargin',
-            'deskripsiMargin',
-            'tanggalMargin',
-            'ttdMargin',
-            'uidMargin'
-        ))->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
-        $pdf->setPaper('A4', 'landscape');
-
-        return $pdf->stream("certificate-{$participant->id}.pdf");
-    }
-
-    private function convertMarginToPx($percentage, $dimension)
-    {
-        return round(($percentage / 100) * $dimension) . 'px';
-    }
-
 
 }
