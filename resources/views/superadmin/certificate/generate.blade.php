@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tanggalPreview = document.getElementById("preview-tanggal");
     const imagePreview = document.getElementById("preview-image");
 
-    // Update margin teks berdasarkan inpu
+    // Update margin teks berdasarkan input
     namaInput.addEventListener("input", () => {
         namaPreview.style.margin = namaInput.value || "0px 0px 0px 0px";
     });
@@ -258,36 +258,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    
     $(document).ready(function () {
-    const elements = [
-        { id: "#preview-nama", input: "#nama" },
-        { id: "#preview-deskripsi", input: "#deskripsi" },
-        { id: "#preview-tanggal", input: "#tanggal" },
-        { id: "#signature-image", input: "#ttd" },
-        { id: "#preview-uid", input: "#uid" },
-    ];
+        const elements = [
+            { id: "#preview-nama", input: "#nama" },
+            { id: "#preview-deskripsi", input: "#deskripsi" },
+            { id: "#preview-tanggal", input: "#tanggal" },
+            { id: "#signature-image", input: "#ttd" },
+            { id: "#preview-uid", input: "#uid" },
+        ];
 
-    elements.forEach((el) => {
-        $(el.id).draggable({
-            containment: "#certificate-preview",
-            scroll: false,
-            stop: function (event, ui) {
-                // Hitung margin sebagai persentase posisi elemen terhadap kontainer
-                const container = $("#certificate-preview");
-                const containerWidth = container.width();
-                const containerHeight = container.height();
-                const offset = ui.position;
+        elements.forEach((el) => {
+            $(el.id).draggable({
+                containment: "#certificate-preview",
+                scroll: false,
+                stop: function (event, ui) {
+                    // Hitung margin dalam px berdasarkan posisi elemen terhadap kontainer
+                    const container = $("#certificate-preview");
+                    const containerWidth = container.width();
+                    const containerHeight = container.height();
+                    const offset = ui.position;
 
-                const marginTop = (offset.top / containerHeight) * 100; // Margin top sebagai persentase
-                const marginLeft = (offset.left / containerWidth) * 100; // Margin left sebagai persentase
+                    const marginTop = offset.top; // Margin top dalam px
+                    const marginLeft = offset.left; // Margin left dalam px
 
-                // Simpan margin dalam format persentase di input
-                $(el.input).val(`${marginTop.toFixed(2)}% 0 0 ${marginLeft.toFixed(2)}%`);
-            },
+                    // Simpan margin dalam format px di input
+                    $(el.input).val(`${marginTop}px 0 0 ${marginLeft}px`);
+                },
+            });
         });
     });
-});
 
 });
 

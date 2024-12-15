@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body,
         html {
@@ -32,67 +31,66 @@
         }
 
         .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             text-align: center;
             color: #000;
+            width: 100%;
+            height: 100%;
         }
 
-        /* @media (max-width: 480px) {
-            .name {
-                font-size: 1.5rem;
-                margin-top: 40px;
-            }
-
-            .deskripsi {
-                font-size: 0.8rem !important;
-                top: 50px !important;
-                width: 100% !important;
-            }
-
-            .tgl,
-            .uid {
-                font-size: 0.8rem;
-                text-align: center;
-            }
-
-            .signatur-img {
-                max-width: 100px;
-            }
+        .preview-nama {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            margin: {{ $participant->event->certificate->certificate_templates->nama ?? '0px' }};
         }
 
-        @media (max-width: 768px) {
-            .name {
-                font-size: 1.8rem;
-                margin-top: 60px;
-            }
+        .preview-deskripsi {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            font-weight: 500;
+            width: 500px;
+            margin: {{ $participant->event->certificate->certificate_templates->deskripsi ?? '0px' }};
+        }
 
-            .deskripsi {
-                font-size: 0.9rem !important;
-                top: 60px !important;
-                width: 90% !important;
-            }
+        .preview-tanggal {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: #777;
+            font-style: italic;
+            margin: {{ $participant->event->certificate->certificate_templates->tanggal ?? '0px' }};
+        }
 
-            .tgl {
-                position: static;
-                font-size: 0.9rem;
-            }
+        .preview-uid {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #555;
+            margin: {{ $participant->event->certificate->certificate_templates->uid ?? '0px' }};
+        }
 
-            .uid {
-                position: static;
-                font-size: 0.9rem;
-            }
-
-            .signatur-img {
-                position: static;
-                margin: 20px auto 0;
-                display: block;
-                max-width: 120px;
-                height: auto;
-            }
-        } */
+        .signature-img {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: auto;
+        }
 
     </style>
 </head>
@@ -102,46 +100,39 @@
     <div class="certificate-container">
         <div style="position: relative; width: 100%; height: 100vh;">
 
+            <!-- Certificate Background -->
             <img src="{{ public_path('storage/' . $participant->certificate->certificate_templates->preview) }}"
                 style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;"
                 class="certificate-bg">
 
-            <div class="content" style="text-align:center">
-
-                <h2 class="name" style="position: absolute; font-size: 32px; width: 520px; margin: 
-    {{ $participant->event->certificate->certificate_templates->nama ?? '0px' }};">
-
-
+            <!-- Content Section -->
+            <div class="content">
+                <!-- Nama -->
+                <div class="preview-nama">
                     {{ $participant->nama }}
-                    <br>
-
-                </h2>
-
-                <div style="position: relative; width: 100%; height: 100vh;">
-                    <p class="deskripsi"
-                        style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
-    {{ $participant->event->certificate->certificate_templates->deskripsi ?? '0px' }};">
-                        {{ $participant->event->deskripsi }}
-                    </p>
                 </div>
-                <h2 class="tgl" style="margin: 
-    {{ $participant->event->certificate->certificate_templates->tanggal ?? '0px' }};">
+
+                <!-- Deskripsi -->
+                <div class="preview-deskripsi">
+                    {{ $participant->event->deskripsi }}
+                </div>
+
+                <!-- Tanggal -->
+                <div class="preview-tanggal">
                     {{ $participant->event->tanggal }}
-                </h2>
+                </div>
 
-                <img src="{{ public_path('storage/' . $participant->event->ttd) }}" class="signatur-img" >
+                <!-- Signature -->
+                <img src="{{ public_path('storage/' . $participant->event->ttd) }}" class="signature-img">
 
-                <p class="uid" style="margin: 
-    {{ $participant->event->certificate->certificate_templates->uid ?? '0px' }};">
-                    UID : {{ $participant->certificate->id }}
-                </p>
+                <!-- UID -->
+                <div class="preview-uid">
+                    UID: {{ $participant->certificate ? $participant->certificate->id : 'UID tidak tersedia' }}
+                </div>
             </div>
         </div>
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
