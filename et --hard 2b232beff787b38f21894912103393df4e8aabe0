@@ -1,0 +1,176 @@
+[33mcommit 2b232beff787b38f21894912103393df4e8aabe0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sun Dec 15 15:00:12 2024 +0700
+
+    update linkedin
+
+[33mcommit f52c84e4dc1301e8acfe20cc194380887e38c820[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sun Dec 15 13:15:42 2024 +0700
+
+    update navbar
+
+[33mcommit fb91703f488e662f74cbb67eb61c9810b883aada[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sun Dec 15 12:52:17 2024 +0700
+
+    update setting
+
+[33mcommit 3472d7da4648b94a39684eaf3e899aecc69be0e3[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sun Dec 15 10:03:56 2024 +0700
+
+    update admin & fix bug generate certif
+
+[33mcommit dc064fa7790e41b97efcd25cc66ee94b0f084760[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sat Dec 14 20:19:23 2024 +0700
+
+    update upload logo & ttd event
+
+[33mcommit e86a2f0b5f4ca068f929ccc3968cc198f5a11478[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sat Dec 14 18:04:13 2024 +0700
+
+    live preview aga acak, update forgot password, return apabila csv tidak sesuai
+
+[33mcommit c42add1536ff4deb01d84e6e8c171c3bf5eadb97[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Fri Dec 13 14:37:46 2024 +0700
+
+    add dinamis template + edit + show pdf
+
+[33mcommit ee4dbfa8e75325b3b0a8bdbe7597a237db8ed48e[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Thu Dec 12 23:44:56 2024 +0700
+
+    remove bg + mini dinamis css template
+
+[33mcommit 8b458e18e75a8912d97694480c144d26022b1a5d[m
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Tue Dec 10 20:12:09 2024 +0700
+
+    update frontend
+
+[33mcommit d0df5e697310075d2be97d1b958b1e1c1ef2e4b0[m
+Merge: 70e2379 c80d885
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Mon Dec 9 12:58:24 2024 +0700
+
+    up
+
+[33mcommit 70e23796b9b36670f99ee822ea6a96149686a666[m
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Mon Dec 9 12:38:15 2024 +0700
+
+    update
+
+[33mcommit c80d8857ad119abde9759296e1fa3dfc27f22663[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Mon Dec 9 10:57:12 2024 +0700
+
+    update uid, dashboard admin
+
+[33mcommit 6ff38843fedcf7e7ecace5f43ff5b3f066493684[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Mon Dec 9 10:16:02 2024 +0700
+
+    add env example
+
+[33mcommit 21ef8dbf16a6741e87cab349911392ce474f5813[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Mon Dec 9 09:57:11 2024 +0700
+
+    fix bug pdf, send email use queue
+
+[33mcommit 579612c426bc60f761982024eb61076ef18f8996[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sun Dec 8 15:28:33 2024 +0700
+
+    update template
+
+[33mcommit 44e784e1d41c2e2a6e1bc2c3fb6cfab2f79cfbfe[m
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Sun Dec 8 13:40:14 2024 +0700
+
+    update
+
+[33mcommit f3f1284db51a032fb30eb8347b2b278be4013cd0[m
+Merge: c47e9c1 41f2c16
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Sat Dec 7 10:59:56 2024 +0700
+
+    up
+
+[33mcommit c47e9c172d081d6f036965e3b9d2227a7352ce2f[m
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Sat Dec 7 10:58:11 2024 +0700
+
+    update
+
+[33mcommit 41f2c16fa6fb6adb42e55df15a58fb057c3c3792[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sat Dec 7 01:57:05 2024 +0700
+
+    add table template certificte
+
+[33mcommit 916804243208a6d1e1ea5e524193e93da1e0af9e[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Sat Dec 7 01:40:32 2024 +0700
+
+    update alert gagal verified certif
+
+[33mcommit 649591bf886d137340a782960d3e1fe1a58842e9[m
+Merge: 646adff 7e888b7
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Fri Dec 6 12:55:05 2024 +0700
+
+    up
+
+[33mcommit 646adff0d90b8e43f775f6453e8edd4887d63bd9[m
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Fri Dec 6 12:51:24 2024 +0700
+
+    update FE
+
+[33mcommit 7e888b72c9c5f6ea4a2a6de10feb88a143690678[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Fri Dec 6 12:49:38 2024 +0700
+
+    update sikit
+
+[33mcommit 1357eaeff45c2037fdb8727eab91c5009bd1b490[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Thu Dec 5 19:07:07 2024 +0700
+
+    check certificate verified or not
+
+[33mcommit afee6c365cfc745a7ae1bfe93b72668b68c9ba70[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Thu Dec 5 15:23:44 2024 +0700
+
+    fix certificarte, save profile, ganti warna btn, dashboard admin, message email
+
+[33mcommit 5467f092bd45bcb3a59a5c29dfa5b966e99e0301[m
+Author: yudawisma <yudadani05@gmail.com>
+Date:   Thu Dec 5 11:25:28 2024 +0700
+
+    update frontend
+
+[33mcommit 8aeb972fa5e059d95f88ffefe85919ff1ff610eb[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Tue Dec 3 18:47:44 2024 +0700
+
+    test
+
+[33mcommit 72194d25d97071330a47ec049d26a9b371c26442[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Tue Dec 3 18:41:09 2024 +0700
+
+    bismillah aman
+
+[33mcommit c835d68abd0e76ff708b07f9c00b3cb49ac5eb90[m
+Author: amru404 <amru.azzam3@gmail.com>
+Date:   Tue Dec 3 17:32:33 2024 +0700
+
+    push configurasi be & fe

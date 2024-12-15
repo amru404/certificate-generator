@@ -50,8 +50,8 @@ class CertifController extends Controller
     
             if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                return redirect()->to(url("/superadmin/event/show/{$eventId}"))
-                ->with('error', 'Certificate sudah di buat sebelumnya.');
+                // return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+                // ->with('error', 'Certificate sudah di buat sebelumnya.');
                 // Skip ke peserta berikutnya
                 continue;
             }
