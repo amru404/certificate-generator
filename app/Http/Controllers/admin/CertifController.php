@@ -48,64 +48,30 @@ class CertifController extends Controller
                 ->where('participant_id', $participant->id)
                 ->first();
     
-            if (!$existingCertificate) {
-                $certificate = Certificate::create([
-                    'id' => 'stf-' . Str::random(7),
-                    'event_id' => $event->id,
-                    'participant_id' => $participant->id,
-                    'style' => 'style 1',
-                    'certificate_templates_id' => $request->id,
-                    'signature' => $event->ttd,
-                ]);
-    
-                SendCertificateEmailJob::dispatch($participant, $certificate);
-            } else {
-                // Log info, tapi tetap lanjut ke peserta berikutnya
+            if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
+                // Skip ke peserta berikutnya
+                continue;
             }
+    
+            $certificate = Certificate::create([
+                'id' => 'stf-' . Str::random(7),
+                'event_id' => $event->id,
+                'participant_id' => $participant->id,
+                'style' => 'style 1',
+                'certificate_templates_id' => $request->id,
+                'signature' => $event->ttd,
+            ]);
+    
+            SendCertificateEmailJob::dispatch($participant, $certificate);
         }
     
-        // Setelah semua peserta diproses
         return redirect()->to(url("/admin/event/show/{$eventId}"))
             ->with('success', 'Participants imported and emails sent successfully.');
     }
     
     
-    public function show($id)
-    {
-        $certif = Certificate::where('participant_id', $id)->first();
-        return view('admin.certificate.show', compact('certif'));
-    }
-
-    public function edit($id)
-    {
-        $template = Certificate::findOrFail($id);
-        return view('admin.certificate.edit', compact('template'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        // Validasi data input
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'background_url' => 'required|url',
-            'style' => 'nullable|string|max:255',
-        ]);
-
-        // Cari template berdasarkan ID
-        $template = Certificate::findOrFail($id);
-
-        // Update data template
-        $template->update([
-            'title' => $validated['title'],
-            'background_url' => $validated['background_url'],
-            'style' => $validated['style'] ?? $template->style,
-        ]);
-
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('certificate.index')->with('success', 'Template updated successfully.');
-    }
-
+    
     public function search(Request $request)
     {
         // Ambil data pencarian dari input
@@ -141,22 +107,11 @@ class CertifController extends Controller
         return $pdf->stream("certif_$nama.pdf");
     }
 
-    public function template()
-    {
-        $templates = [
-            ['id' => 1, 'name' => 'Template 1', 'preview' => asset('sertif/1.jpeg')],
-            ['id' => 2, 'name' => 'Template 2', 'preview' => asset('sertif/1.jpeg')],
-        ];
-
-        return view('admin.certificate.template', compact('templates'));
-    }
 
     public function generate($template_id)
     {
-        // Ambil template berdasarkan ID yang dipilih
         $template = Certificate::findOrFail($template_id);
 
-        // Tampilkan halaman generate sertifikat dengan data template yang dipilih
         return view('admin.certificate.generate', compact('template'));
     }
 
