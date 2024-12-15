@@ -16,8 +16,9 @@
 
         .certificate-container {
             position: relative;
-            width: 1122px; 
-            height: 793px; /* A4 landscape height */
+            width: 1122px;
+            height: 793px;
+            /* A4 landscape height */
             margin: 0 auto;
             background-color: #fff;
         }
@@ -57,12 +58,17 @@
             width: 500px;
             text-align: center;
             position: absolute;
-            top: 55%; /* Tetapkan top secara eksplisit */
-            left: 50%; /* Tetapkan left secara eksplisit */
-            transform: translateX(-50%); /* Hanya offset horizontal */
-            white-space: normal; /* Izinkan pembungkusan teks */
-            word-wrap: break-word; /* Pastikan kata yang panjang terpecah */
-            overflow: visible; /
+            top: 55%;
+            /* Tetapkan top secara eksplisit */
+            left: 50%;
+            /* Tetapkan left secara eksplisit */
+            transform: translateX(-50%);
+            /* Hanya offset horizontal */
+            white-space: normal;
+            /* Izinkan pembungkusan teks */
+            word-wrap: break-word;
+            /* Pastikan kata yang panjang terpecah */
+            overflow: visible;/
         }
 
         /* Penempatan tanggal */
@@ -86,6 +92,7 @@
             height: auto;
             position: absolute;
         }
+
     </style>
 </head>
 
@@ -96,39 +103,45 @@
 
             <!-- Certificate Background -->
             <img src="{{ public_path('storage/' . $participant->certificate->certificate_templates->preview) }}"
-                style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;" class="certificate-bg">
+                style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;"
+                class="certificate-bg">
 
             <!-- Content Section -->
             <div class="content">
                 <!-- Nama -->
-              <!-- Nama -->
-<div class="preview-nama" style="top:10px; left:80px;margin: {{ $participant->event->certificate->certificate_templates->nama }}; transform: translate(-50%, -50%);">
-    {{ $participant->nama }}
-</div>
+                <!-- Nama -->
+                <div class="preview-nama"
+                    style="top:10px; left:80px;margin: {{ $participant->event->certificate->certificate_templates->nama }}; transform: translate(-50%, -50%);">
+                    {{ $participant->nama }}
+                </div>
 
-<!-- Deskripsi -->
-<div class="preview-deskripsi" 
-     style="top: 25px; left: 320px; transform: translateX(-50%); margin: {{ $participant->event->certificate->certificate_templates->deskripsi }};">
-     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore id praesentium necessitatibus vel debitis aspernatur veritatis impedit assumenda possimus sit? Blanditiis dolorem pariatur optio facere dolore minima doloribus sint id!
+                <!-- Deskripsi -->
+                <div class="preview-deskripsi"
+                    style="top: 15px; left: 340px; transform: translateX(-50%); margin: {{ $participant->event->certificate->certificate_templates->deskripsi }};">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore id praesentium necessitatibus vel
+                    debitis aspernatur veritatis impedit assumenda possimus sit? Blanditiis dolorem pariatur optio
+                    facere dolore minima doloribus sint id!
 
-</div>
+                </div>
 
 
-<!-- Tanggal -->
-<div class="preview-tanggal" style="top:40px; left:40px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
-    {{ $participant->event->tanggal }}
-</div>
+                <!-- Tanggal -->
+                <div class="preview-tanggal"
+                    style="top:40px; left:45px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
+                    {{ $participant->event->tanggal }}
+                </div>
 
-<!-- Signature -->
-<img src="{{ public_path('storage/' . $participant->event->ttd) }}" 
-    style="top:60px; left:100px;margin: {{ $participant->event->certificate->certificate_templates->ttd }}; transform:translate(-50%, -50%);" 
-    class="signature-img">
+                <!-- Signature -->
+                <img src="{{ public_path('storage/' . $participant->event->ttd) }}"
+                    style="top:60px; left:115px;margin: {{ $participant->event->certificate->certificate_templates->ttd }}; transform:translate(-50%, -50%);"
+                    class="signature-img">
 
-<!-- UID -->
-<div class="preview-uid" style="top:50px;margin: {{ $participant->event->certificate->certificate_templates->uid }}; transform:translate(-50%, -50%);">
-    UID: {{ $participant->certificate ? $participant->certificate->id : 'UID tidak tersedia' }}
-</div>
-        
+                <!-- UID -->
+                <div class="preview-uid"
+                    style="top:50px;margin: {{ $participant->event->certificate->certificate_templates->uid }}; transform:translate(-50%, -50%);">
+                    UID: {{ $participant->certificate ? $participant->certificate->id : 'UID tidak tersedia' }}
+                </div>
+
 
 
 

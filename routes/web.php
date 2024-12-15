@@ -175,5 +175,6 @@ Route::match(['get', 'post'], 'certificate/verification/{id}', [App\Http\Control
     ->name('certif.verfication.result');
 
 Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('certif.pdf');
+Route::get('certificate/pdf_download/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdfDownload'])->name('certif.pdf.download');
 
 Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'saveMargin']);

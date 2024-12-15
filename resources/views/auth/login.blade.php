@@ -57,8 +57,7 @@
             <!-- Sign Up -->
         </form>
 
-        <!-- Social Login Buttons -->
-        <div class="text-center text-muted mb-3">OR</div>
+       
        
     </div>
 </div>

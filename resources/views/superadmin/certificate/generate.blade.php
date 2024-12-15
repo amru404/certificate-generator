@@ -196,7 +196,7 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    imagePreview.src = e.target.result;
+                    imagePreview.src = e.target.result; 
                     imagePreview.style.display = "block";
                 };
                 reader.readAsDataURL(file);
@@ -206,27 +206,14 @@
             }
         });
 
+        // Draggable functionality for text fields
         $(document).ready(function () {
-            const elements = [{
-                    id: "#preview-nama",
-                    input: "#nama"
-                },
-                {
-                    id: "#preview-deskripsi",
-                    input: "#deskripsi"
-                },
-                {
-                    id: "#preview-tanggal",
-                    input: "#tanggal"
-                },
-                {
-                    id: "#signature-image",
-                    input: "#ttd"
-                },
-                {
-                    id: "#preview-uid",
-                    input: "#uid"
-                },
+            const elements = [
+                { id: "#preview-nama", input: "#nama" },
+                { id: "#preview-deskripsi", input: "#deskripsi" },
+                { id: "#preview-tanggal", input: "#tanggal" },
+                { id: "#signature-image", input: "#ttd" },
+                { id: "#preview-uid", input: "#uid" },
             ];
 
             elements.forEach((el) => {
@@ -246,7 +233,6 @@
             });
         });
     });
-
 </script>
 
 @endsection

@@ -108,6 +108,25 @@ class CertifController extends Controller
         return $pdf->stream("certif_$nama.pdf");
     }
 
+    public function pdfDownload(string $id)
+    {
+        ini_set('max_execution_time', 300);
+        
+        $certif = Certificate::where('participant_id', $id)->first();
+        $participant = Participant::where('id', $id)->first();
+        if (!$certif) {
+            abort(404, 'Certificate not found.');
+        }
+    
+        $nama = $certif->participant->nama;
+        
+        $pdf = PDF::loadView('admin.certificate.certif_pdf', compact('certif', 'participant'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download("certif_$nama.pdf");
+    }
+    
+
 
     public function generate($template_id)
     {
