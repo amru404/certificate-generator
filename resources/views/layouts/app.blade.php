@@ -44,7 +44,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Features</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#verify">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#testimonials">Testimonials</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="{{ route('faq') }}">FAQ</a></li>

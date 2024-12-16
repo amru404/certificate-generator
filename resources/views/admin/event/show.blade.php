@@ -89,11 +89,17 @@
 <div class="card mt-4">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Daftar Peserta</h4>
+        <a href="{{ route('admin.certificate.download_all_pdf', $detail_event->id) }}" class="btn btn-sm btn-primary"
+        onclick="return confirm('Are you sure?')">Download All Certificate</a>
+        
         <div class="btn-group">
             <a href="{{ route('admin.participant.import.create', $detail_event->id) }}" class="btn btn-sm"
-                style="background-color:#2D3E50;color:white;">Add Participant</a>
-            <a href="{{ route('admin.participant.destroy_all', $detail_event->id) }}" class="btn btn-sm btn-danger"
-                onclick="return confirm('Are you sure?')">Delete All Participants</a>
+            style="background-color:#2D3E50;color:white;">Add Participant</a>
+            <a href="{{ route('admin.certificate.sendEmail', $detail_event->id) }}" class="btn btn-sm btn-primary" style="color:white;" onclick="return confirm('Are you sure?')">Send Email</a>
+            <a href="{{ route('admin.participant.destroy_all', $detail_event->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete All Participants</a>
+
+            <a href="{{ route('admin.certificate.destroy_all', $detail_event->id) }}" class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure?')">Delete All Certificate</a>
         </div>
     </div>
     <div class="card-body">
