@@ -24,26 +24,26 @@
         <div class="row mt-4">
             <div class="col-4">
                 <label for="nama" class="form-label">Margin Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $template->nama }}" required placeholder="margin nama">
+                <input type="text" class="form-control" id="nama" name="nama" required placeholder="margin nama">
             </div>
             <div class="col-4">
                 <label for="deskripsi" class="form-label">Margin Deskripsi</label>
-                <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $template->deskripsi }}" required placeholder="margin deskripsi">
+                <input type="text" class="form-control" id="deskripsi" name="deskripsi" required placeholder="margin deskripsi">
             </div>
             <div class="col-4">
                 <label for="tanggal" class="form-label">Margin Tanggal</label>
-                <input type="text" class="form-control" id="tanggal" name="tanggal" value="{{ $template->tanggal }}" required placeholder="margin tanggal">
+                <input type="text" class="form-control" id="tanggal" name="tanggal" required placeholder="margin tanggal">
             </div>
         </div>
 
         <div class="row mt-4 mb-4">
             <div class="col-6">
                 <label for="ttd" class="form-label">Margin Ttd</label>
-                <input type="text" class="form-control" id="ttd" name="ttd" value="{{ $template->ttd }}" required placeholder="margin ttd">
+                <input type="text" class="form-control" id="ttd" name="ttd" required placeholder="margin ttd">
             </div>
             <div class="col-6">
                 <label for="uid" class="form-label">Margin UID</label>
-                <input type="text" class="form-control" id="uid" name="uid" value="{{ $template->uid }}" required placeholder="margin uid">
+                <input type="text" class="form-control" id="uid" name="uid" required placeholder="margin uid">
             </div>
         </div>
 
@@ -98,19 +98,16 @@
     </div>
 </div>
 
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const namaInput = document.getElementById("nama");
         const deskripsiInput = document.getElementById("deskripsi");
         const tanggalInput = document.getElementById("tanggal");
-        const ttdInput = document.getElementById("ttd");
-        const uidInput = document.getElementById("uid");
         const imageInput = document.getElementById("preview");
         const namaPreview = document.getElementById("preview-nama");
         const deskripsiPreview = document.getElementById("preview-deskripsi");
         const tanggalPreview = document.getElementById("preview-tanggal");
-        const signaturePreview = document.getElementById("signature-image");
-        const uidPreview = document.getElementById("preview-uid");
         const imagePreview = document.getElementById("preview-image");
 
         // Update margin teks berdasarkan input
@@ -124,14 +121,6 @@
 
         tanggalInput.addEventListener("input", () => {
             tanggalPreview.style.margin = tanggalInput.value || "0px 0px 0px 0px";
-        });
-
-        ttdInput.addEventListener("input", () => {
-            signaturePreview.style.margin = ttdInput.value || "0px 0px 0px 0px";
-        });
-
-        uidInput.addEventListener("input", () => {
-            uidPreview.style.margin = uidInput.value || "0px 0px 0px 0px";
         });
 
         // Event listener untuk preview gambar
@@ -178,4 +167,5 @@
         });
     });
 </script>
+
 @endsection

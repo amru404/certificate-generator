@@ -110,14 +110,14 @@
             <div class="content">
                 <!-- Nama -->
                 <div class="preview-nama"
-                    style="top:10px; left:80px;margin: {{ $participant->event->certificate->certificate_templates->nama }}; transform: translate(-50%, -50%);">
+                    style="top:10px; left:85px;margin: {{ $participant->event->certificate->certificate_templates->nama }}; transform: translate(-50%, -50%);">
                     {{ $participant->nama }}
 
                 </div>
 
                 <!-- Deskripsi -->
                 <div class="preview-deskripsi"
-                    style="top: 15px; left: 320px; transform: translateX(-50%); margin: {{ $participant->event->certificate->certificate_templates->deskripsi }};">
+                    style="top: 15px; left: 340px; transform: translateX(-50%); margin: {{ $participant->event->certificate->certificate_templates->deskripsi }};">
                     {{ $participant->event->deskripsi }}
 
                 </div>
@@ -125,7 +125,7 @@
 
                 <!-- Tanggal -->
                 <div class="preview-tanggal"
-                    style="top:40px; left:45px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
+                    style="top:40px; left:50px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
                     {{ \Carbon\Carbon::parse($participant->event->tanggal)->translatedFormat('d F Y') }}
                 </div>
 

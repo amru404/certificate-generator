@@ -110,13 +110,13 @@
             <div class="content">
                 <!-- Nama -->
                 <div class="preview-nama"
-                    style="top:10px; left:80px;margin: {{ $template->nama }}; transform: translate(-50%, -50%);">
+                    style="top:10px; left:85px;margin: {{ $template->nama }}; transform: translate(-50%, -50%);">
                     Amru abdurrahman azzam
                 </div>
 
                 <!-- Deskripsi -->
                 <div class="preview-deskripsi"
-                    style="top: 15px; left: 320px; transform: translateX(-50%); margin: {{ $template->deskripsi }};">
+                    style="top: 15px; left: 340px; transform: translateX(-50%); margin: {{ $template->deskripsi }};">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore id praesentium necessitatibus vel
                     debitis aspernatur veritatis impedit assumenda possimus sit? Blanditiis dolorem pariatur optio
                     facere dolore minima doloribus sint id!
@@ -126,7 +126,7 @@
 
                 <!-- Tanggal -->
                 <div class="preview-tanggal"
-                    style="top:40px; left:45px;margin: {{ $template->tanggal }}; transform:translate(-50%, -50%);">
+                    style="top:40px; left:50px;margin: {{ $template->tanggal }}; transform:translate(-50%, -50%);">
                     18 December 2024
                 </div>
 
