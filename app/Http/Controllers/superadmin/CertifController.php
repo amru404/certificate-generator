@@ -43,7 +43,7 @@ class CertifController extends Controller
     
         if (!$participants || $participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+            return redirect()->to(url("/admin/event/show/{$eventId}"))
                 ->with('error', 'No participants found for this event.');
         }
     
@@ -62,50 +62,27 @@ class CertifController extends Controller
                     'certificate_templates_id' => $request->id,
                     'signature' => $event->ttd,
                 ]);
-
-                dd($participant->event->certificate->certificate_templates);
-            if ($existingCertificate) {
-                \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                // Skip ke peserta berikutnya
-                continue;
-            }
-    
-            $certificate = Certificate::create([
-                'id' => 'stf-' . Str::random(7),
-                'event_id' => $event->id,
-                'participant_id' => $participant->id,
-                'style' => 'style 1',
-                'certificate_templates_id' => $request->id,
-                'signature' => $event->ttd,
-            ]);
-    
-            SendCertificateEmailJob::dispatch($participant, $certificate);
-        }
-    
-        return redirect()->to(url("/superadmin/event/show/{$eventId}"))
-            ->with('success', 'Participants imported and emails sent successfully.');
-    }
     
                 // Ambil margin dari template
                 $namaMargin = is_numeric($participant->event->certificate->certificate_templates->nama ?? null)
-    ? round((float)$participant->event->certificate->certificate_templates->nama) . 'mm'
-    : '0mm';
+    ? round((float)$participant->event->certificate->certificate_templates->nama) . 'px'
+    : '0px';
 
 $deskripsiMargin = is_numeric($participant->event->certificate->certificate_templates->deskripsi ?? null)
-    ? round((float)$participant->event->certificate->certificate_templates->deskripsi) . 'mm'
-    : '0mm';
+    ? round((float)$participant->event->certificate->certificate_templates->deskripsi) . 'px'
+    : '0px';
 
 $tanggalMargin = is_numeric($participant->event->certificate->certificate_templates->tanggal ?? null)
-    ? round((float)$participant->event->certificate->certificate_templates->tanggal) . 'mm'
-    : '0mm';
+    ? round((float)$participant->event->certificate->certificate_templates->tanggal) . 'px'
+    : '0px';
 
 $ttdMargin = is_numeric($participant->event->certificate->certificate_templates->ttd ?? null)
-    ? round((float)$participant->event->certificate->certificate_templates->ttd) . 'mm'
-    : '0mm';
+    ? round((float)$participant->event->certificate->certificate_templates->ttd) . 'px'
+    : '0px';
 
 $uidMargin = is_numeric($participant->event->certificate->certificate_templates->uid ?? null)
-    ? round((float)$participant->event->certificate->certificate_templates->uid) . 'mm'
-    : '0mm';
+    ? round((float)$participant->event->certificate->certificate_templates->uid) . 'px'
+    : '0px';
 
 // Generate PDF
 $pdf = PDF::loadView('superadmin.certificate.certif_pdf', [
@@ -120,8 +97,7 @@ $pdf = PDF::loadView('superadmin.certificate.certif_pdf', [
 ]);
 
     
-$pdf->setPaper([0, 0, 595.28, 841.89], 'landscape'); // Custom ukuran A4 dalam point
-
+                $pdf->setPaper('A4', 'landscape');
     
                 // Simpan PDF ke dalam penyimpanan
                 $fileName = 'certificate-' . $certificate->id . '.pdf';
@@ -336,43 +312,40 @@ $pdf->setPaper([0, 0, 595.28, 841.89], 'landscape'); // Custom ukuran A4 dalam p
 
 public function generatePdf(Request $request, $participantId)
 {
-    $participant = Participant::with('event.certificate_templates')->findOrFail($participantId);
+    $participant = Participant::with('event')->findOrFail($participantId);
     $template = $participant->event->certificate_templates;
-
-    if (!$template) {
-        return response()->json(['error' => 'Template tidak ditemukan'], 404);
-    }
 
     // Dimensi kontainer PDF
     $pdfWidth = 794;  // Lebar A4 (landscape) dalam pixel (1/96 inch)
     $pdfHeight = 1123; // Tinggi A4 dalam pixel (1/96 inch)
 
-    $namaMargin = $this->convertMarginToPx((float) ($template->nama ?? 20), $pdfHeight);
-    $deskripsiMargin = $this->convertMarginToPx((float) ($template->deskripsi ?? 30), $pdfHeight);
-    $tanggalMargin = $this->convertMarginToPx((float) ($template->tanggal ?? 40), $pdfHeight);
-    $ttdMargin = $this->convertMarginToPx((float) ($template->ttd ?? 50), $pdfHeight);
-    $uidMargin = $this->convertMarginToPx((float) ($template->uid ?? 60), $pdfHeight);
+    // Konversikan margin ke px dari persentase
+    $namaMargin = $this->convertMarginToPx($template->nama, $pdfWidth, $pdfHeight);
+    $deskripsiMargin = $this->convertMarginToPx($template->deskripsi, $pdfWidth, $pdfHeight);
+    $tanggalMargin = $this->convertMarginToPx($template->tanggal, $pdfWidth, $pdfHeight);
+    $ttdMargin = $this->convertMarginToPx($template->ttd, $pdfWidth, $pdfHeight);
+    $uidMargin = $this->convertMarginToPx($template->uid, $pdfWidth, $pdfHeight);
 
     // Render PDF
-    $pdf = PDF::loadView('admin.certificate.certif_pdf', compact(
-        'participant',
-        'namaMargin',
-        'deskripsiMargin',
-        'tanggalMargin',
-        'ttdMargin',
-        'uidMargin'
-    ))->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+    $pdf = PDF::loadView('superadmin.certificate.certif_pdf', compact(
+        'participant', 'namaMargin', 'deskripsiMargin', 'tanggalMargin', 'ttdMargin', 'uidMargin'
+    ));
     $pdf->setPaper('A4', 'landscape');
 
     return $pdf->stream("certificate-{$participant->id}.pdf");
 }
 
-private function convertMarginToPx($percentage, $dimension)
+private function convertMarginToPx(string $margin, int $pdfWidth, int $pdfHeight)
 {
-    return round(($percentage / 100) * $dimension) . 'px';
+    // Pecah nilai margin (persentase) ke dalam array
+    $parts = explode(' ', $margin);
+    $top = floatval(str_replace('%', '', $parts[0] ?? 0)) / 100 * $pdfHeight;
+    $left = floatval(str_replace('%', '', $parts[3] ?? 0)) / 100 * $pdfWidth;
+
+    // Kembalikan nilai margin dalam format px
+    return "{$top}px 0px 0px {$left}px";
 }
 
 
 
-
-}
+} 

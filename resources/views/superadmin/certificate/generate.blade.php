@@ -273,17 +273,11 @@ document.addEventListener("DOMContentLoaded", function () {
             containment: "#certificate-preview",
             scroll: false,
             stop: function (event, ui) {
-                // Hitung margin sebagai persentase posisi elemen terhadap kontainer
-                const container = $("#certificate-preview");
-                const containerWidth = container.width();
-                const containerHeight = container.height();
-                const offset = ui.position;
+                 
+    const offset = ui.position;
 
-                const marginTop = (offset.top / containerHeight) * 100; // Margin top sebagai persentase
-                const marginLeft = (offset.left / containerWidth) * 100; // Margin left sebagai persentase
 
-                // Simpan margin dalam format persentase di input
-                $(el.input).val(`${marginTop.toFixed(2)}% 0 0 ${marginLeft.toFixed(2)}%`);
+$(el.input).val(`${offset.top}px 0 0 ${offset.left}px`);
             },
         });
     });

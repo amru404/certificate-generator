@@ -40,7 +40,7 @@
             color: #000;
         }
 
-        /* @media (max-width: 480px) {
+        @media (max-width: 480px) {
             .name {
                 font-size: 1.5rem;
                 margin-top: 40px;
@@ -92,7 +92,7 @@
                 max-width: 120px;
                 height: auto;
             }
-        } */
+        }
 
     </style>
 </head>
