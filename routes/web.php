@@ -74,15 +74,15 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
     // Certificate Routes
     Route::prefix('certificate')->group(function () {
 
-        Route::get('create/{id}', [CertifController::class, 'create'])->name('superadmin.certificate.create');
-        Route::get('store/{id}', [CertifController::class, 'store'])->name('superadmin.certificate.store');
-        Route::get('show/{id}', [CertifController::class, 'show'])->name('superadmin.certificate.show');
-        Route::get('pdf/{id}', [CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
-        Route::get('createTemplate', [CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
-        Route::post('storeTemplate', [CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
-        Route::get('editTemplate/{id}', [CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
-        Route::put('updateTemplate/{id}', [CertifController::class, 'updateTemplate'])->name('superadmin.certificate.updateTemplate');
-        Route::get('showTemplate/{id}', [CertifController::class, 'showTemplate'])->name('superadmin.certificate.showTemplate');
+        Route::get('create/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'create'])->name('superadmin.certificate.create');
+        Route::get('store/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'store'])->name('superadmin.certificate.store');
+        Route::get('show/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'show'])->name('superadmin.certificate.show');
+        Route::get('pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
+        Route::get('createTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
+        Route::post('storeTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
+        Route::get('editTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
+        Route::put('updateTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'updateTemplate'])->name('superadmin.certificate.updateTemplate');
+        Route::get('showTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'showTemplate'])->name('superadmin.certificate.showTemplate');
     });
 
     // User Management Routes
@@ -94,6 +94,9 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::put('update/{id}', [UserController::class, 'update'])->name('superadmin.user.update');
         Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('superadmin.user.destroy');
     });
+
+    // cek pdf
+    Route::get('/cekpdf', [App\Http\Controllers\admin\CertifController::class, 'cekpdf'])->name('cekpdf');
 
 
     //bg
@@ -168,7 +171,10 @@ Route::get('/certificate/result', fn() => view('virified', [
 
 
 Route::get('certificate/verification',[App\Http\Controllers\LandingController::class, 'indexVerification'])->name('certif.verfication');
-Route::post('certificate/verification/result',[App\Http\Controllers\LandingController::class, 'storeVerification'])->name('certif.verfication.result');
+Route::match(['get', 'post'], 'certificate/verification/{id}', [App\Http\Controllers\LandingController::class, 'storeVerification'])
+    ->name('certif.verfication.result');
+
 Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('certif.pdf');
+Route::get('certificate/pdf_download/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdfDownload'])->name('certif.pdf.download');
 
 Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'saveMargin']);

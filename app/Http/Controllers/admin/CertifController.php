@@ -38,22 +38,22 @@ class CertifController extends Controller
 
         if ($participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->route('admin.event.show', $eventId)
+            return redirect()->to(url("/superadmin/event/show/{$eventId}"))
                 ->with('error', 'No participants found for this event.');
         }
 
         foreach ($participants as $participant) {
-            // Cek apakah sertifikat sudah ada
-            $existingCertificate = Certificate::where('event_id', $eventId)
+            // Check if certificate already exists
+            $existingCertificate = Certificate::where('event_id', $event->id)
                 ->where('participant_id', $participant->id)
                 ->first();
-
+    
             if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                continue; // Skip peserta yang sudah memiliki sertifikat
+                continue; // Skip to the next participant
             }
-
-            // Buat sertifikat baru
+    
+            // Create a new certificate
             $certificate = Certificate::create([
                 'id' => 'stf-' . Str::random(7),
                 'event_id' => $eventId,
@@ -87,12 +87,13 @@ class CertifController extends Controller
             // Kirim sertifikat melalui email
             SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
         }
-
-        return redirect()->route('admin.event.show', $eventId)
-            ->with('success', 'Certificates generated and emails sent successfully.');
+    
+        // Redirect back with success message
+        return redirect()->to(url("/admin/event/show/{$eventId}"))
+            ->with('success', 'Participants imported and emails sent successfully.');
     }
-
-    // Fitur pencarian sertifikat berdasarkan ID
+    
+    
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -109,18 +110,42 @@ class CertifController extends Controller
     public function pdf(string $id)
     {
         ini_set('max_execution_time', 300);
-
-        $certificate = Certificate::where('participant_id', $id)->firstOrFail();
-        $participant = $certificate->participant;
-        $nama = $participant->nama;
-
-        $pdf = PDF::loadView('admin.certificate.certif_pdf', compact('certificate', 'participant'))
-            ->setPaper('A4', 'landscape');
-
+        
+        $certif = Certificate::where('participant_id', $id)->first();
+        $participant = Participant::where('id', $id)->first();
+        if (!$certif) {
+            abort(404, 'Certificate not found.');
+        }
+    
+        // dd($participant->event->certificate->certificate_templates->nama);
+        $nama = $certif->participant->nama;
+        
+        $pdf = PDF::loadView('admin.certificate.certif_pdf', compact('certif', 'participant'));
+        $pdf->setPaper('A4', 'landscape');
+        
         return $pdf->stream("certif_$nama.pdf");
     }
 
-    // Menampilkan halaman untuk generate sertifikat berdasarkan template
+    public function pdfDownload(string $id)
+    {
+        ini_set('max_execution_time', 300);
+        
+        $certif = Certificate::where('participant_id', $id)->first();
+        $participant = Participant::where('id', $id)->first();
+        if (!$certif) {
+            abort(404, 'Certificate not found.');
+        }
+    
+        $nama = $certif->participant->nama;
+        
+        $pdf = PDF::loadView('admin.certificate.certif_pdf', compact('certif', 'participant'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download("certif_$nama.pdf");
+    }
+    
+
+
     public function generate($template_id)
     {
         $template = CertificateTemplate::findOrFail($template_id);

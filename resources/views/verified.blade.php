@@ -20,24 +20,22 @@
         background-color: #2c3e50;
         color: #fff;
         padding: 15px;
-        text-align: center;
+        display: flex;
+        justify-content:center;
     }
 
     .certificate-preview {
         border: 2px dashed #ccc;
-        height: 400px;
+        height: auto; /* Biarkan tinggi disesuaikan secara otomatis */
         display: flex;
         justify-content: center;
         align-items: center;
-        background: url('{{ asset("images/sample-certificate.png") }}') no-repeat center/cover;
-        position: relative;
+        width: 100%; /* Pastikan kontainer mengambil 100% lebar */
     }
-
-    .certificate-preview p {
-        position: absolute;
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #2c3e50;
+    
+    #pdf-canvas {
+        width: 100%; /* Membuat canvas mengikuti lebar kontainer */
+        height: auto; /* Menjaga rasio aspek PDF */
     }
 
     .input-group {
@@ -67,32 +65,30 @@
     <!-- Certificate Section -->
     <div class="certificate-container">
         <!-- Header -->
-        <div class="certificate-header">
-            <h2>🎓 Certificate Generator</h2>
+        <div class="certificate-header d-flex text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" 
+        alt="Verified Icon" class=" me-4" style="width: 50px; height: 50px;">
+            <h2>Certificate Verified</h2>
         </div>
 
         <!-- Certificate Body -->
         <div class="p-4">
             <!-- Certificate Preview -->
             <div class="certificate-preview">
-                <iframe src="{{ asset('storage/certificates/' . $certificate->uid . '.pdf') }}" 
-                    width="100%" height="400px" style="border: none;">
-            </iframe>
-                <p id="certificate-name">{{ $certificate->participant->nama }}</p>
+            <canvas id="pdf-canvas"  width="100%" height="400px" style="border: none;"></canvas>
+ 
             </div>
 
             <!-- Certificate Details -->
+
             <div class="mt-4">
-                <div class="mb-2"><strong>Event Name:</strong> {{ $certificate->event->nama_event }}</div>
+            <div class="mb-2"><strong>Name:</strong> {{ $certificate->participant->nama }}</div>
+
+            <div class="mb-2"><strong>Event Name:</strong> {{ $certificate->event->nama_event }}</div>
                 <div class="mb-2"><strong>Issue Date:</strong> {{ \Carbon\Carbon::parse($certificate->event->tanggal)->translatedFormat('d F Y') }}</div>
                 <div><strong>Certificate ID:</strong> {{ $certificate->id }}</div>
             </div>
 
-            <!-- Change Name -->
-            <div class="input-group mt-4">
-                <input type="text" id="name-input" class="form-control" placeholder="Change Name" value="{{ $certificate->participant->nama }}">
-                <button class="btn btn-secondary" onclick="updateCertificateName()">Update</button>
-            </div>
 
             <!-- Action Buttons -->
             <div class="d-flex justify-content-center gap-3 mt-4">
@@ -103,16 +99,11 @@
                 </a>
 
                 <!-- Download Button -->
-                <a href="{{ route('certif.pdf', $certificate->participant->id) }}" 
+                <a href="{{ route('certif.pdf.download', $certificate->participant->id) }}" 
                    class="btn btn-success">
                     <i class="bi bi-download me-1"></i> Download
                 </a>
 
-                <!-- LinkedIn Share -->
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('certif.pdf', $certificate->participant->id)) }}"
-                   target="_blank" class="btn btn-linkedin">
-                    <i class="bi bi-linkedin me-1"></i> Share on LinkedIn
-                </a>
             </div>
         </div>
     </div>
@@ -126,5 +117,57 @@
         certificateName.textContent = inputName;
     }
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+<script>
+    // Menentukan lokasi file PDF yang akan dirender
+    var pdfUrl = "{{ route('certif.pdf', $certificate->participant->id) }}";
+
+    // Mengambil elemen canvas
+    var canvas = document.getElementById('pdf-canvas');
+    var context = canvas.getContext('2d');
+
+    // Menggunakan pdf.js untuk mengambil dan merender PDF
+    pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+        // Mengambil halaman pertama dari PDF
+        pdf.getPage(1).then(function(page) {
+            var scale = 0.65; // Skalakan halaman PDF
+            var viewport = page.getViewport({ scale: scale });
+
+            // Set ukuran canvas sesuai dengan ukuran kontainer
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Mengatur ulang ukuran canvas jika ukuran layar berubah
+            function resizeCanvas() {
+                var containerWidth = document.querySelector('.certificate-preview').offsetWidth;
+                var scale = containerWidth / viewport.width; // Menghitung skala berdasarkan lebar kontainer
+                var newViewport = page.getViewport({ scale: scale });
+
+                // Update ukuran canvas dan render ulang halaman
+                canvas.width = containerWidth;
+                canvas.height = newViewport.height;
+                page.render({
+                    canvasContext: context,
+                    viewport: newViewport
+                });
+            }
+
+            // Render halaman PDF ke dalam canvas
+            page.render({
+                canvasContext: context,
+                viewport: viewport
+            });
+
+            // Panggil fungsi resizeCanvas setiap kali ukuran jendela berubah
+            window.addEventListener('resize', resizeCanvas);
+        });
+    }).catch(function(error) {
+        console.error("Error while rendering PDF: ", error);
+    });
+</script>
+
 
 @endsection

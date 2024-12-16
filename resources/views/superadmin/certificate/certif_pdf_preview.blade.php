@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body,
         html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            min-height: 100vh;
             font-family: Arial, sans-serif;
             background-color: transparent;
         }
 
         .certificate-container {
             position: relative;
-            width: 100%;
-            height: 100vh;
+            width: 1122px;
+            height: 793px;
+            /* A4 landscape height */
+            margin: 0 auto;
+            background-color: #fff;
         }
 
         .certificate-bg {
@@ -33,115 +35,62 @@
 
         .content {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
             text-align: center;
             color: #000;
-            width: 90%;
         }
 
-        .name {
-            font-size: 2.5rem;
+        /* Penempatan nama */
+        .preview-nama {
+            font-size: 30px;
             font-weight: bold;
-        }
-
-        .message {
-            font-size: 18px;
-        }
-
-        .tgl {
-            position: absolute; 
-            top: 200px;
-            left: -180px;
-            color: #000000d3;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            bottom: 120px;
-        }
-
-        .uid {
-            position: absolute; 
-            top: 280px; 
-            left: -310px;
-            transform: translateX(-50%); 
-            font-size: 1rem;
-            font-weight:bold; 
-            color: #000000d3;
-            bottom: 100px;
-        }
-
-        .signatur-img {
+            color: #333;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
             position: absolute;
-            top: 130px;
-            right: -250px;
-            max-width: 150px;
-            max-height: 100px;
-            width: auto;
-            height: auto;
-            object-fit: contain;
         }
 
-        .deskripsi {
-            font-size: 1rem;
+        /* Penempatan deskripsi */
+        .preview-deskripsi {
+            font-size: 18px;
+            color: #555;
+            font-weight: 500;
+            width: 500px;
             text-align: center;
-            margin: 0;
+            position: absolute;
+            top: 55%;
+            /* Tetapkan top secara eksplisit */
+            left: 50%;
+            /* Tetapkan left secara eksplisit */
+            transform: translateX(-50%);
+            /* Hanya offset horizontal */
+            white-space: normal;
+            /* Izinkan pembungkusan teks */
+            word-wrap: break-word;
+            /* Pastikan kata yang panjang terpecah */
+            overflow: visible;/
         }
 
-        @media (max-width: 480px) {
-            .name {
-                font-size: 1.5rem;
-                margin-top: 40px;
-            }
-
-            .deskripsi {
-                font-size: 0.8rem !important;
-                top: 50px !important;
-                width: 100% !important;
-                margin-top: 10px;
-            }
-
-            .tgl,
-            .uid {
-                font-size: 0.8rem;
-                text-align: center;
-                margin-top: 15px;
-            }
-
-            .signatur-img {
-                max-width: 100px;
-            }
+        /* Penempatan tanggal */
+        .preview-tanggal {
+            font-size: 16px;
+            color: #777;
+            font-style: italic;
+            position: absolute;
         }
 
-        @media (max-width: 768px) {
-            .name {
-                font-size: 1.8rem;
-                margin-top: 60px;
-            }
+        /* Penempatan UID */
+        .preview-uid {
+            font-size: 14px;
+            color: #555;
+            position: absolute;
+        }
 
-            .deskripsi {
-                font-size: 0.9rem !important;
-                top: 60px !important;
-                width: 90% !important;
-            }
-
-            .tgl {
-                position: static;
-                font-size: 0.9rem;
-            }
-
-            .uid {
-                position: static;
-                font-size: 0.9rem;
-            }
-
-            .signatur-img {
-                position: static;
-                margin: 20px auto 0;
-                display: block;
-                max-width: 120px;
-                height: auto;
-            }
+        /* Penempatan tanda tangan */
+        .signature-img {
+            width: 100px;
+            height: auto;
+            position: absolute;
         }
 
     </style>
@@ -151,44 +100,50 @@
 
     <div class="certificate-container">
         <div style="position: relative; width: 100%; height: 100vh;">
+
+            <!-- Certificate Background -->
             <img src="{{ public_path('storage/' . $template->preview) }}"
                 style="width: 100%; height: 100vh; position: absolute; z-index: -1; object-fit: cover;"
                 class="certificate-bg">
 
+            <!-- Content Section -->
             <div class="content">
-
-                <h2 class="name" style="position: absolute; font-size: 32px; width: 520px; margin: 
-    {{ $template->nama ?? '0px' }};">
-
-                    amru azzam
-                    <br>
-
-                </h2>
-
-                <div style="position: relative; width: 100%; height: 100vh;">
-                    <p class="deskripsi" style="position: absolute; transform: translateX(-50%); font-size: 13px; width: 500px; text-align: center; margin: 
-    {{ $template->deskripsi ?? '0px' }};">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est beatae laborum vel obcaecati, neque
-                        doloribus similique hic corrupti accusamus voluptatem distinctio illum doloremque esse,
-                        consequatur nisi dignissimos harum eos tempore!
-                    </p>
+                <!-- Nama -->
+                <div class="preview-nama"
+                    style="top:10px; left:85px;margin: {{ $template->nama }}; transform: translate(-50%, -50%);">
+                    Amru abdurrahman azzam
                 </div>
-                <h2 class="tgl" style="margin: 
-    {{ $template->tanggal ?? '0px' }};">
-                    02/10/2020
-                </h2>
 
-                <img src="{{ public_path('ttd/ttd.png') }}" class="signatur-img">
+                <!-- Deskripsi -->
+                <div class="preview-deskripsi"
+                    style="top: 15px; left: 340px; transform: translateX(-50%); margin: {{ $template->deskripsi }};">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore id praesentium necessitatibus vel
+                    debitis aspernatur veritatis impedit assumenda possimus sit? Blanditiis dolorem pariatur optio
+                    facere dolore minima doloribus sint id!
 
-                <p class="uid" style="margin: {{ $template->uid }};">
-                    UID : scr-123211231
-                </p>
+                </div>
+
+
+                <!-- Tanggal -->
+                <div class="preview-tanggal"
+                    style="top:40px; left:50px;margin: {{ $template->tanggal }}; transform:translate(-50%, -50%);">
+                    18 December 2024
+                </div>
+
+                <!-- Signature -->
+                <img src="{{ public_path('ttd/ttd.png') }}"
+                    style="top:60px; left:115px;margin: {{ $template->ttd }}; transform:translate(-50%, -50%);"
+                    class="signature-img">
+
+                <!-- UID -->
+                <div class="preview-uid"
+                    style="top:50px;margin: {{ $template->uid }}; transform:translate(-50%, -50%);">
+                    UID: csf-spsejr
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

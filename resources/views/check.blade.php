@@ -38,14 +38,14 @@
                 <div class="bg-white shadow p-4 rounded w-100">
                     <h1 class="fs-5 fw-bold mb-3 text-center">Certificate Verification System</h1>
                     <p class="text-center">Ensure the Authenticity of Your Certificate with a Simple UID Lookup</p>
-                    <form action="{{ route('certif.verfication.result') }}" method="post">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="id" class="form-label">UID</label>
-                            <input type="text" name="id" class="form-control" id="id" placeholder="Enter Certificate UID">
-                        </div>
-                        <button type="submit" class="btn w-100 fw-bold text-white" style="background-color: #2D3E50; border-radius: 5px;">Verify Now</button>
-                    </form>
+                    <form id="verifyForm" action="{{ route('certif.verfication.result', ':id') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="id" class="form-label">UID</label>
+                        <input type="text" name="id" class="form-control" id="id" placeholder="Enter Certificate UID">
+                    </div>
+                    <button type="submit" class="btn w-100 fw-bold text-white" style="background-color: #2D3E50; border-radius: 5px;">Verify Now</button>
+                </form>
                 </div>
             </div>
     
@@ -60,6 +60,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('verifyForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Mencegah pengiriman form default
+
+        const inputId = document.getElementById('id').value; // Ambil nilai UID
+        if (inputId.trim() === '') {
+            alert('Please enter a valid Certificate UID!');
+            return; // Tidak melanjutkan jika input kosong
+        }
+
+        // Update action URL dengan ID
+        const formAction = this.action.replace(':id', inputId);
+        this.action = formAction;
+
+        this.submit(); // Kirim form
+    });
+</script>
+
 <style>
 .align-items-stretch {
     display: flex;

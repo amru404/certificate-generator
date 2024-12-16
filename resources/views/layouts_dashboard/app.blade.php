@@ -25,9 +25,14 @@
       }
     </style>
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- DataTables Bootstrap 5 Integration CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+
     @yield('css')
-    <!-- css datatble -->
-    <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -104,8 +109,7 @@
             element.classList.add('active');
         }
     </script>
-
-//Profil
+    
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Mendaftarkan event listener pada input file
@@ -147,7 +151,21 @@
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- jQuery UI -->
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<!-- jQuery UI CSS -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 
 </body>
 
