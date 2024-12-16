@@ -82,7 +82,7 @@
         <!-- Tanggal -->
         <div id="preview-tanggal"
             style="position:absolute; bottom:20%; left:50%; transform:translateX(-50%); font-size:16px; color:#777; font-style:italic;">
-            2024-12-11
+            18 December 2024
         </div>
 
         <!-- UID -->

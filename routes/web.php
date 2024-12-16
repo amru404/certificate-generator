@@ -74,15 +74,15 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
     // Certificate Routes
     Route::prefix('certificate')->group(function () {
 
-        Route::get('create/{id}', [CertifController::class, 'create'])->name('superadmin.certificate.create');
-        Route::get('store/{id}', [CertifController::class, 'store'])->name('superadmin.certificate.store');
-        Route::get('show/{id}', [CertifController::class, 'show'])->name('superadmin.certificate.show');
-        Route::get('pdf/{id}', [CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
-        Route::get('createTemplate', [CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
-        Route::post('storeTemplate', [CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
-        Route::get('editTemplate/{id}', [CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
-        Route::put('updateTemplate/{id}', [CertifController::class, 'updateTemplate'])->name('superadmin.certificate.updateTemplate');
-        Route::get('showTemplate/{id}', [CertifController::class, 'showTemplate'])->name('superadmin.certificate.showTemplate');
+        Route::get('create/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'create'])->name('superadmin.certificate.create');
+        Route::get('store/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'store'])->name('superadmin.certificate.store');
+        Route::get('show/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'show'])->name('superadmin.certificate.show');
+        Route::get('pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
+        Route::get('createTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
+        Route::post('storeTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
+        Route::get('editTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
+        Route::put('updateTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'updateTemplate'])->name('superadmin.certificate.updateTemplate');
+        Route::get('showTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'showTemplate'])->name('superadmin.certificate.showTemplate');
     });
 
     // User Management Routes

@@ -100,6 +100,7 @@ class CertifController extends Controller
             abort(404, 'Certificate not found.');
         }
     
+        // dd($participant->event->certificate->certificate_templates->nama);
         $nama = $certif->participant->nama;
         
         $pdf = PDF::loadView('admin.certificate.certif_pdf', compact('certif', 'participant'));

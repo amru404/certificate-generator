@@ -127,7 +127,7 @@
                 <!-- Tanggal -->
                 <div class="preview-tanggal"
                     style="top:40px; left:45px;margin: {{ $template->tanggal }}; transform:translate(-50%, -50%);">
-                    2024-12-22
+                    18 December 2024
                 </div>
 
                 <!-- Signature -->
