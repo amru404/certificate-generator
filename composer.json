@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "maatwebsite/excel": "3.1.32",
+        "maennchen/zipstream-php": "^2.2",
         "mtownsend/remove-bg": "^2.0"
     },
     "require-dev": {

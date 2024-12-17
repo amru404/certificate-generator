@@ -115,6 +115,51 @@
 
             <!-- Content Section -->
             <div class="content">
+                
+                <!-- logo -->
+                @php
+                    $logo = json_decode($participant->event->logo);
+                    $margins = json_decode($participant->event->certificate->certificate_templates->logo);
+              
+                 @endphp
+
+                    <!-- Gambar 1 -->
+                @if (isset($logo[0]) && isset($margins[0]))
+                    <img src="{{ public_path('storage/' . $logo[0]) }}"style="top:0px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                @endif
+
+                <!-- Gambar 2 -->
+
+                 @if (isset($logo[1]) && isset($margins[1]))
+                    <img src="{{ public_path('storage/' . $logo[1]) }}"style="top:0px; left:115px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                @endif
+
+                 <!-- Gambar 3 -->
+
+
+
+                 @if (isset($logo[2]) && isset($margins[2]))
+                    <img src="{{ public_path('storage/' . $logo[2]) }}"style="top:0px; left:115px; margin: {{ $margins[2] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                @endif
+
+                 <!-- Gambar 4 -->
+
+                 @if (isset($logo[3]) && isset($margins[3]))
+                    <img src="{{ public_path('storage/' . $logo[3]) }}"style="top:0px; left:115px; margin: {{ $margins[3] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                @endif
+
+                 <!-- Gambar 5 -->
+
+                 @if (isset($logo[4]) && isset($margins[4]))
+                    <img src="{{ public_path('storage/' . $logo[4]) }}"style="top:0px; left:115px; margin: {{ $margins[4] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                @endif
+
+                 <!-- Gambar 6 -->
+
+                 @if (isset($logo[5]) && isset($margins[5]))
+                    <img src="{{ public_path('storage/' . $logo[5]) }}"style="top:0px; left:115px; margin: {{ $margins[5] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                @endif
+
                 <!-- Nama -->
                 <div class="preview-nama"
                     style="top:10px; left:85px;margin: {{ $participant->event->certificate->certificate_templates->nama }}; transform: translate(-50%, -50%);">
@@ -123,7 +168,7 @@
                 </div>
 
                 <div class="preview-nomor_certificate"
-                    style="margin: {{ $participant->event->certificate->certificate_templates->nomor_certificate }}; transform: translate(-50%, -50%); left:335px">
+                    style="margin: {{ $participant->event->certificate->certificate_templates->nomor_certificate }}; transform: translate(-50%, -50%); left:225px">
                     {{$participant->event->nomor_certificate}}
                 </div>
 
@@ -136,29 +181,57 @@
 
 
                 <!-- Tanggal -->
+                <!-- <div class="preview-tanggal"
+                    style="top:40px; left:50px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }};">
+                    {{ \Carbon\Carbon::parse($participant->event->tanggal)->translatedFormat('d F Y') }}
+                </div> -->
+
                 <div class="preview-tanggal"
-                    style="top:55px; left:80px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
+                    style="top:40px; left:50px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
                     {{ \Carbon\Carbon::parse($participant->event->tanggal)->translatedFormat('d F Y') }}
                 </div>
+                
 
                 <!-- Signature -->
                     @php
-                        $ttds = json_decode($participant->event->ttd);
+                        $ttd = json_decode($participant->event->ttd);
                         $margins = json_decode($participant->event->certificate->certificate_templates->ttd);
                     @endphp
 
                     <!-- Gambar 1 -->
-                    @if (isset($ttds[0]) && isset($margins[0]))
-                        <img src="{{ public_path('storage/' . $ttds[0]) }}"
-                            style="top:60px; left:50px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%);"
+                    <!-- @if (isset($ttd[0]) && isset($margins[0]))
+                        <img src="{{ public_path('storage/' . $ttd[0]) }}"
+                            style="top:60px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:120px"
                             class="signature-img">
-                    @endif
+                    @endif -->
 
                     <!-- Gambar 2 -->
 
-                    @if (isset($ttds[1]) && isset($margins[1]))
-                        <img src="{{ public_path('storage/' . $ttds[1]) }}"
-                            style="top:60px; left:115px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%);"
+                    @if (isset($ttd[1]) && isset($margins[1]))
+                        <img src="{{ public_path('storage/' . $ttd[1]) }}"
+                            style="top:60px; left:115px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%); width:120px"
+                            class="signature-img">
+                    @endif
+
+                    <!-- cap -->
+                    @php
+                        $cap = json_decode($participant->event->cap);
+                        $margins = json_decode($participant->event->certificate->certificate_templates->ttd);
+                    @endphp
+
+                    <!-- Gambar 1 -->
+                    <!-- @if (isset($cap[0]) && isset($margins[0]))
+                        <img src="{{ public_path('storage/' . $cap[0]) }}"
+                            style="top:60px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:70px"
+                            class="signature-img">
+                    @endif -->
+
+
+                    <!-- Gambar 2 -->
+
+                    @if (isset($cap[1]) && isset($margins[1]))
+                        <img src="{{ public_path('storage/' . $cap[1]) }}"
+                            style="top:60px; left:115px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%); width:70px"
                             class="signature-img">
                     @endif
 

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\CertificateTemplate;
 use App\Jobs\SendCertificateEmailJob;
 use App\Models\EmailLog;
+use App\Jobs\GenerateCertificatesZip;
+
 
 
 class CertifController extends Controller
@@ -147,7 +149,31 @@ class CertifController extends Controller
         // Mengirim file ZIP yang sudah dibuat untuk diunduh
         return response()->download($zipFile)->deleteFileAfterSend(true);
     }
+
     
+
+    // public function download_all_pdf(string $id)
+    // {
+    //     // Dispatch job untuk membuat ZIP
+    //     GenerateCertificatesZip::dispatch($id);
+
+    //     // Memberikan response ke pengguna bahwa proses sedang berjalan
+    //     return redirect()->back()->with('status', 'Proses pembuatan file ZIP sedang berjalan.');
+    // }
+
+
+
+    // public function downloadZip($eventId)
+    // {
+    //     $zipFile = storage_path("app/public/certificates_event_{$eventId}.zip");
+        
+    //     if (file_exists($zipFile)) {
+    //         return response()->download($zipFile)->deleteFileAfterSend(true);
+    //     } else {
+    //         return redirect()->back()->with('error', 'File ZIP tidak ditemukan.');
+    //     }
+    // }
+        
     
     
 
@@ -270,31 +296,55 @@ class CertifController extends Controller
             $path = $request->file('preview')->store('sertif', 'public');
         }
         
-        // Mengambil input ttd1 dan ttd2
         $ttd1 = $request->input('ttd1');
         $ttd2 = $request->input('ttd2');
         
-        // Membuat array ttds
+        $logo1 = $request->input('logo1');
+        $logo2 = $request->input('logo2');
+        $logo3 = $request->input('logo3');
+        $logo4 = $request->input('logo4');
+        $logo5 = $request->input('logo5');
+        $logo6 = $request->input('logo6');
+
+        $cap1 = $request->input('cap1');
+        $cap2 = $request->input('cap2');
+
+
+
         $ttds = [
             $ttd1,
             $ttd2,
         ];
-    
-        // Mengonversi array ttds ke format JSON
-        $ttdsJson = json_encode($ttds);
+        
+        $logos = [
+            $logo1,
+            $logo2,
+            $logo3,
+            $logo4,
+            $logo5,
+            $logo6,
+        ];
 
-        // dd($ttdsJson);
+        $caps = [
+            $cap1,
+            $cap2,
+        ];
     
-        // Simpan data ke database
+        $ttd = json_encode($ttds);
+        $logo = json_encode($logos);
+        $cap = json_encode($caps);
+
         CertificateTemplate::create([
             'nama_template' => $validated['nama_template'],
-            'preview' => $path,  // Pastikan path gambar disimpan
+            'preview' => $path,
             'nama' => $validated['nama'],
             'deskripsi' => $validated['deskripsi'],
             'tanggal' => $validated['tanggal'],
             'nomor_certificate' => $validated['nomor_certificate'],
             'uid' => $validated['uid'],
-            'ttd' => $ttdsJson,  // Menyimpan tanda tangan dalam format JSON
+            'ttd' => $ttd,
+            'logo' => $logo,
+            'cap' => $cap,  
         ]);
     
         return redirect()->route('superadmin.certificate.indexTemplate')->with('success', 'Add New Template successfully.');

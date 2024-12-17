@@ -21,8 +21,19 @@
         <input type="hidden" class="form-control" id="deskripsi" name="deskripsi" required placeholder="margin deskripsi">
         <input type="hidden" class="form-control" id="tanggal" name="tanggal" required placeholder="margin tanggal">
         <input type="hidden" class="form-control" id="uid" name="uid" required placeholder="margin uid">
-        <input type="text" class="form-control" id="ttd1" name="ttd1" required placeholder="margin ttd 1">
-        <input type="text" class="form-control" id="ttd2" name="ttd2" required placeholder="margin ttd 2">
+        <input type="hidden" class="form-control" id="ttd1" name="ttd1" required placeholder="margin ttd 1">
+        <input type="hidden" class="form-control" id="ttd2" name="ttd2" required placeholder="margin ttd 2">
+
+        <input type="hidden" class="form-control" id="logo1-pos" name="logo1" required>
+        <input type="hidden" class="form-control" id="logo2-pos" name="logo2" required>
+        <input type="hidden" class="form-control" id="logo3-pos" name="logo3" required>
+        <input type="hidden" class="form-control" id="logo4-pos" name="logo4" required>
+        <input type="hidden" class="form-control" id="logo5-pos" name="logo5" required>
+        <input type="hidden" class="form-control" id="logo6-pos" name="logo6" required>
+
+        <input type="hidden" class="form-control" id="cap1-pos" name="cap1" required>
+        <input type="hidden" class="form-control" id="cap2-pos" name="cap2" required>
+
     </form>
 
     <!-- Live Preview -->
@@ -35,11 +46,26 @@
             <!-- Preview Image -->
             <img id="preview-image" src="" alt="Live Preview" style="display: block; width: 100%; height: 100%; object-fit: contain;">
             
+
+            <!-- logo -->
+            <img id="logo1" src="{{ asset('logos/logo.png') }}" alt="logo1" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            
+            <img id="logo2" src="{{ asset('logos/logo.png') }}" alt="logo2" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            
+            <img id="logo3" src="{{ asset('logos/logo.png') }}" alt="logo3" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            
+            <img id="logo4" src="{{ asset('logos/logo.png') }}" alt="logo4" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            
+            <img id="logo5" src="{{ asset('logos/logo.png') }}" alt="logo5" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            
+            <img id="logo6" src="{{ asset('logos/logo.png') }}" alt="logo6" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            
+
             <!-- Nama -->
             <div id="preview-nama" style="position:absolute; top:40%; left:50%; transform:translate(-50%, -50%); font-size:24px; font-weight:bold; color:#333; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);">Amru abdurrahman azzam</div>
 
             <!-- nomor_certificate -->
-            <div id="preview-nomor_certificate" style="position:absolute; top:55%; left:50%; font-size:18px; color:#555; text-align:center; font-weight:500;z-index: 1; width:500px;">001/MA/MB.DMM/MSIB/XII/2024</div>
+            <div id="preview-nomor_certificate" style="position:absolute; top:25%; left:0%; font-size:18px; color:#555; text-align:center; font-weight:500;z-index: 1; width:300px;">001/MA/MB.DMM/MSIB/XII/2024</div>
 
             <!-- Deskripsi -->
             <div id="preview-deskripsi" style="position:absolute; top:55%; left:50%; font-size:18px; color:#555; text-align:center; font-weight:500;z-index: 1; width:500px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id blanditiis voluptatibus sed hic vero consequatur fuga necessitatibus qui debitis pariatur!</div>
@@ -51,16 +77,23 @@
             <div id="preview-uid" style="position:absolute; bottom:15%; left:50%; transform:translateX(-50%); font-size:14px; color:#555;">UID: UID12345</div>
 
             <!-- Signature 1 -->
-            <img id="signature-image" src="{{ asset('ttd/ttd.png') }}" alt="Signature" style="position:absolute; bottom:5%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="signature-image" src="{{ asset('ttd/ttd.png') }}" alt="Signature" style="position:absolute; bottom:5%; left:30%; transform:translateX(-50%); width:100px; height:auto;">
             
             <!-- Signature 2 -->
-            <img id="signature-image2" src="{{ asset('ttd/ttd.png') }}" alt="Signature" style="position:absolute; bottom:5%; left:60%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="signature-image2" src="{{ asset('ttd/ttd.png') }}" alt="Signature" style="position:absolute; bottom:5%; left:70%; transform:translateX(-50%); width:100px; height:auto;">
+
+          
+            <img id="cap1" src="{{ asset('cap/cap.jpeg') }}" alt="cap1" style="position:absolute; bottom:5%; left:30%; transform:translateX(-50%); width:60px; height:auto;">
+
+            <img id="cap2" src="{{ asset('cap/cap.jpeg') }}" alt="cap2" style="position:absolute; bottom:5%; left:70%; transform:translateX(-50%); width:60px; height:auto;">
+            
+
         </div>
     </div>
 
     <button type="submit" class="btn text-white mt-4" style="background-color:#2D3E50;" onclick="document.getElementById('certificateForm').submit();">Save Template</button>
 
-   <script>
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
         const namaInput = document.getElementById("nama");
         const deskripsiInput = document.getElementById("deskripsi");
@@ -107,7 +140,7 @@
             }
         });
 
-        // Draggable functionality for text fields, including nomor_certificate
+        // Draggable functionality
         $(document).ready(function () {
             const elements = [
                 { id: "#preview-nama", input: "#nama" },
@@ -120,6 +153,20 @@
             const signatureElements = [
                 { id: "#signature-image", input: "#ttd1" },
                 { id: "#signature-image2", input: "#ttd2" }
+            ];
+
+            const logoElements = [
+                { id: "#logo1", input: "#logo1-pos" },
+                { id: "#logo2", input: "#logo2-pos" },
+                { id: "#logo3", input: "#logo3-pos" },
+                { id: "#logo4", input: "#logo4-pos" },
+                { id: "#logo5", input: "#logo5-pos" },
+                { id: "#logo6", input: "#logo6-pos" }
+            ];
+
+            const capElements = [
+                { id: "#cap1", input: "#cap1-pos" },
+                { id: "#cap2", input: "#cap2-pos" }
             ];
 
             // Handle draggable for standard text fields
@@ -137,7 +184,35 @@
             });
 
             // Handle draggable for signature images
-            signatureElements.forEach((el, index) => {
+            signatureElements.forEach((el) => {
+                $(el.id).draggable({
+                    containment: "#certificate-preview",
+                    scroll: false,
+                    stop: function (event, ui) {
+                        const offset = ui.position;
+                        const marginTop = offset.top;
+                        const marginLeft = offset.left;
+                        $(el.input).val(`${marginTop}px 0 0 ${marginLeft}px`);
+                    },
+                });
+            });
+
+            // Handle draggable for logos
+            logoElements.forEach((el) => {
+                $(el.id).draggable({
+                    containment: "#certificate-preview",
+                    scroll: false,
+                    stop: function (event, ui) {
+                        const offset = ui.position;
+                        const marginTop = offset.top;
+                        const marginLeft = offset.left;
+                        $(el.input).val(`${marginTop}px 0 0 ${marginLeft}px`);
+                    },
+                });
+            });
+
+            // Handle draggable for caps
+            capElements.forEach((el) => {
                 $(el.id).draggable({
                     containment: "#certificate-preview",
                     scroll: false,
@@ -152,6 +227,7 @@
         });
     });
 </script>
+
 
 
 @endsection
