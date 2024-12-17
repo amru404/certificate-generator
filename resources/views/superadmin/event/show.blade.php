@@ -21,12 +21,14 @@
 
 <div class="card-header">
     <h3>Detail Event: {{ $detail_event->nama_event }}</h3>
-    <a href="{{ route('superadmin.certificate.create', $detail_event->id) }}" class="btn"
-        style="background-color:#2D3E50;color:white;">Generate Certificates</a>
+    <a href="{{ route('superadmin.certificate.create', $detail_event->id) }}" class="btn" style="background-color:#2D3E50;color:white;">
+        Generate Certificates
+    </a>
 </div>
+
 <div class="card-body mt-4">
     <div class="row">
-        <!-- Detail Event -->
+        <!-- Detail Event dan Cap Event -->
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header" style="background-color:#2D3E50;color:white;">
@@ -34,12 +36,28 @@
                 </div>
                 <div class="card-body">
                     <p><strong>Nama Event:</strong> {{ $detail_event->nama_event }}</p>
+                    <p><strong>Nomor Certificate:</strong> {{ $detail_event->nomor_certificate }}</p>
                     <p><strong>Email:</strong> {{ $detail_event->email }}</p>
                     <p><strong>No. Telp:</strong> {{ $detail_event->no_telp }}</p>
                     <p><strong>Deskripsi:</strong></p>
                     <p>{{ $detail_event->deskripsi }}</p>
-                    <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($detail_event->tanggal)->format('d M Y') }}
-                    </p>
+                    <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($detail_event->tanggal)->format('d M Y') }}</p>
+                </div>
+            </div>
+
+            <!-- Cap Event -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#2D3E50;color:white;">
+                    <h5 class="mb-0">Cap Event</h5>
+                </div>
+                <div class="card-body d-flex flex-wrap justify-content-center">
+                    @if($detail_event->cap)
+                        @foreach ($cap as $cap)
+                            <img src="{{ asset('storage/' . $cap) }}" style="height:100px; margin:10px;" alt="Cap">
+                        @endforeach
+                    @else
+                        <p>Cap tidak tersedia</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -48,38 +66,41 @@
         <div class="col-md-6">
             <div class="row">
                 <!-- Logo Event -->
-                <div class="col-12 text-center">
-                    <div class="card mb-4">
+                <div class="col-12 mb-4">
+                    <div class="card">
                         <div class="card-header" style="background-color:#2D3E50;color:white;">
                             <h5 class="mb-0">Logo Event</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-wrap justify-content-center">
                             @if($detail_event->logo)
-                            <img src="{{ asset('storage/' . $detail_event->logo) }}" alt="Logo Event" class="img-fluid"
-                                style="max-height: 200px;">
+                                @foreach ($logo as $logo)
+                                    <img src="{{ asset('storage/' . $logo) }}" style="height:50px; margin:10px;" alt="Logo">
+                                @endforeach
                             @else
-                            <p>Logo tidak tersedia</p>
+                                <p>Logo tidak tersedia</p>
                             @endif
                         </div>
                     </div>
                 </div>
 
                 <!-- Tanda Tangan Event -->
-                <div class="col-12 text-center">
-                    <div class="card mb-4">
+                <div class="col-12 mb-4">
+                    <div class="card">
                         <div class="card-header" style="background-color:#2D3E50;color:white;">
                             <h5 class="mb-0">Tanda Tangan Event</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-wrap justify-content-center">
                             @if($detail_event->ttd)
-                            <img src="{{ asset('storage/' . $detail_event->ttd) }}" alt="Tanda Tangan Event"
-                                class="img-fluid" style="max-height: 200px;">
+                                @foreach ($ttd as $ttd)
+                                    <img src="{{ asset('storage/' . $ttd) }}" style="height:100px; margin:10px;" alt="Tanda Tangan">
+                                @endforeach
                             @else
-                            <p>TTD tidak tersedia</p>
+                                <p>TTD tidak tersedia</p>
                             @endif
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

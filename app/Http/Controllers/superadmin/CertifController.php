@@ -358,41 +358,41 @@ class CertifController extends Controller
 
 
 
-    public function generatePdf(Request $request, $participantId)
-    {
-        $participant = Participant::with('event')->findOrFail($participantId);
-        $template = $participant->event->certificate_templates;
+    // public function generatePdf(Request $request, $participantId)
+    // {
+    //     $participant = Participant::with('event')->findOrFail($participantId);
+    //     $template = $participant->event->certificate_templates;
 
-        // Dimensi kontainer PDF
-        $pdfWidth = 794;  // Lebar A4 (landscape) dalam pixel (1/96 inch)
-        $pdfHeight = 1123; // Tinggi A4 dalam pixel (1/96 inch)
+    //     // Dimensi kontainer PDF
+    //     $pdfWidth = 794;  // Lebar A4 (landscape) dalam pixel (1/96 inch)
+    //     $pdfHeight = 1123; // Tinggi A4 dalam pixel (1/96 inch)
 
-        // Konversikan margin ke px dari persentase
-        $namaMargin = $this->convertMarginToPx($template->nama, $pdfWidth, $pdfHeight);
-        $deskripsiMargin = $this->convertMarginToPx($template->deskripsi, $pdfWidth, $pdfHeight);
-        $tanggalMargin = $this->convertMarginToPx($template->tanggal, $pdfWidth, $pdfHeight);
-        $ttdMargin = $this->convertMarginToPx($template->ttd, $pdfWidth, $pdfHeight);
-        $uidMargin = $this->convertMarginToPx($template->uid, $pdfWidth, $pdfHeight);
+    //     // Konversikan margin ke px dari persentase
+    //     $namaMargin = $this->convertMarginToPx($template->nama, $pdfWidth, $pdfHeight);
+    //     $deskripsiMargin = $this->convertMarginToPx($template->deskripsi, $pdfWidth, $pdfHeight);
+    //     $tanggalMargin = $this->convertMarginToPx($template->tanggal, $pdfWidth, $pdfHeight);
+    //     $ttdMargin = $this->convertMarginToPx($template->ttd, $pdfWidth, $pdfHeight);
+    //     $uidMargin = $this->convertMarginToPx($template->uid, $pdfWidth, $pdfHeight);
 
-        // Render PDF
-        $pdf = PDF::loadView('superadmin.certificate.certif_pdf', compact(
-            'participant', 'namaMargin', 'deskripsiMargin', 'tanggalMargin', 'ttdMargin', 'uidMargin'
-        ));
-        $pdf->setPaper('A4', 'landscape');
+    //     // Render PDF
+    //     $pdf = PDF::loadView('superadmin.certificate.certif_pdf', compact(
+    //         'participant', 'namaMargin', 'deskripsiMargin', 'tanggalMargin', 'ttdMargin', 'uidMargin'
+    //     ));
+    //     $pdf->setPaper('A4', 'landscape');
 
-        return $pdf->stream("certificate-{$participant->id}.pdf");
-    }
+    //     return $pdf->stream("certificate-{$participant->id}.pdf");
+    // }
 
  
-    private function convertMarginToPx(string $margin, int $pdfWidth, int $pdfHeight)
-    {
-        // Pecah nilai margin (persentase) ke dalam array
-        $parts = explode(' ', $margin);
-        $top = floatval(str_replace('%', '', $parts[0] ?? 0)) / 100 * $pdfHeight;
-        $left = floatval(str_replace('%', '', $parts[3] ?? 0)) / 100 * $pdfWidth;
+    // private function convertMarginToPx(string $margin, int $pdfWidth, int $pdfHeight)
+    // {
+    //     // Pecah nilai margin (persentase) ke dalam array
+    //     $parts = explode(' ', $margin);
+    //     $top = floatval(str_replace('%', '', $parts[0] ?? 0)) / 100 * $pdfHeight;
+    //     $left = floatval(str_replace('%', '', $parts[3] ?? 0)) / 100 * $pdfWidth;
 
-        // Kembalikan nilai margin dalam format px
-        return "{$top}px 0px 0px {$left}px";
-    }
+    //     // Kembalikan nilai margin dalam format px
+    //     return "{$top}px 0px 0px {$left}px";
+    // }
 
 }
