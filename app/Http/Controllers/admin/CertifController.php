@@ -60,7 +60,6 @@ class CertifController extends Controller
                 'participant_id' => $participant->id,
                 'style' => 'style 1',
                 'certificate_templates_id' => $request->id,
-                'signature' => $event->ttd,
             ]);
         }
     

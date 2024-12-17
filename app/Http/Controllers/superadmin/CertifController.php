@@ -67,7 +67,6 @@ class CertifController extends Controller
                 'participant_id' => $participant->id,
                 'style' => 'style 1',
                 'certificate_templates_id' => $request->id,
-                'signature' => $event->ttd,
             ]);
         }
     
@@ -238,12 +237,17 @@ class CertifController extends Controller
     }
 
 
-    public function createTemplate()
+    public function indexTemplate()
     {
         $templateCertif = CertificateTemplate::all();
         $participant = Participant::with(['certificate', 'certificate.certificate_templates', 'event'])->first();
 
         return view('superadmin.certificate.generate', compact('templateCertif', 'participant'));
+    }
+
+
+    public function createTemplate(){
+        return view('superadmin.certificate.add_template');
     }
 
     
@@ -274,7 +278,7 @@ class CertifController extends Controller
             'ttd' => $validated['ttd'],
             'uid' => $validated['uid'],
         ]);
-        return redirect()->route('superadmin.certificate.createTemplate')->with('success', 'Add New Template successfully.');
+        return redirect()->route('superadmin.certificate.indexTemplate')->with('success', 'Add New Template successfully.');
     }
 
 

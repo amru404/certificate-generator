@@ -20,7 +20,7 @@
             <i class="bi bi-people me-2"></i> <span class="menu-text">User</span>
         </a>
 
-        <a href="{{ route('superadmin.certificate.createTemplate') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
+        <a href="{{ route('superadmin.certificate.indexTemplate') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-files-alt me-2"></i> <span class="menu-text">Template Certificate</span>
         </a>
         <a href="{{ route('superadmin.event') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">

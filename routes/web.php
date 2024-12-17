@@ -81,6 +81,7 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::get('pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
         Route::get('download_all_pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'download_all_pdf'])->name('superadmin.certificate.download_all_pdf');
         Route::get('sendEmail/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'sendEmail'])->name('superadmin.certificate.sendEmail');
+        Route::get('indexTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'indexTemplate'])->name('superadmin.certificate.indexTemplate');
         Route::get('createTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
         Route::post('storeTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
         Route::get('editTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');

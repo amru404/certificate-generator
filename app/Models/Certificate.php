@@ -18,8 +18,6 @@ class Certificate extends Model
         'participant_id',
         'certificate_templates_id',
         'style',
-        'signature',
-        
     ];
 
     protected static function booted()
