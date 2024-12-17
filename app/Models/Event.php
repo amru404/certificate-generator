@@ -9,19 +9,31 @@ class Event extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
-        'nama_event', 
+        'user_id',
+        'nama_event',
         'email',
         'no_telp',
         'deskripsi',
-        'logo',
         'tanggal',
+        'logo',
+        'nomor_certificate',
+        'cap',
         'ttd',
-        'user_id',
-        
+        'tampilkan_nama_event',
+        'tampilkan_email',
+        'tampilkan_no_telp',
+        'tampilkan_deskripsi',
+        'tampilkan_tanggal',
     ];
 
+    protected $casts = [
+        'logo' => 'array',
+        'ttd' => 'array',
+        'cap' => 'array',
+    ];
+
+    
     public function participants()
 {
     return $this->hasMany(Participant::class, 'event_id');
