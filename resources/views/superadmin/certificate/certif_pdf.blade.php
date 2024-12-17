@@ -125,7 +125,7 @@
 
                     <!-- Gambar 1 -->
                 @if (isset($logo[0]) && isset($margins[0]))
-                    <img src="{{ public_path('storage/' . $logo[0]) }}"style="top:0px; left:100px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[0]) }}"style=" top: -20px; left:170px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                 <!-- Gambar 2 -->
@@ -166,9 +166,9 @@
                     {{ $participant->nama }}
 
                 </div>
-
+                <!--Nomor-->
                 <div class="preview-nomor_certificate"
-                    style="margin: {{ $participant->event->certificate->certificate_templates->nomor_certificate }}; transform: translate(-50%, -50%); left:225px">
+                    style="top: -25px; margin: {{ $participant->event->certificate->certificate_templates->nomor_certificate }}; transform: translate(-50%, -50%); left:250px">
                     {{$participant->event->nomor_certificate}}
                 </div>
 
@@ -181,13 +181,13 @@
 
 
                 <!-- Tanggal -->
-                <!-- <div class="preview-tanggal"
+                {{-- <!-- <div class="preview-tanggal"
                     style="top:40px; left:50px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }};">
                     {{ \Carbon\Carbon::parse($participant->event->tanggal)->translatedFormat('d F Y') }}
-                </div> -->
+                </div> --> --}}
 
                 <div class="preview-tanggal"
-                    style="top:40px; left:50px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
+                    style="top:50px; left:30px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
                     {{ \Carbon\Carbon::parse($participant->event->tanggal)->translatedFormat('d F Y') }}
                 </div>
                 
@@ -201,7 +201,7 @@
                     <!-- Gambar 1 -->
                     @if (isset($ttd[0]) && isset($margins[0]))
                         <img src="{{ public_path('storage/' . $ttd[0]) }}"
-                            style="top:60px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:120px"
+                            style="top:80px; left:120px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:120px"
                             class="signature-img">
                     @endif
 
@@ -222,7 +222,7 @@
                     <!-- Gambar 1 -->
                     @if (isset($cap[0]) && isset($margins[0]))
                         <img src="{{ public_path('storage/' . $cap[0]) }}"
-                            style="top:60px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:70px"
+                            style="top:80px; left:120px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:70px"
                             class="signature-img">
                     @endif
 
@@ -240,7 +240,7 @@
 
                 <!-- UID -->
                 <div class="preview-uid"
-                    style="top:50px; left: 80px;margin: {{ $participant->event->certificate->certificate_templates->uid }}; transform:translate(-50%, -50%);">
+                    style="top:60px; left: 20px;margin: {{ $participant->event->certificate->certificate_templates->uid }}; transform:translate(-50%, -50%);">
                     UID: {{ $participant->certificate ? $participant->certificate->id : 'UID tidak tersedia' }}
 
                 </div>

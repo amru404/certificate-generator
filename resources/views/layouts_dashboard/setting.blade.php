@@ -17,7 +17,7 @@
 
 <div class="container">
     <!-- Navigation -->
-    <nav class="mb-3">
+    <nav class="mb-3"  data-aos="fade-down"data-aos-duration="1500">
         @if (Auth::user()->role === 'superadmin')
         <a href="{{ route('superadmin.home') }}" class="text-decoration-none text-primary">Dashboard</a> /
         <span class="text-secondary">Settings</span>

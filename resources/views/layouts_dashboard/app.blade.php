@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Admin</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <!--aos-->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -18,6 +20,8 @@
 
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- ini buat tanggal ya ges-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer></script>
 
     <style>
           html, body {
@@ -60,8 +64,9 @@
         const sidebar = document.getElementById('sidebar');
         const content = document.getElementById('content'); // Kontainer content
         const icon = this.querySelector('i');
-        const menuTexts = sidebar.querySelectorAll('.menu-text');
+        const menuTexts = sidebar.querySelectorAll('.menu-text'); // Semua teks menu
         const dashboardText = document.getElementById('dashboardText');
+        const logoutText = document.getElementById('logoutText'); // Tambahkan logoutText
 
         // Toggle collapsed state
         if (sidebar.style.width === '60px') {
@@ -69,16 +74,19 @@
             content.style.marginLeft = '240px'; // Adjust content margin
             menuTexts.forEach(el => el.style.display = 'inline');
             if (dashboardText) dashboardText.style.display = 'inline';
+            if (logoutText) logoutText.style.display = 'inline'; // Tampilkan logoutText
             icon.className = 'bi bi-chevron-double-left';
         } else {
             sidebar.style.width = '60px';
             content.style.marginLeft = '60px'; // Adjust content margin
             menuTexts.forEach(el => el.style.display = 'none');
             if (dashboardText) dashboardText.style.display = 'none';
+            if (logoutText) logoutText.style.display = 'none'; // Sembunyikan logoutText
             icon.className = 'bi bi-chevron-double-right';
         }
     });
 </script>
+
 
 
 <script src="{{asset ('assets_dashboard/vendor/jquery/jquery.min.js') }}"></script>
@@ -167,7 +175,37 @@
     });
 </script>
 
-</body>
+<!tangallllllllllllllllll-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateElement = document.getElementById('current-date');
+    
+        // Menggunakan API WorldTime untuk mendapatkan waktu real
+        fetch('http://worldtimeapi.org/api/ip')
+            .then(response => response.json())
+            .then(data => {
+                // Format tanggal
+                const dateTime = new Date(data.datetime);
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                const formattedDate = dateTime.toLocaleDateString('id-ID', options);
+    
+                // Tampilkan tanggal
+                dateElement.textContent = formattedDate;
+            })
+            .catch(() => {
+                // Jika API gagal, gunakan waktu lokal
+                const dateTime = new Date();
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                dateElement.textContent = dateTime.toLocaleDateString('id-ID', options);
+            });
+    });
+    </script>
+    
 
+</body>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 </body>
 </html>

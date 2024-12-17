@@ -14,6 +14,17 @@
     </div>
 @endif
 
+<!-- Navigation -->
+<nav class="mb-3"  data-aos="fade-down"data-aos-duration="1500">
+    @if (Auth::user()->role === 'superadmin')
+    <a href="{{ route('superadmin.home') }}" class="text-decoration-none text-primary">Dashboard</a> /
+    <span class="text-secondary">User</span>
+    @else
+    <a href="{{ route('admin.home') }}" class="text-decoration-none text-primary">Dashboard</a> /
+    <span class="text-secondary">User</span>
+    @endif
+</nav>
+
     <!-- Daftar Peserta -->
     <div class="card mt-4">
         <div class="card-header">

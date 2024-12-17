@@ -2,9 +2,9 @@
     <!-- Header -->
     @if (Auth::user() && Auth::user()->role === 'super-admin')
         <div id="sidebar-header" class="d-flex align-items-center justify-content-between py-3 px-3">
+            <!-- Gambarrrrrrrrrrrr-->
+            <img id="dashboardText" src="{{ asset('assets/dash.png') }}" alt="Logo" style="width: 80%; height: 80%; margin-top: 10px;">
             <!-- Teks Dashboard -->
-            <span id="dashboardText" class="me-2">Dashboard</span>
-            
             <!-- Tombol Toggle -->
             <button id="toggleSidebar" class="btn btn-sm"style="background-color: #D3D6DB;">
                 <i class="bi bi-list"></i>
@@ -59,7 +59,12 @@
             <i class="bi bi-gear me-2"></i> <span class="menu-text">Setting</span>
         </a>
     @endif
-
+    <div id="logout" style="margin-top: auto; background-color: #2C3E50;">
+        <a href="{{ route('logout') }}" id="logout-link" style="display: flex; align-items: center; justify-content: center; padding: 12px; text-decoration: none; color: white;">
+            <i id="logout-icon" class="bi bi-box-arrow-right" style="margin-right: 8px;"></i>
+            <span id="logoutText">Log out</span>
+        </a>
+    </div>    
 </div>
 
 

@@ -13,6 +13,17 @@
     </div>
 @endif
 
+<!-- Navigation -->
+<nav class="mb-3"  data-aos="fade-down"data-aos-duration="1500">
+    @if (Auth::user()->role === 'superadmin')
+    <a href="{{ route('superadmin.home') }}" class="text-decoration-none text-primary">Dashboard</a> /
+    <span class="text-secondary">Data Event</span>
+    @else
+    <a href="{{ route('admin.home') }}" class="text-decoration-none text-primary">Dashboard</a> /
+    <span class="text-secondary">Data Event</span>
+    @endif
+</nav>
+
 <div class="card-header py-3 d-flex justify-content-start">
     <h6 class="m-0 font-weight-bold text-dark mt-1">Data Event</h6>
     <a href="{{route('superadmin.event.create')}}" class="btn btn-sm ms-4 text-white"style="background-color:#2D3E50">Add data event</a>
