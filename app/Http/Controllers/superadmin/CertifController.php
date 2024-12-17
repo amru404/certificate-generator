@@ -16,6 +16,8 @@ use App\Mail\CertificateMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CertificateTemplate;
 use App\Jobs\SendCertificateEmailJob;
+use App\Models\EmailLog;
+
 
 class CertifController extends Controller
 {
@@ -55,7 +57,7 @@ class CertifController extends Controller
     
             if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                continue; // Skip to the next participant
+                continue; 
             }
     
             // Create a new certificate
@@ -67,14 +69,97 @@ class CertifController extends Controller
                 'certificate_templates_id' => $request->id,
                 'signature' => $event->ttd,
             ]);
-    
-            SendCertificateEmailJob::dispatch($participant, $certificate);
         }
     
-        // Redirect back with success message
         return redirect()->to(url("/superadmin/event/show/{$eventId}"))
             ->with('success', 'Participants imported and emails sent successfully.');
     }
+    
+    public function sendEmail(Request $request, string $eventId)
+    {
+        
+        $event = Event::findOrFail($eventId);
+        $participants = $event->participants;
+
+        // Validasi jika tidak ada peserta
+        if ($participants->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada participant untuk event ini.');
+        }
+
+        $errors = []; // Array untuk menyimpan peserta tanpa sertifikat
+
+        foreach ($participants as $participant) {
+            $certificate = Certificate::where('participant_id', $participant->id)->first();
+
+            if (!$certificate) {
+                $errors[] = $participant->nama;
+                continue;
+            }
+
+            SendCertificateEmailJob::dispatch($participant, $certificate);
+        }
+
+        if (!empty($errors)) {
+            return redirect()->back()->with('error', 'Beberapa peserta tidak memiliki sertifikat: ');
+        }
+
+        // Jika semua proses berhasil
+        return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+            ->with('success', 'Pengiriman email dalam proses.');
+    }
+
+
+    
+    public function download_all_pdf(string $id)
+    {
+        $certificates = Certificate::where('event_id', $id)->get();
+    
+        if ($certificates->isEmpty()) {
+            return redirect()->to(url("/superadmin/event/show/{$id}"))->with('error', 'Certificate Belum Dibuat');
+        }
+    
+        $zip = new \ZipArchive;
+        $zipFile = storage_path("app/public/certificates_event_{$id}.zip");
+    
+        if ($zip->open($zipFile, \ZipArchive::CREATE) === TRUE) {
+            foreach ($certificates as $certificate) {
+                $participant = $certificate->participant;
+                
+                if (!$participant) {
+                    continue; 
+                }
+    
+                // Generate PDF untuk setiap sertifikat
+                $pdf = PDF::loadView('superadmin.certificate.certif_pdf', [
+                    'certificate' => $certificate,
+                    'participant' => $participant
+                ]);
+                $pdf->setPaper('A4', 'landscape');
+    
+                $fileName = "certif_{$participant->nama}_{$certificate->id}.pdf";
+                
+                $zip->addFromString($fileName, $pdf->output());
+            }
+    
+            // Menutup file ZIP setelah semua PDF dimasukkan
+            $zip->close();
+        }
+    
+        // Mengirim file ZIP yang sudah dibuat untuk diunduh
+        return response()->download($zipFile)->deleteFileAfterSend(true);
+    }
+    
+    
+    
+
+    public function destroy_all(string $id){
+        $certificate = Certificate::where('event_id', $id)->delete();
+        if (!$certificate) {
+            return redirect()->to(url("/superadmin/event/show/{$id}"))->with('error', 'All Certificates have been deleted');
+        }
+        return redirect()->to(url("/superadmin/event/show/{$id}"))->with('success', 'Delete All Certificate Successfully');
+    }
+
     
     public function show($id)
     {

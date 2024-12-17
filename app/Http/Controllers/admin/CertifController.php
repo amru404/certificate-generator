@@ -38,7 +38,7 @@ class CertifController extends Controller
 
         if ($participants->isEmpty()) {
             \Log::error("No participants found for event ID: {$eventId}");
-            return redirect()->to(url("/superadmin/event/show/{$eventId}"))
+            return redirect()->to(url("/admin/event/show/{$eventId}"))
                 ->with('error', 'No participants found for this event.');
         }
 
@@ -50,7 +50,7 @@ class CertifController extends Controller
     
             if ($existingCertificate) {
                 \Log::info("Certificate already exists for participant ID: {$participant->id} in event ID: {$eventId}");
-                continue; // Skip to the next participant
+                continue;
             }
     
             // Create a new certificate
@@ -62,30 +62,6 @@ class CertifController extends Controller
                 'certificate_templates_id' => $request->id,
                 'signature' => $event->ttd,
             ]);
-
-            // Generate margin dari template
-            $template = $certificate->certificateTemplate;
-            $margins = [
-                'namaMargin' => round($template->nama ?? 0) . 'px',
-                'deskripsiMargin' => round($template->deskripsi ?? 0) . 'px',
-                'tanggalMargin' => round($template->tanggal ?? 0) . 'px',
-                'ttdMargin' => round($template->ttd ?? 0) . 'px',
-                'uidMargin' => round($template->uid ?? 0) . 'px',
-            ];
-
-            // Generate PDF
-            $pdf = PDF::loadView('superadmin.certificate.certif_pdf', array_merge([
-                'certificate' => $certificate,
-                'participant' => $participant,
-                'event' => $event,
-            ], $margins))->setPaper('A4', 'landscape');
-
-            $fileName = 'certificate-' . $certificate->id . '.pdf';
-            $filePath = storage_path("app/public/certificates/{$fileName}");
-            $pdf->save($filePath);
-
-            // Kirim sertifikat melalui email
-            SendCertificateEmailJob::dispatch($participant, $certificate, $filePath);
         }
     
         // Redirect back with success message
@@ -94,6 +70,88 @@ class CertifController extends Controller
     }
     
     
+    public function sendEmail(Request $request, string $eventId)
+    {
+        
+        $event = Event::findOrFail($eventId);
+        $participants = $event->participants;
+
+        // Validasi jika tidak ada peserta
+        if ($participants->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada participant untuk event ini.');
+        }
+
+        $errors = []; // Array untuk menyimpan peserta tanpa sertifikat
+
+        foreach ($participants as $participant) {
+            $certificate = Certificate::where('participant_id', $participant->id)->first();
+
+            if (!$certificate) {
+                $errors[] = $participant->nama;
+                continue;
+            }
+
+            SendCertificateEmailJob::dispatch($participant, $certificate);
+        }
+
+        if (!empty($errors)) {
+            return redirect()->back()->with('error', 'Beberapa peserta tidak memiliki sertifikat: ');
+        }
+
+        // Jika semua proses berhasil
+        return redirect()->to(url("/admin/event/show/{$eventId}"))
+            ->with('success', 'Pengiriman email dalam proses.');
+    }
+
+
+     
+    public function download_all_pdf(string $id)
+    {
+        $certificates = Certificate::where('event_id', $id)->get();
+    
+        if ($certificates->isEmpty()) {
+            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'Certificate Belum Dibuat');
+        }
+    
+        $zip = new \ZipArchive;
+        $zipFile = storage_path("app/public/certificates_event_{$id}.zip");
+    
+        if ($zip->open($zipFile, \ZipArchive::CREATE) === TRUE) {
+            foreach ($certificates as $certificate) {
+                $participant = $certificate->participant;
+                
+                if (!$participant) {
+                    continue; 
+                }
+    
+                $pdf = PDF::loadView('admin.certificate.certif_pdf', [
+                    'certificate' => $certificate,
+                    'participant' => $participant
+                ]);
+                $pdf->setPaper('A4', 'landscape');
+    
+                $fileName = "certif_{$participant->nama}_{$certificate->id}.pdf";
+                
+                $zip->addFromString($fileName, $pdf->output());
+            }
+    
+            $zip->close();
+        }
+    
+        return response()->download($zipFile)->deleteFileAfterSend(true);
+    }
+
+
+    
+
+    public function destroy_all(string $id){
+        $certificate = Certificate::where('event_id', $id)->delete();
+        if (!$certificate) {
+            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'All Certificates have been deleted');
+        }
+        return redirect()->to(url("/admin/event/show/{$id}"))->with('success', 'Delete All Certificate Successfully');
+    }
+
     public function search(Request $request)
     {
         $search = $request->input('search');

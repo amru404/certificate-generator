@@ -55,8 +55,15 @@ class ParticipantController extends Controller
         return Excel::download(new TemplateExport, 'template.xlsx');
     }
 
-    public function destroy_all(string $id){
+
+    public function destroy_all(string $id)
+    {
         $participant = Participant::where('event_id', $id)->delete();
+
+        if (!$participant) {
+            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'All participant have been deleted');
+        }
+        
         return redirect()->to(url("/admin/event/show/{$id}"))->with('success', 'Delete All Participant Successfully.');
     }
 

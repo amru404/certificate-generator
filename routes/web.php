@@ -60,6 +60,7 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
     Route::get('participant/destroy_all/{id}', [ParticipantController::class, 'destroy_all'])->name('superadmin.participant.destroy_all');
 
 
+
     // Participant Routes
     Route::prefix('participant')->group(function () {
         Route::get('export', [ParticipantController::class, 'export_template'])->name('superadmin.participant.export_template');
@@ -78,11 +79,16 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::get('store/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'store'])->name('superadmin.certificate.store');
         Route::get('show/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'show'])->name('superadmin.certificate.show');
         Route::get('pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
+        Route::get('download_all_pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'download_all_pdf'])->name('superadmin.certificate.download_all_pdf');
+        Route::get('sendEmail/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'sendEmail'])->name('superadmin.certificate.sendEmail');
         Route::get('createTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
         Route::post('storeTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
         Route::get('editTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
         Route::put('updateTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'updateTemplate'])->name('superadmin.certificate.updateTemplate');
         Route::get('showTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'showTemplate'])->name('superadmin.certificate.showTemplate');
+        Route::get('destroy_all/{id}',  [App\Http\Controllers\superadmin\CertifController::class, 'destroy_all'])->name('superadmin.certificate.destroy_all');
+
+
     });
 
     // User Management Routes
@@ -124,11 +130,12 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () 
     // route participant 
     Route::get('/participant/export', [App\Http\Controllers\admin\ParticipantController::class, 'export_template'])->name('admin.participant.export_template');
     Route::get('/participant/import/create/{id}', [App\Http\Controllers\admin\ParticipantController::class, 'import_create'])->name('admin.participant.import.create');
-    Route::get('/destroy_all/{id}', [App\Http\Controllers\admin\ParticipantController::class, 'destroy_all'])->name('admin.participant.destroy_all');
     Route::post('/participant/import/store', [App\Http\Controllers\admin\ParticipantController::class, 'import_store'])->name('admin.participant.import.store');
     Route::get('/participant/edit/{id}', [App\Http\Controllers\admin\ParticipantController::class, 'edit'])->name('admin.participant.edit');
     Route::put('/participant/update/{id}', [App\Http\Controllers\admin\ParticipantController::class, 'update'])->name('admin.participant.update');
     Route::get('/participant/destroy/{id}', [App\Http\Controllers\admin\ParticipantController::class, 'destroy'])->name('admin.participant.destroy');
+    Route::get('/participant/destroy_all/{id}', [App\Http\Controllers\admin\ParticipantController::class, 'destroy_all'])->name('admin.participant.destroy_all');
+
 
     
     // route certif 
@@ -136,6 +143,10 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () 
     Route::get('/certificate/store/{id}', [App\Http\Controllers\admin\CertifController::class, 'store'])->name('admin.certificate.store');
     Route::get('/certificate/show/{id}', [App\Http\Controllers\admin\CertifController::class, 'show'])->name('admin.certificate.show');
     Route::get('/certificate/pdf/{id}', [App\Http\Controllers\admin\CertifController::class, 'pdf'])->name('admin.certificate.pdf');
+    Route::get('download_all_pdf/{id}', [App\Http\Controllers\admin\CertifController::class, 'download_all_pdf'])->name('admin.certificate.download_all_pdf');
+    Route::get('sendEmail/{id}', [App\Http\Controllers\admin\CertifController::class, 'sendEmail'])->name('admin.certificate.sendEmail');
+    Route::get('destroy_all/{id}',  [App\Http\Controllers\admin\CertifController::class, 'destroy_all'])->name('admin.certificate.destroy_all');
+
 
 
 });
