@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="svg" href="{{ asset('assets/Logo.svg') }}">
     <title>Super Admin</title>
     <!-- chart-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
