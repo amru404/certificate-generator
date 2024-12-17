@@ -19,63 +19,85 @@
 </div>
 @endif
 
+
 <div class="card-header">
     <h3>Detail Event: {{ $detail_event->nama_event }}</h3>
-    <a href="{{ route('admin.certificate.create', $detail_event->id) }}" class="btn"
-        style="background-color:#2D3E50;color:white;">Generate Certificates</a>
+    <a href="{{ route('admin.certificate.create', $detail_event->id) }}" class="btn" style="background-color:#2D3E50;color:white;">
+        Generate Certificates
+    </a>
 </div>
+
 <div class="card-body mt-4">
-    <div class="row">
-        <!-- Detail Event -->
+    <div class="row g-4">
+        <!-- Informasi Event dan Cap Event -->
         <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-header" style="background-color:#2D3E50;color:white;">
+            <!-- Informasi Event -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">
                     <h5 class="mb-0">Informasi Event</h5>
                 </div>
                 <div class="card-body">
                     <p><strong>Nama Event:</strong> {{ $detail_event->nama_event }}</p>
+                    <p><strong>Nomor Certificate:</strong> {{ $detail_event->nomor_certificate }}</p>
                     <p><strong>Email:</strong> {{ $detail_event->email }}</p>
                     <p><strong>No. Telp:</strong> {{ $detail_event->no_telp }}</p>
                     <p><strong>Deskripsi:</strong></p>
                     <p>{{ $detail_event->deskripsi }}</p>
-                    <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($detail_event->tanggal)->format('d M Y') }}
-                    </p>
+                    <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($detail_event->tanggal)->format('d M Y') }}</p>
+                </div>
+            </div>
+
+            <!-- Cap Event -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Cap Event</h5>
+                </div>
+                <div class="card-body d-flex flex-wrap justify-content-center gap-3">
+                    @if($detail_event->cap)
+                        @foreach ($cap as $cap)
+                            <img src="{{ asset('storage/' . $cap) }}" class="rounded" style="height:100px; object-fit:cover;" alt="Cap">
+                        @endforeach
+                    @else
+                        <p class="text-muted">Cap tidak tersedia</p>
+                    @endif
                 </div>
             </div>
         </div>
 
         <!-- Logo Event dan TTD Event -->
         <div class="col-md-6">
-            <div class="row">
+            <div class="row g-4">
                 <!-- Logo Event -->
-                <div class="col-12 text-center">
-                    <div class="card mb-4">
-                        <div class="card-header" style="background-color:#2D3E50;color:white;">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-dark text-white">
                             <h5 class="mb-0">Logo Event</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-wrap justify-content-center gap-3">
                             @if($detail_event->logo)
-                            <img src="{{ asset('storage/' . $detail_event->logo) }}" alt="Logo Event" class="img-fluid"
-                                style="max-height: 200px;">
+                                @foreach ($logo as $logo)
+                                    <img src="{{ asset('storage/' . $logo) }}" class="rounded" style="height:70px; object-fit:contain;" alt="Logo">
+                                @endforeach
                             @else
-                            <p>Logo tidak tersedia</p>
+                                <p class="text-muted">Logo tidak tersedia</p>
                             @endif
                         </div>
                     </div>
                 </div>
 
                 <!-- Tanda Tangan Event -->
-                <div class="col-12 text-center">
-                    <div class="card mb-4">
-                        <div class="card-header" style="background-color:#2D3E50;color:white;">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-dark text-white">
                             <h5 class="mb-0">Tanda Tangan Event</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-wrap justify-content-center gap-3">
                             @if($detail_event->ttd)
-                            <img src="{{ asset('storage/' . $detail_event->ttd) }}" alt="Tanda Tangan Event"
-                                class="img-fluid" style="max-height: 200px;">
+                                @foreach ($ttd as $ttd)
+                                    <img src="{{ asset('storage/' . $ttd) }}" class="rounded" style="height:100px; object-fit:contain;" alt="Tanda Tangan">
+                                @endforeach
                             @else
-                            <p>TTD tidak tersedia</p>
+                                <p class="text-muted">TTD tidak tersedia</p>
                             @endif
                         </div>
                     </div>
@@ -85,22 +107,50 @@
     </div>
 </div>
 
+
+
 <!-- Daftar Peserta -->
 <div class="card mt-4">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Daftar Peserta</h4>
-        <a href="{{ route('admin.certificate.download_all_pdf', $detail_event->id) }}" class="btn btn-sm btn-primary"
-        onclick="return confirm('Are you sure?')">Download All Certificate</a>
-        
-        <div class="btn-group">
-            <a href="{{ route('admin.participant.import.create', $detail_event->id) }}" class="btn btn-sm"
-            style="background-color:#2D3E50;color:white;">Add Participant</a>
-            <a href="{{ route('admin.certificate.sendEmail', $detail_event->id) }}" class="btn btn-sm btn-primary" style="color:white;" onclick="return confirm('Are you sure?')">Send Email</a>
-            <a href="{{ route('admin.participant.destroy_all', $detail_event->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete All Participants</a>
+       
+        <div class="d-flex flex-wrap gap-2">
+            <!-- Tombol Download Certificate -->
+            <a href="{{ route('admin.certificate.download_all_pdf', $detail_event->id) }}" 
+               class="btn btn-sm btn-outline-primary shadow-sm"
+               onclick="return confirm('Are you sure?')">
+                <i class="fa-solid fa-download me-1"></i> Download All Certificate
+            </a>
 
-            <a href="{{ route('admin.certificate.destroy_all', $detail_event->id) }}" class="btn btn-sm btn-danger"
-                onclick="return confirm('Are you sure?')">Delete All Certificate</a>
+            <!-- Grup Tombol 1 -->
+            <div class="btn-group">
+                <a href="{{ route('admin.participant.import.create', $detail_event->id) }}" 
+                   class="btn btn-sm btn-outline-dark shadow-sm">
+                    <i class="fa-solid fa-user-plus me-1"></i> Add Participant
+                </a>
+                <a href="{{ route('admin.certificate.sendEmail', $detail_event->id) }}" 
+                   class="btn btn-sm btn-outline-primary shadow-sm" 
+                   onclick="return confirm('Are you sure?')">
+                    <i class="fa-solid fa-envelope me-1"></i> Send Email
+                </a>
+            </div>
+
+            <!-- Grup Tombol 2 -->
+            <div class="btn-group">
+                <a href="{{ route('admin.participant.destroy_all', $detail_event->id) }}" 
+                   class="btn btn-sm btn-outline-danger shadow-sm"
+                   onclick="return confirm('Are you sure?')">
+                    <i class="fa-solid fa-user-xmark me-1"></i> Delete All Participants
+                </a>
+                <a href="{{ route('admin.certificate.destroy_all', $detail_event->id) }}" 
+                   class="btn btn-sm btn-outline-danger shadow-sm"
+                   onclick="return confirm('Are you sure?')">
+                    <i class="fa-solid fa-trash-can me-1"></i> Delete All Certificate
+                </a>
+            </div>
         </div>
+    </div>
+
     </div>
     <div class="card-body">
         <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
