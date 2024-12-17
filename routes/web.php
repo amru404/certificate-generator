@@ -189,3 +189,8 @@ Route::get('certificate/pdf/{id}',[App\Http\Controllers\admin\CertifController::
 Route::get('certificate/pdf_download/{id}',[App\Http\Controllers\admin\CertifController::class, 'pdfDownload'])->name('certif.pdf.download');
 
 Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'saveMargin']);
+
+
+
+
+
