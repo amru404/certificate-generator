@@ -90,71 +90,41 @@
         </div>
     </div>
 </nav>
+
 <!-- konten-->
 <div class="row mt-5">
     <!-- Total Event Card -->
-    <div class="col-xl-4 col-md-4 mb-4 mt-3" data-aos="fade-down"data-aos-duration="1500">
+    <div class="col-xl-4 col-md-4 mb-4 mt-3" data-aos="fade-down" data-aos-duration="1500">
         <div class="card card-animate border-left-primary shadow h-100 py-2">
             <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Total Event</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$event}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-400 icon-animate"></i>
-                    </div>
-                </div>
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Event</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$event}}</div>
+                <canvas id="eventChart" style="height: 150px;"></canvas>
             </div>
         </div>
     </div>
 
     <!-- Total User Card -->
-    <div class="col-xl-4 col-md-4 mb-4 mt-3" data-aos="flip-up"data-aos-duration="1500">
+    <div class="col-xl-4 col-md-4 mb-4 mt-3" data-aos="flip-up" data-aos-duration="1500">
         <div class="card card-animate border-left-success shadow h-100 py-2">
             <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total User</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$user}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-users fa-2x text-gray-400 icon-animate"></i>
-                    </div>
-                </div>
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total User</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$user}}</div>
+                <canvas id="userChart" style="height: 150px;"></canvas>
             </div>
         </div>
     </div>
 
     <!-- Total Certificate Card -->
-    <div class="col-xl-4 col-md-4 mb-4 mt-3" data-aos="fade-up-left"data-aos-duration="1500">
+    <div class="col-xl-4 col-md-4 mb-4 mt-3" data-aos="fade-up-left" data-aos-duration="1500">
         <div class="card card-animate border-left-info shadow h-100 py-2">
             <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Total Certificate</div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$participant}}</div>
-                            </div>
-                            <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar progress-bar-animated bg-info" role="progressbar"
-                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-certificate fa-2x text-gray-400 icon-animate"></i>
-                    </div>
-                </div>
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Certificate</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$participant}}</div>
+                <canvas id="certificateChart" style="height: 150px;"></canvas>
             </div>
         </div>
     </div>
-
 </div>
+
 @endsection

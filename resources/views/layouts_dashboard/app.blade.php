@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Admin</title>
+    <!-- chart-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!--aos-->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -87,7 +89,76 @@
     });
 </script>
 
+<!--chart-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Data dari Laravel Blade
+    const eventData = {{ $event }};
+    const userData = {{ $user }};
+    const certificateData = {{ $participant }};
+    
+    // Event Chart - Bar Chart
+    const ctxEvent = document.getElementById('eventChart').getContext('2d');
+    new Chart(ctxEvent, {
+        type: 'bar',
+        data: {
+            labels: ['Event'],
+            datasets: [{
+                label: 'Total Event',
+                data: [eventData],
+                backgroundColor: '#4e73df',
+                borderColor: '#2e59d9',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
 
+    // User Chart - Pie Chart
+    const ctxUser = document.getElementById('userChart').getContext('2d');
+    new Chart(ctxUser, {
+        type: 'pie',
+        data: {
+            labels: ['User'],
+            datasets: [{
+                data: [userData, 100 - userData], // Misalkan total 100 untuk visualisasi
+                backgroundColor: ['#1cc88a', '#f8f9fc'],
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // Certificate Chart - Line Chart
+    const ctxCertificate = document.getElementById('certificateChart').getContext('2d');
+    new Chart(ctxCertificate, {
+        type: 'line',
+        data: {
+            labels: ['Certificate'],
+            datasets: [{
+                label: 'Total Certificate',
+                data: [certificateData],
+                backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                borderColor: '#36b9cc',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
 
 <script src="{{asset ('assets_dashboard/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{asset ('assets_dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
