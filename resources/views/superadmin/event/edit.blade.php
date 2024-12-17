@@ -95,6 +95,14 @@
         </div>
 
         <div class="mb-3">
+            <label for="nomor_certificate" class="form-label">Nomor Certificate</label>
+            <input type="text" name="nomor_certificate" class="form-control" id="nomor_certificate" value="{{ old('nomor_certificate', $event->nomor_certificate) }}" required>
+            @error('nomor_certificate')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
             <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3" required>{{ old('deskripsi', $event->deskripsi) }}</textarea>
             @error('deskripsi')

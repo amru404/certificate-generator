@@ -55,8 +55,8 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::put('update/{id}', [EventController::class, 'update'])->name('superadmin.event.update');
         Route::get('show/{id}', [EventController::class, 'show'])->name('superadmin.event.show');
         Route::get('destroy/{id}', [EventController::class, 'destroy'])->name('superadmin.event.destroy');
+
     });
-    Route::get('event/destroy/{id}', [EventController::class, 'destroy'])->name('superadmin.event.destroy');
     Route::get('participant/destroy_all/{id}', [ParticipantController::class, 'destroy_all'])->name('superadmin.participant.destroy_all');
 
 
@@ -118,7 +118,8 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () 
     // Home Admin
     Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.home');
 
-    // route event
+    // route 
+    
     Route::get('/event', [App\Http\Controllers\admin\EventController::class, 'index'])->name('admin.event');
     Route::get('/event/create', [App\Http\Controllers\admin\EventController::class, 'create'])->name('admin.event.create');
     Route::post('/event/store', [App\Http\Controllers\admin\EventController::class, 'store'])->name('admin.event.store');
@@ -195,3 +196,4 @@ Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'sa
 
 
 
+Route::get('/check-removebg-api', [App\Http\Controllers\superadmin\EventController::class, 'checkApiStatus']);

@@ -50,6 +50,13 @@
             position: absolute;
         }
 
+        .preview-nomor_certificate {
+            font-size: 16px;
+            color: #777;
+            font-style: italic;
+            position: absolute;
+        }
+
         /* Penempatan deskripsi */
         .preview-deskripsi {
             font-size: 18px;
@@ -115,6 +122,11 @@
 
                 </div>
 
+                <div class="preview-nomor_certificate"
+                    style="margin: {{ $participant->event->certificate->certificate_templates->nomor_certificate }}; transform: translate(-50%, -50%); left:335px">
+                    {{$participant->event->nomor_certificate}}
+                </div>
+
                 <!-- Deskripsi -->
                 <div class="preview-deskripsi"
                     style="top: 15px; left: 340px; transform: translateX(-50%); margin: {{ $participant->event->certificate->certificate_templates->deskripsi }};">
@@ -125,18 +137,37 @@
 
                 <!-- Tanggal -->
                 <div class="preview-tanggal"
-                    style="top:40px; left:50px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
+                    style="top:55px; left:80px;margin: {{ $participant->event->certificate->certificate_templates->tanggal }}; transform:translate(-50%, -50%);">
                     {{ \Carbon\Carbon::parse($participant->event->tanggal)->translatedFormat('d F Y') }}
                 </div>
 
                 <!-- Signature -->
-                <img src="{{ public_path('storage/' . $participant->event->ttd) }}"
-                    style="top:60px; left:115px;margin: {{ $participant->event->certificate->certificate_templates->ttd }}; transform:translate(-50%, -50%);"
-                    class="signature-img">
+                    @php
+                        $ttds = json_decode($participant->event->ttd);
+                        $margins = json_decode($participant->event->certificate->certificate_templates->ttd);
+                    @endphp
+
+                    <!-- Gambar 1 -->
+                    @if (isset($ttds[0]) && isset($margins[0]))
+                        <img src="{{ public_path('storage/' . $ttds[0]) }}"
+                            style="top:60px; left:50px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%);"
+                            class="signature-img">
+                    @endif
+
+                    <!-- Gambar 2 -->
+
+                    @if (isset($ttds[1]) && isset($margins[1]))
+                        <img src="{{ public_path('storage/' . $ttds[1]) }}"
+                            style="top:60px; left:115px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%);"
+                            class="signature-img">
+                    @endif
+
+
+
 
                 <!-- UID -->
                 <div class="preview-uid"
-                    style="top:50px;margin: {{ $participant->event->certificate->certificate_templates->uid }}; transform:translate(-50%, -50%);">
+                    style="top:50px; left: 80px;margin: {{ $participant->event->certificate->certificate_templates->uid }}; transform:translate(-50%, -50%);">
                     UID: {{ $participant->certificate ? $participant->certificate->id : 'UID tidak tersedia' }}
 
                 </div>

@@ -6,6 +6,7 @@
 
 @section('content')
 
+
 @if($errors->has('logo'))
     <div class="alert alert-danger">
         {{ $errors->first('logo') }}
@@ -53,57 +54,119 @@
 </div>
 
 <form action="{{ route('admin.event.update', $event->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('put')
+        @csrf
+        @method('PUT') <!-- HTTP PUT for update -->
 
-    <input type="hidden" name="user_id" value="{{ $event->user_id }}">
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label for="nama_event" class="form-label">Nama Event</label>
-            <input type="text" name="nama_event" class="form-control" id="nama_event" value="{{ $event->nama_event }}">
-        </div>
-        <div class="col-md-6">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" value="{{ $event->email }}">
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label for="no_telephone" class="form-label">No Telephone</label>
-        <input type="number" name="no_telp" class="form-control" id="no_telephone" value="{{ $event->no_telp }}">
-    </div>
-
-    <div class="mb-3">
-        <label for="deskripsi" class="form-label">Deskripsi</label>
-        <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3">{{ $event->deskripsi }}</textarea>
-    </div>
-
-    <div class="mb-3">
-        <label for="logo" class="form-label">Input Logo</label>
-        @if($event->logo)
-        <div class="mb-2">
-            <img src="{{ asset('storage/' . $event->logo) }}" alt="Current Logo" width="100">
-        </div>
-        @endif
-        <input type="file" class="form-control" name="logo" id="logo">
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label for="tanggal" class="form-label">Tanggal Pelaksanaan</label>
-            <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ $event->tanggal }}">
-        </div>
-        <div class="col-md-6">
-            <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
-            @if(!empty($event->ttd))
-            <div class="mb-2">
-                <img src="{{ asset('storage/' . $event->ttd) }}" alt="Tanda Tangan Saat Ini" class="img-thumbnail" style="max-width: 200px; max-height: 100px;" accept="image/*">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="nama_event" class="form-label">Nama Event</label>
+                <input type="text" name="nama_event" class="form-control" id="nama_event" value="{{ old('nama_event', $event->nama_event) }}" required>
+                @error('nama_event')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @endif
-            <input type="file" class="form-control" name="ttd" id="ttd" accept="image/*">
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" id="email" value="{{ old('email', $event->email) }}" required>
+                @error('email')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
-    </div>
-    <button type="submit" class="btn" style="background-color:#2D3E50;color:white;">Submit</button>
-</form>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="no_telephone" class="form-label">No Telephone</label>
+                <input type="number" name="no_telp" class="form-control" id="no_telephone" value="{{ old('no_telp', $event->no_telp) }}" required>
+                @error('no_telp')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <label for="tanggal" class="form-label">Tanggal Pelaksanaan</label>
+                <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ old('tanggal', $event->tanggal) }}" required>
+                @error('tanggal')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="nomor_certificate" class="form-label">Nomor Certificate</label>
+            <input type="text" name="nomor_certificate" class="form-control" id="nomor_certificate" value="{{ old('nomor_certificate', $event->nomor_certificate) }}" required>
+            @error('nomor_certificate')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="deskripsi" class="form-label">Deskripsi</label>
+            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3" required>{{ old('deskripsi', $event->deskripsi) }}</textarea>
+            @error('deskripsi')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Display existing logos if any -->
+        <div class="mb-3">
+            <label for="logo" class="form-label">Logo</label>
+            <input type="file" class="form-control" name="logo[]" id="logo" accept="image/*" multiple>
+            <small class="fw-light">jpeg,png,jpg. max 2mb/img</small>
+            @if($event->logo)
+                <div class="mt-2">
+                    @foreach(json_decode($event->logo) as $logo)
+                        @if(is_string($logo))
+                            <img src="{{ asset('storage/' . $logo) }}" width="100" alt="Logo">
+                        @endif
+                    @endforeach
+                </div>
+            @endif
+            @error('logo')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Display existing signatures if any -->
+        <div class="mb-3">
+            <label for="ttd" class="form-label">Tanda Tangan</label>
+            <input type="file" class="form-control" name="ttd[]" id="ttd" accept="image/*" multiple>
+            <small class="fw-light">jpeg,png,jpg. max 2mb/img</small>
+            @if($event->ttd)
+                <div class="mt-2">
+                    @foreach(json_decode($event->ttd) as $ttd)
+                        @if(is_string($ttd))
+                            <img src="{{ asset('storage/' . $ttd) }}" width="100" alt="Tanda Tangan">
+                        @endif
+                    @endforeach
+                </div>
+            @endif
+            @error('ttd')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Display existing caps if any -->
+        <div class="mb-3">
+            <label for="cap" class="form-label">Cap</label>
+            <input type="file" class="form-control" name="cap[]" id="cap" accept="image/*" multiple>
+            <small class="fw-light">jpeg,png,jpg. max 2mb/img</small>
+            @if($event->cap)
+                <div class="mt-2">
+                    @foreach(json_decode($event->cap) as $cap)
+                        @if(is_string($cap))
+                            <img src="{{ asset('storage/' . $cap) }}" width="100" alt="Cap">
+                        @endif
+                    @endforeach
+                </div>
+            @endif
+            @error('cap')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn" style="background-color:#2D3E50;color:white;">Update</button>
+    </form>
 @endsection

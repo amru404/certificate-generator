@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Mtownsend\RemoveBg\RemoveBg;
+use Illuminate\Support\Facades\Http;
 
 
 class EventController extends Controller
@@ -131,6 +132,7 @@ class EventController extends Controller
     // STORE BARU
     public function store(Request $request)
     {
+
         // Validate request
         $this->validate($request, [
             'nama_event' => 'required|string|max:255',
@@ -459,5 +461,31 @@ class EventController extends Controller
     }
 
     
+
+
+    public function checkApiStatus()
+{
+    $apiKey = 'UYsCn2aXufwwr4T2XmoqCQmT'; // Ganti dengan API key Remove.bg kamu
+
+    // Lakukan request ke API Remove.bg untuk cek status akun
+    $response = Http::withHeaders([
+        'X-Api-Key' => $apiKey,
+    ])->get('https://api.remove.bg/v1.0/account'); // Endpoint untuk cek status akun
+
+    // Cek apakah status code response 200 (berhasil)
+    if ($response->successful()) {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'API is active and working.',
+            'data' => $response->json(), // Menampilkan informasi akun, seperti sisa kredit
+        ]);
+    } else {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'API is not active or there was an issue.',
+            'error' => $response->body(),
+        ], 500);
+    }
+}
 
 }

@@ -251,35 +251,56 @@ class CertifController extends Controller
     }
 
     
-    public function storeTemplate(request $request) 
+    public function storeTemplate(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
             'nama_template' => 'required|string|max:255',
             'preview' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
             'tanggal' => 'required|string|max:255',
-            'ttd' => 'required|string|max:255',
+            'nomor_certificate' => 'required|string|max:255',
             'uid' => 'required|string|max:255',
-
         ]);
-
         
+        // Upload Preview Image
+        $path = null;
         if ($request->hasFile('preview')) {
             $path = $request->file('preview')->store('sertif', 'public');
         }
+        
+        // Mengambil input ttd1 dan ttd2
+        $ttd1 = $request->input('ttd1');
+        $ttd2 = $request->input('ttd2');
+        
+        // Membuat array ttds
+        $ttds = [
+            $ttd1,
+            $ttd2,
+        ];
+    
+        // Mengonversi array ttds ke format JSON
+        $ttdsJson = json_encode($ttds);
 
+        // dd($ttdsJson);
+    
+        // Simpan data ke database
         CertificateTemplate::create([
             'nama_template' => $validated['nama_template'],
-            'preview' => $path ?? null,
+            'preview' => $path,  // Pastikan path gambar disimpan
             'nama' => $validated['nama'],
             'deskripsi' => $validated['deskripsi'],
             'tanggal' => $validated['tanggal'],
-            'ttd' => $validated['ttd'],
+            'nomor_certificate' => $validated['nomor_certificate'],
             'uid' => $validated['uid'],
+            'ttd' => $ttdsJson,  // Menyimpan tanda tangan dalam format JSON
         ]);
+    
         return redirect()->route('superadmin.certificate.indexTemplate')->with('success', 'Add New Template successfully.');
     }
+    
+    
 
 
     public function editTemplate($id){
@@ -398,5 +419,6 @@ class CertifController extends Controller
     //     // Kembalikan nilai margin dalam format px
     //     return "{$top}px 0px 0px {$left}px";
     // }
+
 
 }
