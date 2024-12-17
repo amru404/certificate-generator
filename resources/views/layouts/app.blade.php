@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="svg" href="{{ asset('assets/Logo.svg') }}">
     <title>@yield('title', 'Certificate Generator')</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -33,7 +35,7 @@
 </head>
 <body  class="@yield('body-class', '')">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg  navbar-light" style="background-color: #2D3E50; padding: 1.5rem 0;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2D3E50; padding: 1.5rem 0;">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <img src="{{ asset('assets/Logo.svg') }}" alt="CertGen Logo" style="height: 40px;">
@@ -57,7 +59,7 @@
                     @endif
                 @else
                     <!-- Jika belum login -->
-                    <a class="btn" style="background-color: #C0C8CA" href="{{ route('login') }}" role="button">Login</a>
+                    <a class="btn"style="background-color: #C0C8CA" href="{{ route('login') }}" role="button">Login</a>
                 @endauth
             </div>
 
@@ -119,6 +121,11 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

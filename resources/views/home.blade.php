@@ -27,24 +27,24 @@
         <div class="row text-center">
           <!-- Step 1 -->
           <div class="col-md-4">
-            <div class="icon-circle">
-              <img src="{{ asset('assets/Glyph_ undefined.png') }}" alt="Locate UID">
+            <div class="icon-circle"  data-aos="flip-left"data-aos-duration="1500">
+              <img src="{{ asset('assets/Time.png') }}" alt="Locate UID">
             </div>
             <div class="step-title">Locate the Certificate UID</div>
             <p class="step-text">Find the Unique Identifier (UID) on your certificate. It’s usually located at the bottom-right corner.</p>
           </div>
           <!-- Step 2 -->
           <div class="col-md-4">
-            <div class="icon-circle">
-              <img src="{{ asset('assets/Keyboard.png') }}" alt="Enter UID">
+            <div class="icon-circle"  data-aos="flip-left"data-aos-duration="1500">
+              <img src="{{ asset('assets/p.png') }}" alt="Enter UID">
             </div>
             <div class="step-title">Enter the UID in the Field Above</div>
             <p class="step-text">Type the UID code into the verification box and click "Verify Now".</p>
           </div>
           <!-- Step 3 -->
           <div class="col-md-4">
-            <div class="icon-circle">
-              <img src="{{ asset('assets/Arrow.png') }}" alt="Confirm Details">
+            <div class="icon-circle"  data-aos="flip-left"data-aos-duration="1500">
+              <img src="{{ asset('assets/q.png') }}" alt="Confirm Details">
             </div>
             <div class="step-title">Confirm the Certificate Details</div>
             <p class="step-text">Instantly view the certificate details, including the recipient's name, issue date, and issuing organization.</p>
@@ -63,7 +63,7 @@
       <h2 class="fw-bold">Why Verify With Us?</h2>
       <div class="row mt-5 g-4">
         <!-- Fast & Easy Verification -->
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4" data-aos="fade-right"data-aos-duration="1500">
           <div class="card shadow border-0 h-100" style="background-color: #C0C8CA;">
             <div class="card-body">
               <img src="{{ asset('assets/Lock.png') }}" alt="Fast Icon" class="img-fluid mb-3" style="width: 40px; height: auto;">
@@ -73,7 +73,7 @@
           </div>
         </div>
         <!-- Secure & Trusted Platform -->
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4" data-aos="flip-up"data-aos-duration="1500">
           <div class="card shadow border-0 h-100" style="background-color: #C0C8CA;">
             <div class="card-body">
               <img src="{{ asset('assets/Timer.png') }}" alt="Secure Icon" class="img-fluid mb-3"style="width: 40px; height: auto;">
@@ -83,7 +83,7 @@
           </div>
         </div>
         <!-- Trusted by Organizations -->
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4" data-aos="fade-left"data-aos-duration="1500">
           <div class="card shadow border-0 h-100" style="background-color: #C0C8CA;">
             <div class="card-body">
               <img src="{{ asset('assets/Web.png') }}" alt="Trusted Icon" class="img-fluid mb-3"style="width: 40px; height: auto;">
@@ -117,7 +117,9 @@
       <!-- Grid Testimonials -->
       <div class="row g-4">
         <!-- Testimonial Card 1 -->
-        <div class="col-md-3">
+        <div class="col-md-3"data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine">
           <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <!-- Rating Bintang -->
             <div class="stars mb-3 text-center">
@@ -148,7 +150,9 @@
         </div>
   
         <!-- Testimonial Card 2 -->
-        <div class="col-md-3">
+        <div class="col-md-3"data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine">
           <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
@@ -176,7 +180,9 @@
         </div>
   
         <!-- Testimonial Card 3 -->
-        <div class="col-md-3">
+        <div class="col-md-3"data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine">
           <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
@@ -204,7 +210,9 @@
         </div>
   
         <!-- Testimonial Card 4 -->
-        <div class="col-md-3">
+        <div class="col-md-3"data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine">
           <div class="card h-100 p-4 shadow-sm border-0" style="background-color: #C0C8CA;">
             <div class="stars mb-3 text-center">
               <i class="bi bi-star-fill text-warning"></i>
@@ -248,7 +256,7 @@
       <!-- Cards -->
       <div class="row row-cols-1 row-cols-md-2 g-3"> <!-- Grid rapat -->
         <!-- Card 1 -->
-        <div class="col">
+        <div class="col"data-aos="fade-down-right">
           <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">How do I verify my certificate?</h5>
@@ -260,7 +268,7 @@
           </div>
         </div>
         <!-- Card 2 -->
-        <div class="col">
+        <div class="col"data-aos="fade-down-left">
           <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">Where can I find the UID on my certificate?</h5>
@@ -272,7 +280,7 @@
           </div>
         </div>
         <!-- Card 3 -->
-        <div class="col">
+        <div class="col"data-aos="fade-up-right">
           <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">What if my certificate is not found?</h5>
@@ -284,7 +292,7 @@
           </div>
         </div>
         <!-- Card 4 -->
-        <div class="col">
+        <div class="col"data-aos="fade-up-left">
           <div class="card text-dark h-100 shadow" style="background-color: #C0C8CA;">
             <div class="card-body">
               <h5 class="card-title">Is my data secure when using this platform?</h5>
