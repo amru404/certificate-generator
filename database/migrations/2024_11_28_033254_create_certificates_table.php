@@ -19,7 +19,6 @@ class CreateCertificatesTable extends Migration
             $table->unsignedBigInteger('certificate_templates_id');
             $table->unsignedBigInteger('participant_id');
             $table->string('style');
-            $table->string('signature');
             $table->timestamps();
         
             

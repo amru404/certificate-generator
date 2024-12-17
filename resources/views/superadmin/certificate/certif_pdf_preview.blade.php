@@ -50,6 +50,13 @@
             position: absolute;
         }
 
+        .preview-nomor_certificate {
+            font-size: 16px;
+            color: #777;
+            font-style: italic;
+            position: absolute;
+        }
+
         /* Penempatan deskripsi */
         .preview-deskripsi {
             font-size: 18px;
@@ -114,6 +121,11 @@
                     Amru abdurrahman azzam
                 </div>
 
+                <div class="preview-nomor_certificate"
+                    style="margin: {{ $template->nomor_certificate }}; transform: translate(-50%, -50%); left:335px">
+                    001/MA/MB.DMM/MSIB/XII/2024
+                </div>
+
                 <!-- Deskripsi -->
                 <div class="preview-deskripsi"
                     style="top: 15px; left: 340px; transform: translateX(-50%); margin: {{ $template->deskripsi }};">
@@ -132,12 +144,12 @@
 
                 <!-- Signature -->
                 <img src="{{ public_path('ttd/ttd.png') }}"
-                    style="top:60px; left:115px;margin: {{ $template->ttd }}; transform:translate(-50%, -50%);"
+                    style="top:60px; left:115px;margin: {{ json_decode($template->ttd) }}; transform:translate(-50%, -50%);"
                     class="signature-img">
 
                 <!-- UID -->
                 <div class="preview-uid"
-                    style="top:50px;margin: {{ $template->uid }}; transform:translate(-50%, -50%);">
+                    style="top:50px; left: 80px;margin: {{ $template->uid }}; transform:translate(-50%, -50%);">
                     UID: csf-spsejr
                 </div>
             </div>

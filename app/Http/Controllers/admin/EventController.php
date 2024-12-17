@@ -177,10 +177,12 @@ class EventController extends Controller
     public function show($id)
     {
         $detail_event = Event::with('User')->findOrFail($id);
-        
         $participant = Participant::where('event_id', $id)->get();
+        $logo = json_decode($detail_event->logo);
+        $ttd = json_decode($detail_event->ttd);
+        $cap = json_decode($detail_event->cap);
 
-        return view('admin.event.show', compact('detail_event','participant'));
+        return view('admin.event.show', compact('detail_event','participant','logo','ttd','cap'));
     }
 
     /**

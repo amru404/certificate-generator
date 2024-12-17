@@ -60,7 +60,6 @@ class CertifController extends Controller
                 'participant_id' => $participant->id,
                 'style' => 'style 1',
                 'certificate_templates_id' => $request->id,
-                'signature' => $event->ttd,
             ]);
         }
     
@@ -147,7 +146,7 @@ class CertifController extends Controller
     public function destroy_all(string $id){
         $certificate = Certificate::where('event_id', $id)->delete();
         if (!$certificate) {
-            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'All Certificates have been deleted');
+            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'Semua Certifikat sudah dihapus sebelumnya');
         }
         return redirect()->to(url("/admin/event/show/{$id}"))->with('success', 'Delete All Certificate Successfully');
     }

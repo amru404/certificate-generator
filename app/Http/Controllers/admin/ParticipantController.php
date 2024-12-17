@@ -61,7 +61,7 @@ class ParticipantController extends Controller
         $participant = Participant::where('event_id', $id)->delete();
 
         if (!$participant) {
-            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'All participant have been deleted');
+            return redirect()->to(url("/admin/event/show/{$id}"))->with('error', 'Semua Participant sudah dihapus sebelumnya');
         }
         
         return redirect()->to(url("/admin/event/show/{$id}"))->with('success', 'Delete All Participant Successfully.');

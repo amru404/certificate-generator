@@ -12,7 +12,7 @@
     @endif
 </nav>
 <div class="my-2">
-    <a href="" class="btn text-white" style="background-color:#2D3E50;">
+    <a href="{{ route('superadmin.certificate.createTemplate') }}" class="btn text-white" style="background-color:#2D3E50;">
         Add Template
     </a>
 </div>

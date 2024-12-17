@@ -55,8 +55,8 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::put('update/{id}', [EventController::class, 'update'])->name('superadmin.event.update');
         Route::get('show/{id}', [EventController::class, 'show'])->name('superadmin.event.show');
         Route::get('destroy/{id}', [EventController::class, 'destroy'])->name('superadmin.event.destroy');
+
     });
-    Route::get('event/destroy/{id}', [EventController::class, 'destroy'])->name('superadmin.event.destroy');
     Route::get('participant/destroy_all/{id}', [ParticipantController::class, 'destroy_all'])->name('superadmin.participant.destroy_all');
 
 
@@ -80,7 +80,9 @@ Route::group(['middleware' => ['role:super-admin'], 'prefix' => 'superadmin'], f
         Route::get('show/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'show'])->name('superadmin.certificate.show');
         Route::get('pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'pdf'])->name('superadmin.certificate.pdf');
         Route::get('download_all_pdf/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'download_all_pdf'])->name('superadmin.certificate.download_all_pdf');
+        Route::get('check-download-status/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'checkDownloadStatus'])->name('superadmin.certificate.checkDownloadStatus');
         Route::get('sendEmail/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'sendEmail'])->name('superadmin.certificate.sendEmail');
+        Route::get('indexTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'indexTemplate'])->name('superadmin.certificate.indexTemplate');
         Route::get('createTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'createTemplate'])->name('superadmin.certificate.createTemplate');
         Route::post('storeTemplate', [App\Http\Controllers\superadmin\CertifController::class, 'storeTemplate'])->name('superadmin.certificate.storeTemplate');
         Route::get('editTemplate/{id}', [App\Http\Controllers\superadmin\CertifController::class, 'editTemplate'])->name('superadmin.certificate.editTemplate');
@@ -117,7 +119,8 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () 
     // Home Admin
     Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.home');
 
-    // route event
+    // route 
+    
     Route::get('/event', [App\Http\Controllers\admin\EventController::class, 'index'])->name('admin.event');
     Route::get('/event/create', [App\Http\Controllers\admin\EventController::class, 'create'])->name('admin.event.create');
     Route::post('/event/store', [App\Http\Controllers\admin\EventController::class, 'store'])->name('admin.event.store');
@@ -194,3 +197,4 @@ Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'sa
 
 
 
+Route::get('/check-removebg-api', [App\Http\Controllers\superadmin\EventController::class, 'checkApiStatus']);

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\CertificateTemplate;
 use App\Jobs\SendCertificateEmailJob;
 use App\Models\EmailLog;
+use App\Jobs\GenerateCertificatesZip;
+
 
 
 class CertifController extends Controller
@@ -67,7 +69,6 @@ class CertifController extends Controller
                 'participant_id' => $participant->id,
                 'style' => 'style 1',
                 'certificate_templates_id' => $request->id,
-                'signature' => $event->ttd,
             ]);
         }
     
@@ -148,7 +149,31 @@ class CertifController extends Controller
         // Mengirim file ZIP yang sudah dibuat untuk diunduh
         return response()->download($zipFile)->deleteFileAfterSend(true);
     }
+
     
+
+    // public function download_all_pdf(string $id)
+    // {
+    //     // Dispatch job untuk membuat ZIP
+    //     GenerateCertificatesZip::dispatch($id);
+
+    //     // Memberikan response ke pengguna bahwa proses sedang berjalan
+    //     return redirect()->back()->with('status', 'Proses pembuatan file ZIP sedang berjalan.');
+    // }
+
+
+
+    // public function downloadZip($eventId)
+    // {
+    //     $zipFile = storage_path("app/public/certificates_event_{$eventId}.zip");
+        
+    //     if (file_exists($zipFile)) {
+    //         return response()->download($zipFile)->deleteFileAfterSend(true);
+    //     } else {
+    //         return redirect()->back()->with('error', 'File ZIP tidak ditemukan.');
+    //     }
+    // }
+        
     
     
 
@@ -238,7 +263,7 @@ class CertifController extends Controller
     }
 
 
-    public function createTemplate()
+    public function indexTemplate()
     {
         $templateCertif = CertificateTemplate::all();
         $participant = Participant::with(['certificate', 'certificate.certificate_templates', 'event'])->first();
@@ -246,36 +271,86 @@ class CertifController extends Controller
         return view('superadmin.certificate.generate', compact('templateCertif', 'participant'));
     }
 
+
+    public function createTemplate(){
+        return view('superadmin.certificate.add_template');
+    }
+
     
-    public function storeTemplate(request $request) 
+    public function storeTemplate(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
             'nama_template' => 'required|string|max:255',
             'preview' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
             'tanggal' => 'required|string|max:255',
-            'ttd' => 'required|string|max:255',
+            'nomor_certificate' => 'required|string|max:255',
             'uid' => 'required|string|max:255',
-
         ]);
-
         
+        // Upload Preview Image
+        $path = null;
         if ($request->hasFile('preview')) {
             $path = $request->file('preview')->store('sertif', 'public');
         }
+        
+        $ttd1 = $request->input('ttd1');
+        $ttd2 = $request->input('ttd2');
+        
+        $logo1 = $request->input('logo1');
+        $logo2 = $request->input('logo2');
+        $logo3 = $request->input('logo3');
+        $logo4 = $request->input('logo4');
+        $logo5 = $request->input('logo5');
+        $logo6 = $request->input('logo6');
+
+        $cap1 = $request->input('cap1');
+        $cap2 = $request->input('cap2');
+
+
+
+        $ttds = [
+            $ttd1,
+            $ttd2,
+        ];
+        
+        $logos = [
+            $logo1,
+            $logo2,
+            $logo3,
+            $logo4,
+            $logo5,
+            $logo6,
+        ];
+
+        $caps = [
+            $cap1,
+            $cap2,
+        ];
+    
+        $ttd = json_encode($ttds);
+        $logo = json_encode($logos);
+        $cap = json_encode($caps);
 
         CertificateTemplate::create([
             'nama_template' => $validated['nama_template'],
-            'preview' => $path ?? null,
+            'preview' => $path,
             'nama' => $validated['nama'],
             'deskripsi' => $validated['deskripsi'],
             'tanggal' => $validated['tanggal'],
-            'ttd' => $validated['ttd'],
+            'nomor_certificate' => $validated['nomor_certificate'],
             'uid' => $validated['uid'],
+            'ttd' => $ttd,
+            'logo' => $logo,
+            'cap' => $cap,  
         ]);
-        return redirect()->route('superadmin.certificate.createTemplate')->with('success', 'Add New Template successfully.');
+    
+        return redirect()->route('superadmin.certificate.indexTemplate')->with('success', 'Add New Template successfully.');
     }
+    
+    
 
 
     public function editTemplate($id){
@@ -394,5 +469,6 @@ class CertifController extends Controller
     //     // Kembalikan nilai margin dalam format px
     //     return "{$top}px 0px 0px {$left}px";
     // }
+
 
 }
