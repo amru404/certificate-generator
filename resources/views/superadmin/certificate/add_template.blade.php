@@ -48,17 +48,17 @@
             
 
             <!-- logo -->
-            <img id="logo1" src="{{ asset('logos/logo.png') }}" alt="logo1" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="logo1" src="{{ asset('logos/logo.png') }}" alt="logo1" style="position:absolute; bottom:80%; left:30%; transform:translateX(-50%); width:100px; height:auto;">
             
-            <img id="logo2" src="{{ asset('logos/logo.png') }}" alt="logo2" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="logo2" src="{{ asset('logos/logo.png') }}" alt="logo2" style="position:absolute; bottom:80%; left:40%; transform:translateX(-50%); width:100px; height:auto;">
             
             <img id="logo3" src="{{ asset('logos/logo.png') }}" alt="logo3" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
             
-            <img id="logo4" src="{{ asset('logos/logo.png') }}" alt="logo4" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="logo4" src="{{ asset('logos/logo.png') }}" alt="logo4" style="position:absolute; bottom:80%; left:60%; transform:translateX(-50%); width:100px; height:auto;">
             
-            <img id="logo5" src="{{ asset('logos/logo.png') }}" alt="logo5" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="logo5" src="{{ asset('logos/logo.png') }}" alt="logo5" style="position:absolute; bottom:80%; left:70%; transform:translateX(-50%); width:100px; height:auto;">
             
-            <img id="logo6" src="{{ asset('logos/logo.png') }}" alt="logo6" style="position:absolute; bottom:80%; left:50%; transform:translateX(-50%); width:100px; height:auto;">
+            <img id="logo6" src="{{ asset('logos/logo.png') }}" alt="logo6" style="position:absolute; bottom:80%; left:80%; transform:translateX(-50%); width:100px; height:auto;">
             
 
             <!-- Nama -->

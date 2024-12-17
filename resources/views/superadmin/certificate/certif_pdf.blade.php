@@ -125,13 +125,13 @@
 
                     <!-- Gambar 1 -->
                 @if (isset($logo[0]) && isset($margins[0]))
-                    <img src="{{ public_path('storage/' . $logo[0]) }}"style="top:0px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[0]) }}"style="top:0px; left:100px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                 <!-- Gambar 2 -->
 
                  @if (isset($logo[1]) && isset($margins[1]))
-                    <img src="{{ public_path('storage/' . $logo[1]) }}"style="top:0px; left:115px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[1]) }}"style="top:0px; left:100px; margin: {{ $margins[1] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                  <!-- Gambar 3 -->
@@ -139,25 +139,25 @@
 
 
                  @if (isset($logo[2]) && isset($margins[2]))
-                    <img src="{{ public_path('storage/' . $logo[2]) }}"style="top:0px; left:115px; margin: {{ $margins[2] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[2]) }}"style="top:0px; left:100px; margin: {{ $margins[2] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                  <!-- Gambar 4 -->
 
                  @if (isset($logo[3]) && isset($margins[3]))
-                    <img src="{{ public_path('storage/' . $logo[3]) }}"style="top:0px; left:115px; margin: {{ $margins[3] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[3]) }}"style="top:0px; left:100px; margin: {{ $margins[3] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                  <!-- Gambar 5 -->
 
                  @if (isset($logo[4]) && isset($margins[4]))
-                    <img src="{{ public_path('storage/' . $logo[4]) }}"style="top:0px; left:115px; margin: {{ $margins[4] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[4]) }}"style="top:0px; left:100px; margin: {{ $margins[4] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                  <!-- Gambar 6 -->
 
                  @if (isset($logo[5]) && isset($margins[5]))
-                    <img src="{{ public_path('storage/' . $logo[5]) }}"style="top:0px; left:115px; margin: {{ $margins[5] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
+                    <img src="{{ public_path('storage/' . $logo[5]) }}"style="top:0px; left:100px; margin: {{ $margins[5] }}; transform:translate(-50%, -50%); width:60px "class="signature-img">
                 @endif
 
                 <!-- Nama -->
@@ -199,11 +199,11 @@
                     @endphp
 
                     <!-- Gambar 1 -->
-                    <!-- @if (isset($ttd[0]) && isset($margins[0]))
+                    @if (isset($ttd[0]) && isset($margins[0]))
                         <img src="{{ public_path('storage/' . $ttd[0]) }}"
                             style="top:60px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:120px"
                             class="signature-img">
-                    @endif -->
+                    @endif
 
                     <!-- Gambar 2 -->
 
@@ -220,11 +220,11 @@
                     @endphp
 
                     <!-- Gambar 1 -->
-                    <!-- @if (isset($cap[0]) && isset($margins[0]))
+                    @if (isset($cap[0]) && isset($margins[0]))
                         <img src="{{ public_path('storage/' . $cap[0]) }}"
                             style="top:60px; left:60px; margin: {{ $margins[0] }}; transform:translate(-50%, -50%); width:70px"
                             class="signature-img">
-                    @endif -->
+                    @endif
 
 
                     <!-- Gambar 2 -->
