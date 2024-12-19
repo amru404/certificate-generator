@@ -21,32 +21,6 @@
             @endif
         </div>
 
-        <div class="row mt-4">
-            <div class="col-4">
-                <label for="nama" class="form-label">Margin Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" required placeholder="margin nama">
-            </div>
-            <div class="col-4">
-                <label for="deskripsi" class="form-label">Margin Deskripsi</label>
-                <input type="text" class="form-control" id="deskripsi" name="deskripsi" required placeholder="margin deskripsi">
-            </div>
-            <div class="col-4">
-                <label for="tanggal" class="form-label">Margin Tanggal</label>
-                <input type="text" class="form-control" id="tanggal" name="tanggal" required placeholder="margin tanggal">
-            </div>
-        </div>
-
-        <div class="row mt-4 mb-4">
-            <div class="col-6">
-                <label for="ttd" class="form-label">Margin Ttd</label>
-                <input type="text" class="form-control" id="ttd" name="ttd" required placeholder="margin ttd">
-            </div>
-            <div class="col-6">
-                <label for="uid" class="form-label">Margin UID</label>
-                <input type="text" class="form-control" id="uid" name="uid" required placeholder="margin uid">
-            </div>
-        </div>
-
         <button type="submit" class="btn text-white" style="background-color:#2D3E50;">Update</button>
     </form>
 
@@ -67,28 +41,27 @@
         <!-- Nama -->
         <div id="preview-nama"
             style="position:absolute; top:40%; left:50%; transform:translate(-50%, -50%); font-size:24px; font-weight:bold; color:#333; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);">
-            amru abdurrahman azzam
+            
         </div>
 
 
         <!-- Deskripsi -->
         <div id="preview-deskripsi"
             style="position:absolute; top:55%; left:50%; font-size:18px; color:#555; text-align:center; font-weight:500;z-index: 1; width:500px;">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut dolorem culpa explicabo odio! Adipisci nihil
-            omnis quidem nulla inventore natus provident sint officiis eum aliquid.
+            
         </div>
 
 
         <!-- Tanggal -->
         <div id="preview-tanggal"
             style="position:absolute; bottom:20%; left:50%; transform:translateX(-50%); font-size:16px; color:#777; font-style:italic;">
-            18 December 2024
+            
         </div>
 
         <!-- UID -->
         <div id="preview-uid"
             style="position:absolute; bottom:15%; left:50%; transform:translateX(-50%); font-size:14px; color:#555;">
-            UID: CRF-aeorlv
+            
         </div>
 
         <!-- Signature -->

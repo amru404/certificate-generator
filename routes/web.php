@@ -198,3 +198,4 @@ Route::post('/superadmin/certificate/save-margin', [CertifController::class, 'sa
 
 
 Route::get('/check-removebg-api', [App\Http\Controllers\superadmin\EventController::class, 'checkApiStatus']);
+Route::get('/superadmin/certificate/history', [CertifController::class, 'history'])->name('certificate.history');

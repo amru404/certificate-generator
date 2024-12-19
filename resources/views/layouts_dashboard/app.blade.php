@@ -94,16 +94,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Data dari Laravel Blade
-    const eventData = {{ $event }};
-    const userData = {{ $user }};
-    const certificateData = {{ $participant }};
+    
     
     // Event Chart - Bar Chart
     const ctxEvent = document.getElementById('eventChart').getContext('2d');
     new Chart(ctxEvent, {
         type: 'bar',
         data: {
-            labels: ['Event'],
+            labels: ['Event'], 
             datasets: [{
                 label: 'Total Event',
                 data: [eventData],

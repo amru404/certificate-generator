@@ -26,7 +26,7 @@
         <a href="{{ route('superadmin.event') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-clipboard-data me-2"></i> <span class="menu-text">Data Event</span>
         </a>
-        <a href="#" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
+        <a href="{{ route('certificate.history') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-clock-history me-2"></i> <span class="menu-text">History</span>
         </a>
         <a href="{{ route('setting') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
@@ -52,7 +52,7 @@
         <a href="{{ route('admin.event') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-clipboard-data me-2"></i> <span class="menu-text">Data Event</span>
         </a>
-        <a href="#" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
+        <a href="{{ route('certificate.history') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
             <i class="bi bi-clock-history me-2"></i> <span class="menu-text">History</span>
         </a>
         <a href="{{ route('setting') }}" class="d-flex align-items-center py-3 px-3 text-dark text-decoration-none">
@@ -60,11 +60,11 @@
         </a>
     @endif
     <div id="logout" style="margin-top: auto; background-color: #2C3E50;">
-        <a href="{{ route('logout') }}" id="logout-link" style="display: flex; align-items: center; justify-content: center; padding: 12px; text-decoration: none; color: white;">
+        <a href="#" id="logout-link" style="display: flex; align-items: center; justify-content: center; padding: 12px; text-decoration: none; color: white;" data-bs-toggle="modal" data-bs-target="#logoutModal">
             <i id="logout-icon" class="bi bi-box-arrow-right" style="margin-right: 8px;"></i>
             <span id="logoutText">Log out</span>
         </a>
-    </div>    
+    </div>        
 </div>
 
 

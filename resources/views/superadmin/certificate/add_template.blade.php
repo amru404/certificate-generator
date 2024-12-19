@@ -73,25 +73,42 @@
             
 
             <!-- Nama -->
-            <div id="preview-nama" style="position:absolute; top:40%; left:50%; transform:translate(-50%, -50%); font-size:24px; font-weight:bold; color:#333; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);">Amru abdurrahman azzam</div>
-
-            <!-- nomor_certificate -->
-            <div id="preview-nomor_certificate" style="position:absolute; top:25%; left:0%; font-size:18px; color:#555; text-align:center; font-weight:500;z-index: 1; width:300px;">001/MA/MB.DMM/MSIB/XII/2024</div>
-
-            <!-- Deskripsi -->
-            <div id="preview-deskripsi" style="position:absolute; top:55%; left:50%; font-size:18px; color:#555; text-align:center; font-weight:500;z-index: 1; width:500px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id blanditiis voluptatibus sed hic vero consequatur fuga necessitatibus qui debitis pariatur!</div>
-
-            <!-- Tanggal -->
-            <div id="preview-tanggal" style="position:absolute; bottom:20%; left:50%; transform:translateX(-50%); font-size:16px; color:#777; font-style:italic;">20 September 2024</div>
-
-            <!-- UID -->
-            <div id="preview-uid" style="position:absolute; bottom:15%; left:50%; transform:translateX(-50%); font-size:14px; color:#555;">UID: UID12345</div>
-
-            <!-- Signature 1 -->
-            <img id="signature-image" src="{{ asset('ttd/ttd.png') }}" alt="Signature" style="position:absolute; bottom:5%; left:30%; transform:translateX(-50%); width:100px; height:auto;">
-            
-            <!-- Signature 2 -->
-            <img id="signature-image2" src="{{ asset('ttd/ttd.png') }}" alt="Signature" style="position:absolute; bottom:5%; left:70%; transform:translateX(-50%); width:100px; height:auto;">
+            <div id="preview-nama"
+            style="position:absolute; top:40%; left:50%; transform:translate(-50%, -50%); font-size:24px; font-weight:bold; color:#333; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);">
+            {{ $name ??'tidak tersedia '}}
+        </div>
+        
+        <!-- nomor_certificate -->
+        <div id="preview-nomor_certificate"
+            style="position:absolute; top:25%; left:0%; font-size:18px; color:#555; text-align:center; font-weight:500; z-index:1; width:300px;">
+            {{ $nomor_certificate ??'tidak tersedia'}}
+        </div>
+        
+        <!-- Deskripsi -->
+        <div id="preview-deskripsi"
+            style="position:absolute; top:55%; left:50%; font-size:18px; color:#555; text-align:center; font-weight:500; z-index:1; width:500px;">
+            {{ $deskripsi ??'tidak tersedia' }}
+        </div>
+        
+        <!-- Tanggal -->
+        <div id="preview-tanggal"
+            style="position:absolute; bottom:20%; left:50%; transform:translateX(-50%); font-size:16px; color:#777; font-style:italic;">17 agustus 2024
+        </div>
+        
+        <!-- UID -->
+        <div id="preview-uid"
+            style="position:absolute; bottom:15%; left:50%; transform:translateX(-50%); font-size:14px; color:#555;">
+            UID: {{ $uid ?? 'tidak tersedia'}}
+        </div>
+        
+        <!-- Signature 1 -->
+        <img id="signature-image" src="{{ asset('ttd/ttd.png') }}" alt="Signature"
+            style="position:absolute; bottom:5%; left:30%; transform:translateX(-50%); width:100px; height:auto;">
+        
+        <!-- Signature 2 -->
+        <img id="signature-image2" src="{{ asset('ttd/ttd.png') }}" alt="Signature"
+            style="position:absolute; bottom:5%; left:70%; transform:translateX(-50%); width:100px; height:auto;">
+        
 
           
             <img id="cap1" src="{{ asset('cap/cap.jpeg') }}" alt="cap1" style="position:absolute; bottom:5%; left:30%; transform:translateX(-50%); width:60px; height:auto;">
